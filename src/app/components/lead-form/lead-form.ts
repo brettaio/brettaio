@@ -1,5 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'bretta-lead-form',
@@ -28,8 +27,8 @@ import { Router } from '@angular/router';
           method="POST"
           action="/thank-you"
           data-netlify="true"
+          data-netlify-recaptcha="true"
           netlify-honeypot="bot-field"
-          (submit)="handleSubmit($event)"
           class="mt-14 rounded-3xl border border-white/10 bg-[#1b0b2d]/90 p-6 shadow-2xl shadow-black/30 backdrop-blur-sm sm:p-8 lg:p-10"
         >
           <input type="hidden" name="form-name" value="project-inquiry" />
@@ -353,11 +352,9 @@ import { Router } from '@angular/router';
             </div>
           </div>
 
-          @if (submitError()) {
-            <p class="mt-6 rounded-2xl border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-100">
-              {{ submitError() }}
-            </p>
-          }
+          <div class="mt-8">
+            <div data-netlify-recaptcha="true"></div>
+          </div>
 
           <div class="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-8">
             <p class="max-w-xl text-sm leading-6 text-white/45">
@@ -367,10 +364,9 @@ import { Router } from '@angular/router';
 
             <button
               type="submit"
-              [disabled]="isSubmitting()"
-              class="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-60"
+              class="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90"
             >
-              {{ isSubmitting() ? 'Submitting…' : 'Submit inquiry' }}
+              Submit inquiry
             </button>
           </div>
         </form>
@@ -380,11 +376,6 @@ import { Router } from '@angular/router';
   styles: [],
 })
 export class LeadForm {
-  private readonly router = inject(Router);
-
-  protected readonly isSubmitting = signal(false);
-  protected readonly submitError = signal('');
-
   protected readonly priorityOptions = [
     {
       value: 'priority-qualified-leads',
@@ -417,53 +408,4 @@ export class LeadForm {
       copy: 'A sharper offer, better message, and cleaner market signal.',
     },
   ];
-
-  protected async handleSubmit(event: SubmitEvent): Promise<void> {
-    event.preventDefault();
-
-    const form = event.target as HTMLFormElement | null;
-
-    if (!form || this.isSubmitting()) {
-      return;
-    }
-
-    this.isSubmitting.set(true);
-    this.submitError.set('');
-
-    const formData = new FormData(form);
-
-    try {
-      const response = await fetch('/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: this.encodeFormData(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Netlify form submit failed with ${response.status}`);
-      }
-
-      form.reset();
-      await this.router.navigateByUrl('/thank-you');
-    } catch (error) {
-      console.error(error);
-      this.submitError.set(
-        'Submission failed. Please email etc@bretta.io directly.'
-      );
-    } finally {
-      this.isSubmitting.set(false);
-    }
-  }
-
-  private encodeFormData(formData: FormData): string {
-    return Array.from(formData.entries())
-      .map(([key, value]) => {
-        return (
-          encodeURIComponent(key) + '=' + encodeURIComponent(String(value))
-        );
-      })
-      .join('&');
-  }
 }

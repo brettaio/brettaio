@@ -448,22 +448,12 @@ export class Hero implements AfterViewInit {
     });
   });
 
-  /*
-    Slightly tighter than before so the section height finishes closer
-    to the visual ending.
-  */
   protected readonly sceneHeight = computed(() => {
     const frameCount = this.frames().length;
     const vh = frameCount * 56 + 72;
     return `${Math.max(440, vh)}vh`;
   });
 
-  /*
-    Exit timing:
-    - hero stays solid for most of the scroll
-    - then shrinks + fades only near the end
-    - underlying form can show through because home.ts pulls it upward
-  */
   protected readonly sceneExitProgress = computed(() =>
     this.smoothstep(0.86, 0.985, this.scrollProgress())
   );
@@ -513,7 +503,24 @@ export class Hero implements AfterViewInit {
     }
 
     this.updateViewportWidth();
-    this.startShaderScene();
+
+    const start = () => {
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          this.startShaderScene();
+        });
+      });
+    };
+
+    const win = window as Window & {
+      requestIdleCallback?: (callback: IdleRequestCallback) => number;
+    };
+
+    if (typeof win.requestIdleCallback === 'function') {
+      win.requestIdleCallback(() => start());
+    } else {
+      window.setTimeout(start, 120);
+    }
   }
 
   protected isInternalRoute(value: string): boolean {
@@ -722,10 +729,6 @@ export class Hero implements AfterViewInit {
     const rawProgress = -rect.top / maxTravel;
     const progress = this.clamp(rawProgress, 0, 1);
 
-    /*
-      Keep the shader alive right to the end of the hero,
-      with a little extra acceleration in the exit phase.
-    */
     const motionProgress = this.smoothstep(0.0, 1.0, progress);
     const exitBoost = this.smoothstep(0.8, 1.0, progress) * 0.9;
 
