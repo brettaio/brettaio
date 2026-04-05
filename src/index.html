@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
 
     <title>
-      Bretta.io — Digital Strategy, Web Design, SEO, Paid Advertising & Lead Generation
+      Bretta — Digital Strategy, Web Design, SEO, Paid Advertising & Lead Generation
     </title>
 
     <base href="/" />
@@ -159,12 +159,15 @@
   </head>
 
   <body>
-    <!-- Netlify form detection -->
+    <!--
+      Netlify detection form:
+      keep this for static detection, but do NOT attach reCAPTCHA here.
+      The real visible form below the fold owns the single Netlify-provided reCAPTCHA on the page.
+    -->
     <form
       name="project-inquiry"
       method="POST"
       data-netlify="true"
-      data-netlify-recaptcha="true"
       netlify-honeypot="bot-field"
       hidden
     >
