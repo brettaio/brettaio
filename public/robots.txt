@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bretta.io/sitemap.xml
