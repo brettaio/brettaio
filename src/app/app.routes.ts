@@ -3,8 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: 'work',
+    loadComponent: () => import('./pages/home/home').then((m) => m.Home),
   },
   {
     path: 'work',
@@ -26,6 +25,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'work',
+    redirectTo: '',
   },
 ];
