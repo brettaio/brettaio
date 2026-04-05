@@ -8,104 +8,132 @@ import {
   ViewChild,
   inject,
   input,
+  signal,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'bretta-hero',
+  imports: [RouterLink],
   template: `
     <!--
-      OUTER HERO SECTION
+      OUTER SCROLL SCENE
 
-      - relative: lets absolutely-positioned children anchor to this section
-      - isolate: creates a new stacking context for layered effects
-      - overflow-hidden: clips the canvas and overlays to the section bounds
-      - bg-black: fallback background while shader loads
+      This is now a 300vh section.
+      The point is not for the whole block to stay visible at once.
+      The point is to create scroll distance while the inner stage stays pinned.
     -->
-    <section class="relative isolate overflow-hidden bg-black text-white">
+    <section
+      #heroSection
+      class="relative bg-black text-white"
+      style="min-height: 400vh;"
+    >
       <!--
-        SHADER CANVAS
+        STICKY STAGE
 
-        This is the actual WebGL surface.
-        The shader renders into this full-bleed canvas.
+        This stays pinned to the viewport while the outer section scrolls past.
+        Everything visual lives inside this stage:
+        - shader background
+        - overlays
+        - text content
       -->
-      <canvas
-        #shaderCanvas
-        class="absolute inset-0 h-full w-full"
-        aria-hidden="true"
-      ></canvas>
-
-      <!--
-        OVERLAY 1: SOLID BLACK WASH
-
-        This is the big intensity control.
-        bg-black/50 = 50% black over the shader.
-        Raise this number if the shader is too loud.
-        Lower it if you want more of the raw shader visible.
-      -->
-      <div class="absolute inset-0 bg-black/50"></div>
-
-      <!--
-        OVERLAY 2: SOFT DIRECTIONAL GRADIENT
-
-        This shapes the image a bit more so the lower area
-        and edges feel grounded for content.
-      -->
-      <div
-        class="absolute inset-0 bg-gradient-to-b from-slate-950/20 via-transparent to-black/50"
-      ></div>
-
-      <!--
-        CONTENT WRAPPER
-
-        This holds the text and buttons above the shader.
-        "relative" ensures it sits above the overlays/canvas.
-      -->
-      <div
-        class="relative mx-auto flex min-h-[90vh] max-w-7xl items-end px-6 py-24 lg:px-8 lg:py-32"
-      >
+      <div class="sticky top-0 h-screen overflow-hidden">
         <!--
-          TEXT COLUMN
+          SHADER CANVAS
 
-          Keeps the authored content in a controlled readable width.
+          Full-screen background vector / shader surface.
         -->
-        <div class="max-w-3xl">
-          <!-- Small top label / eyebrow -->
-          <p
-            class="mb-6 text-sm font-medium uppercase tracking-[0.24em] text-white/70"
+        <canvas
+          #shaderCanvas
+          class="absolute inset-0 h-full w-full"
+          aria-hidden="true"
+        ></canvas>
+
+        <!--
+          DARK INTENSITY WASH
+
+          Keeps the shader from overpowering the text.
+        -->
+        <div class="absolute inset-0 bg-black/50"></div>
+
+        <!--
+          DIRECTIONAL GRADIENT
+
+          Helps ground the content and shape contrast.
+        -->
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-slate-950/20 via-transparent to-black/60"
+        ></div>
+
+        <!--
+          CONTENT LAYER
+
+          This sits above the background and is what we animate upward on scroll.
+        -->
+        <div class="absolute inset-0">
+          <div
+            class="mx-auto flex h-full max-w-7xl items-end px-6 py-24 lg:px-8 lg:py-32"
           >
-            {{ eyebrow() }}
-          </p>
-
-          <!-- Main hero heading -->
-          <h1
-            class="max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl"
-          >
-            {{ title() }}
-          </h1>
-
-          <!-- Supporting copy -->
-          <p class="mt-8 max-w-2xl text-lg leading-8 text-white/80 sm:text-xl">
-            {{ copy() }}
-          </p>
-
-          <!-- CTA row -->
-          <div class="mt-10 flex flex-wrap items-center gap-4">
-            <!-- Primary CTA -->
-            <a
-              [href]="primaryCtaHref()"
-              class="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90"
+            <div
+              class="max-w-3xl will-change-transform"
+              [style.transform]="contentTransform()"
+              [style.opacity]="contentOpacity()"
             >
-              {{ primaryCtaLabel() }}
-            </a>
+              <!-- Eyebrow -->
+              <p
+                class="mb-6 text-sm font-medium uppercase tracking-[0.24em] text-white/70"
+              >
+                {{ eyebrow() }}
+              </p>
 
-            <!-- Secondary CTA -->
-            <a
-              [href]="secondaryCtaHref()"
-              class="inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/5"
-            >
-              {{ secondaryCtaLabel() }}
-            </a>
+              <!-- Main heading -->
+              <h1
+                class="max-w-4xl text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-7xl"
+              >
+                {{ title() }}
+              </h1>
+
+              <!-- Supporting copy -->
+              <p class="mt-8 max-w-2xl text-lg leading-8 text-white/80 sm:text-xl">
+                {{ copy() }}
+              </p>
+
+              <!-- CTA row -->
+              <div class="mt-10 flex flex-wrap items-center gap-4">
+                @if (isInternalRoute(primaryCtaHref())) {
+                  <a
+                    [routerLink]="primaryCtaHref()"
+                    class="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90"
+                  >
+                    {{ primaryCtaLabel() }}
+                  </a>
+                } @else {
+                  <a
+                    [attr.href]="primaryCtaHref()"
+                    class="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90"
+                  >
+                    {{ primaryCtaLabel() }}
+                  </a>
+                }
+
+                @if (isInternalRoute(secondaryCtaHref())) {
+                  <a
+                    [routerLink]="secondaryCtaHref()"
+                    class="inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/5"
+                  >
+                    {{ secondaryCtaLabel() }}
+                  </a>
+                } @else {
+                  <a
+                    [attr.href]="secondaryCtaHref()"
+                    class="inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/5"
+                  >
+                    {{ secondaryCtaLabel() }}
+                  </a>
+                }
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -115,20 +143,25 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class Hero implements AfterViewInit {
   /*
-    TEMPLATE REFERENCE TO THE CANVAS
+    SECTION REFERENCE
 
-    Angular grabs the <canvas> element after the view is created
-    so we can initialize WebGL against it.
+    We use this to calculate scroll progress for the whole 300vh scene.
+  */
+  @ViewChild('heroSection', { static: true })
+  private readonly sectionRef?: ElementRef<HTMLElement>;
+
+  /*
+    CANVAS REFERENCE
+
+    WebGL renders into this.
   */
   @ViewChild('shaderCanvas', { static: true })
   private readonly canvasRef?: ElementRef<HTMLCanvasElement>;
 
   /*
-    INPUT SIGNALS
+    CONTENT INPUTS
 
-    These let the parent component pass content into the hero.
-    Because these are Angular input signals, we read them in the
-    template with function-call syntax: eyebrow(), title(), etc.
+    Parent-driven content.
   */
   readonly eyebrow = input('Independent digital systems');
   readonly title = input('Sharp digital work, built with intent.');
@@ -136,53 +169,93 @@ export class Hero implements AfterViewInit {
     'I design, structure, and build commercial digital experiences with a clear point of view — rigorous in execution, refined in language, and focused on useful outcomes.'
   );
   readonly primaryCtaLabel = input('Start a conversation');
-  readonly primaryCtaHref = input('#contact');
+  readonly primaryCtaHref = input('/contact');
   readonly secondaryCtaLabel = input('See selected work');
-  readonly secondaryCtaHref = input('#work');
+  readonly secondaryCtaHref = input('/work');
 
   /*
-    ANGULAR SERVICE INJECTIONS
+    CONTENT MOTION STATE
 
-    PLATFORM_ID: lets us detect browser vs server
-    NgZone: lets the animation run outside Angular change detection
-    DestroyRef: lets us clean up animation and listeners on destroy
+    These are bound directly into the template.
+    As scroll progress changes, we update transform + opacity.
+  */
+  protected readonly contentTransform = signal('translate3d(0, 0px, 0)');
+  protected readonly contentOpacity = signal(1);
+
+  /*
+    ANGULAR / PLATFORM SERVICES
   */
   private readonly platformId = inject(PLATFORM_ID);
   private readonly ngZone = inject(NgZone);
   private readonly destroyRef = inject(DestroyRef);
 
   /*
-    We store the current animation frame ID so it can be cancelled
-    when the component is destroyed.
+    WEBGL STATE
   */
-  private animationFrameId: number | null = null;
+  private gl: WebGLRenderingContext | null = null;
+  private program: WebGLProgram | null = null;
+  private positionBuffer: WebGLBuffer | null = null;
+  private vertexShader: WebGLShader | null = null;
+  private fragmentShader: WebGLShader | null = null;
+  private positionLocation: number | null = null;
+  private timeLocation: WebGLUniformLocation | null = null;
+  private resolutionLocation: WebGLUniformLocation | null = null;
 
   /*
-    AFTER VIEW INIT
+    RENDER THROTTLE
 
-    We wait until the view exists before touching the canvas.
-    Also, because your app uses SSR, we only run WebGL in the browser.
+    We do not run a perpetual animation loop.
+    We only render when scroll/resize changes.
   */
+  private renderRequestId: number | null = null;
+
+  /*
+    SCROLL-DRIVEN SHADER TIME
+
+    Instead of free-running motion,
+    the shader advances based on section scroll progress.
+  */
+  private shaderTime = 0;
+
+  /*
+    MASTER FEEL CONTROLS
+
+    scrollTimeRange:
+    How much the shader evolves from the top of the scene to the bottom.
+
+    You can lower this if the background still feels too active.
+
+    textTravelMultiplier:
+    How far upward the text block moves relative to viewport height.
+  */
+  private readonly scrollTimeRange = 0.5;
+  private readonly textTravelMultiplier = 0.95;
+
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
 
-    this.startShader();
+    this.startShaderScene();
   }
 
   /*
-    START SHADER
+    INTERNAL VS EXTERNAL LINK CHECK
 
-    This method:
-    1. gets the canvas
-    2. creates the WebGL context
-    3. compiles shaders
-    4. links the shader program
-    5. creates a full-screen quad
-    6. starts the render loop
+    This lets the hero support:
+    - internal Angular routes like /work
+    - external links like mailto:hello@bretta.io
   */
-  private startShader(): void {
+  protected isInternalRoute(value: string): boolean {
+    return value.startsWith('/');
+  }
+
+  /*
+    START THE SCENE
+
+    Build WebGL once, then update on scroll + resize.
+  */
+  private startShaderScene(): void {
     const canvas = this.canvasRef?.nativeElement;
 
     if (!canvas) {
@@ -203,13 +276,6 @@ export class Hero implements AfterViewInit {
       return;
     }
 
-    /*
-      VERTEX SHADER
-
-      This is very small.
-      It simply draws a full-screen rectangle so the fragment shader
-      can run once per pixel across the canvas.
-    */
     const vertexShaderSource = `
       attribute vec2 a_position;
 
@@ -218,12 +284,6 @@ export class Hero implements AfterViewInit {
       }
     `;
 
-    /*
-      FRAGMENT SHADER
-
-      This is the Shadertoy-style scene ported into WebGL.
-      iResolution and iTime are passed in from TypeScript.
-    */
     const fragmentShaderSource = `
       precision highp float;
 
@@ -359,18 +419,17 @@ export class Hero implements AfterViewInit {
     const program = this.createProgram(gl, vertexShader, fragmentShader);
 
     if (!program) {
+      gl.deleteShader(vertexShader);
+      gl.deleteShader(fragmentShader);
       return;
     }
 
-    /*
-      POSITION BUFFER
-
-      This defines a full-screen quad using four points.
-      The fragment shader will be run across this area.
-    */
     const positionBuffer = gl.createBuffer();
 
     if (!positionBuffer) {
+      gl.deleteProgram(program);
+      gl.deleteShader(vertexShader);
+      gl.deleteShader(fragmentShader);
       return;
     }
 
@@ -386,104 +445,201 @@ export class Hero implements AfterViewInit {
       gl.STATIC_DRAW
     );
 
-    /*
-      LOOK UP SHADER INPUT LOCATIONS
+    this.gl = gl;
+    this.program = program;
+    this.positionBuffer = positionBuffer;
+    this.vertexShader = vertexShader;
+    this.fragmentShader = fragmentShader;
+    this.positionLocation = gl.getAttribLocation(program, 'a_position');
+    this.timeLocation = gl.getUniformLocation(program, 'iTime');
+    this.resolutionLocation = gl.getUniformLocation(program, 'iResolution');
 
-      - a_position = geometry attribute
-      - iTime = elapsed time in seconds
-      - iResolution = canvas resolution
-    */
-    const positionLocation = gl.getAttribLocation(program, 'a_position');
-    const timeLocation = gl.getUniformLocation(program, 'iTime');
-    const resolutionLocation = gl.getUniformLocation(program, 'iResolution');
-
-    /*
-      RESIZE HANDLER
-
-      Keeps the canvas in sync with CSS size and device pixel ratio
-      so the shader stays crisp.
-    */
-    const resize = (): void => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const width = Math.max(1, Math.floor(canvas.clientWidth * dpr));
-      const height = Math.max(1, Math.floor(canvas.clientHeight * dpr));
-
-      if (canvas.width !== width || canvas.height !== height) {
-        canvas.width = width;
-        canvas.height = height;
-      }
-
-      gl.viewport(0, 0, canvas.width, canvas.height);
+    const onScroll = (): void => {
+      this.updateSceneFromScroll();
+      this.scheduleRender();
     };
 
-    const start = performance.now();
-
-    /*
-      RENDER LOOP
-
-      Called every animation frame.
-      Updates time and resolution uniforms, then draws.
-    */
-    const render = (now: number): void => {
-      resize();
-
-      gl.useProgram(program);
-      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-
-      gl.enableVertexAttribArray(positionLocation);
-      gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
-
-      if (timeLocation) {
-        gl.uniform1f(timeLocation, (now - start) * 0.001);
-      }
-
-      if (resolutionLocation) {
-        gl.uniform3f(resolutionLocation, canvas.width, canvas.height, 1.0);
-      }
-
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-
-      this.animationFrameId = window.requestAnimationFrame(render);
+    const onResize = (): void => {
+      this.resizeCanvas();
+      this.updateSceneFromScroll();
+      this.scheduleRender();
     };
 
-    const onResize = (): void => resize();
-
-    /*
-      RUN OUTSIDE ANGULAR
-
-      This prevents Angular change detection from running every frame.
-      That keeps the shader animation efficient.
-    */
     this.ngZone.runOutsideAngular(() => {
-      resize();
-      this.animationFrameId = window.requestAnimationFrame(render);
+      this.resizeCanvas();
+      this.updateSceneFromScroll();
+      this.renderFrame();
+
+      window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onResize, { passive: true });
     });
 
-    /*
-      CLEANUP
-
-      Cancel animation, remove listeners, free GPU resources.
-    */
     this.destroyRef.onDestroy(() => {
+      window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onResize);
 
-      if (this.animationFrameId !== null) {
-        window.cancelAnimationFrame(this.animationFrameId);
+      if (this.renderRequestId !== null) {
+        window.cancelAnimationFrame(this.renderRequestId);
       }
 
-      gl.deleteBuffer(positionBuffer);
-      gl.deleteProgram(program);
-      gl.deleteShader(vertexShader);
-      gl.deleteShader(fragmentShader);
+      if (this.gl && this.positionBuffer) {
+        this.gl.deleteBuffer(this.positionBuffer);
+      }
+
+      if (this.gl && this.program) {
+        this.gl.deleteProgram(this.program);
+      }
+
+      if (this.gl && this.vertexShader) {
+        this.gl.deleteShader(this.vertexShader);
+      }
+
+      if (this.gl && this.fragmentShader) {
+        this.gl.deleteShader(this.fragmentShader);
+      }
     });
   }
 
   /*
-    CREATE SHADER
+    UPDATE THE WHOLE SCENE FROM SCROLL
 
-    Compiles either a vertex shader or fragment shader.
-    Returns null if compilation fails.
+    This drives both:
+    - shader time
+    - text motion
+  */
+  private updateSceneFromScroll(): void {
+    const section = this.sectionRef?.nativeElement;
+
+    if (!section) {
+      return;
+    }
+
+    const rect = section.getBoundingClientRect();
+    const viewportHeight = window.innerHeight || 1;
+
+    /*
+      Because the section is 300vh and the stage is sticky 100vh,
+      the useful scroll travel is section height minus viewport height.
+    */
+    const maxTravel = Math.max(rect.height - viewportHeight, 1);
+
+    /*
+      When the section top reaches the top of the viewport,
+      progress begins. As the section keeps scrolling, progress rises to 1.
+    */
+    const rawProgress = -rect.top / maxTravel;
+    const progress = this.clamp(rawProgress, 0, 1);
+
+    /*
+      Smooth the motion a bit.
+    */
+    const easedProgress = this.smoothstep(0, 1, progress);
+
+    /*
+      SCROLL-DRIVEN SHADER TIME
+
+      Lower range = calmer background motion.
+    */
+    this.shaderTime = easedProgress * this.scrollTimeRange;
+
+    /*
+      TEXT MOTION
+
+      The text starts mostly stable,
+      then travels upward and fades away as the scene progresses.
+    */
+    const moveProgress = this.smoothstep(0.08, 0.82, progress);
+    const fadeProgress = this.smoothstep(0.18, 0.72, progress);
+
+    const translateY = -viewportHeight * this.textTravelMultiplier * moveProgress;
+    const scale = 1 - 0.08 * moveProgress;
+    const opacity = 1 - fadeProgress;
+
+    this.contentTransform.set(
+      `translate3d(0, ${translateY}px, 0) scale(${scale})`
+    );
+    this.contentOpacity.set(this.clamp(opacity, 0, 1));
+  }
+
+  /*
+    SCHEDULE A SINGLE RENDER
+  */
+  private scheduleRender(): void {
+    if (this.renderRequestId !== null) {
+      return;
+    }
+
+    this.renderRequestId = window.requestAnimationFrame(() => {
+      this.renderRequestId = null;
+      this.renderFrame();
+    });
+  }
+
+  /*
+    KEEP THE CANVAS SHARP
+  */
+  private resizeCanvas(): void {
+    const canvas = this.canvasRef?.nativeElement;
+    const gl = this.gl;
+
+    if (!canvas || !gl) {
+      return;
+    }
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const width = Math.max(1, Math.floor(canvas.clientWidth * dpr));
+    const height = Math.max(1, Math.floor(canvas.clientHeight * dpr));
+
+    if (canvas.width !== width || canvas.height !== height) {
+      canvas.width = width;
+      canvas.height = height;
+    }
+
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  }
+
+  /*
+    DRAW EXACTLY ONE FRAME
+  */
+  private renderFrame(): void {
+    const canvas = this.canvasRef?.nativeElement;
+    const gl = this.gl;
+    const program = this.program;
+    const positionBuffer = this.positionBuffer;
+    const positionLocation = this.positionLocation;
+
+    if (
+      !canvas ||
+      !gl ||
+      !program ||
+      !positionBuffer ||
+      positionLocation === null ||
+      positionLocation < 0
+    ) {
+      return;
+    }
+
+    this.resizeCanvas();
+
+    gl.useProgram(program);
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+
+    gl.enableVertexAttribArray(positionLocation);
+    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+    if (this.timeLocation) {
+      gl.uniform1f(this.timeLocation, this.shaderTime);
+    }
+
+    if (this.resolutionLocation) {
+      gl.uniform3f(this.resolutionLocation, canvas.width, canvas.height, 1.0);
+    }
+
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  }
+
+  /*
+    SHADER COMPILATION
   */
   private createShader(
     gl: WebGLRenderingContext,
@@ -509,9 +665,7 @@ export class Hero implements AfterViewInit {
   }
 
   /*
-    CREATE PROGRAM
-
-    Links the compiled vertex and fragment shaders into one GPU program.
+    PROGRAM LINKING
   */
   private createProgram(
     gl: WebGLRenderingContext,
@@ -535,5 +689,17 @@ export class Hero implements AfterViewInit {
     console.error(gl.getProgramInfoLog(program));
     gl.deleteProgram(program);
     return null;
+  }
+
+  /*
+    SMALL MATH HELPERS
+  */
+  private clamp(value: number, min: number, max: number): number {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  private smoothstep(edge0: number, edge1: number, x: number): number {
+    const t = this.clamp((x - edge0) / (edge1 - edge0), 0, 1);
+    return t * t * (3 - 2 * t);
   }
 }

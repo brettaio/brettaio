@@ -8,7 +8,7 @@ import { HeroAlt } from './components/hero-alt/hero-alt';
 
 @Component({
   selector: 'bretta-root',
-  imports: [RouterOutlet, Header, Footer, Hero, HeroAlt],
+  imports: [RouterOutlet, Header, Footer, Hero],
   template: `
     <bretta-header />
 
@@ -21,16 +21,6 @@ import { HeroAlt } from './components/hero-alt/hero-alt';
       [secondaryCtaLabel]="hero().secondaryCtaLabel"
       [secondaryCtaHref]="hero().secondaryCtaHref"
     />
-
-    <bretta-hero-alt
-  [eyebrow]="hero().eyebrow"
-  [title]="hero().title"
-  [copy]="hero().copy"
-  [primaryCtaLabel]="hero().primaryCtaLabel"
-  [primaryCtaHref]="hero().primaryCtaHref"
-  [secondaryCtaLabel]="hero().secondaryCtaLabel"
-  [secondaryCtaHref]="hero().secondaryCtaHref"
-/>
 
     <router-outlet />
 
