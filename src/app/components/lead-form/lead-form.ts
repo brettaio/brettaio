@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AnalyticsService } from '../../core/analytics/analytics.service';
 
 @Component({
   selector: 'bretta-lead-form',
@@ -29,6 +30,7 @@ import { Component } from '@angular/core';
           data-netlify="true"
           data-netlify-recaptcha="true"
           netlify-honeypot="bot-field"
+          (submit)="onSubmit()"
           class="mt-14 rounded-3xl border border-white/10 bg-[#1b0b2d]/90 p-6 shadow-2xl shadow-black/30 backdrop-blur-sm sm:p-8 lg:p-10"
         >
           <input type="hidden" name="form-name" value="project-inquiry" />
@@ -376,6 +378,8 @@ import { Component } from '@angular/core';
   styles: [],
 })
 export class LeadForm {
+  private readonly analytics = inject(AnalyticsService);
+
   protected readonly priorityOptions = [
     {
       value: 'priority-qualified-leads',
@@ -408,4 +412,8 @@ export class LeadForm {
       copy: 'A sharper offer, better message, and cleaner market signal.',
     },
   ];
+
+  protected onSubmit(): void {
+    this.analytics.trackLeadGenerated('project-inquiry');
+  }
 }

@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { AnalyticsService } from '../../core/analytics/analytics.service';
 
 type HeroStageFrame = {
   eyebrow?: string;
@@ -248,7 +249,7 @@ const HERO_FRAGMENT_SHADER = `
                         @if (isScrollTarget(frame.primaryCtaHref)) {
                           <button
                             type="button"
-                            (click)="scrollToTarget(frame.primaryCtaHref)"
+                            (click)="handlePrimaryClick(frame.primaryCtaHref)"
                             class="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90"
                           >
                             {{ frame.primaryCtaLabel }}
@@ -256,6 +257,7 @@ const HERO_FRAGMENT_SHADER = `
                         } @else if (isInternalRoute(frame.primaryCtaHref)) {
                           <a
                             [routerLink]="frame.primaryCtaHref"
+                            (click)="handlePrimaryClick(frame.primaryCtaHref)"
                             class="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90"
                           >
                             {{ frame.primaryCtaLabel }}
@@ -263,6 +265,7 @@ const HERO_FRAGMENT_SHADER = `
                         } @else {
                           <a
                             [attr.href]="frame.primaryCtaHref"
+                            (click)="handlePrimaryClick(frame.primaryCtaHref)"
                             class="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90"
                           >
                             {{ frame.primaryCtaLabel }}
@@ -274,7 +277,7 @@ const HERO_FRAGMENT_SHADER = `
                         @if (isScrollTarget(frame.secondaryCtaHref)) {
                           <button
                             type="button"
-                            (click)="scrollToTarget(frame.secondaryCtaHref)"
+                            (click)="handleSecondaryClick(frame.secondaryCtaHref)"
                             class="inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/5"
                           >
                             {{ frame.secondaryCtaLabel }}
@@ -282,6 +285,7 @@ const HERO_FRAGMENT_SHADER = `
                         } @else if (isInternalRoute(frame.secondaryCtaHref)) {
                           <a
                             [routerLink]="frame.secondaryCtaHref"
+                            (click)="handleSecondaryClick(frame.secondaryCtaHref)"
                             class="inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/5"
                           >
                             {{ frame.secondaryCtaLabel }}
@@ -289,6 +293,7 @@ const HERO_FRAGMENT_SHADER = `
                         } @else {
                           <a
                             [attr.href]="frame.secondaryCtaHref"
+                            (click)="handleSecondaryClick(frame.secondaryCtaHref)"
                             class="inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/5"
                           >
                             {{ frame.secondaryCtaLabel }}
@@ -482,6 +487,7 @@ export class Hero implements AfterViewInit {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly ngZone = inject(NgZone);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly analytics = inject(AnalyticsService);
 
   private gl: WebGLRenderingContext | null = null;
   private program: WebGLProgram | null = null;
@@ -529,6 +535,38 @@ export class Hero implements AfterViewInit {
 
   protected isScrollTarget(value: string): boolean {
     return value.startsWith('@');
+  }
+
+  protected handlePrimaryClick(value: string): void {
+    if (value.startsWith('tel:')) {
+      this.analytics.trackCallClick('hero');
+      return;
+    }
+
+    if (value.startsWith('mailto:')) {
+      this.analytics.trackEmailClick('hero');
+      return;
+    }
+
+    if (this.isScrollTarget(value)) {
+      this.scrollToTarget(value);
+    }
+  }
+
+  protected handleSecondaryClick(value: string): void {
+    if (value.startsWith('tel:')) {
+      this.analytics.trackCallClick('hero');
+      return;
+    }
+
+    if (value.startsWith('mailto:')) {
+      this.analytics.trackEmailClick('hero');
+      return;
+    }
+
+    if (this.isScrollTarget(value)) {
+      this.scrollToTarget(value);
+    }
   }
 
   protected scrollToTarget(value: string): void {

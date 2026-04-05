@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 import { BackToTop } from './components/button/back-to-top/back-to-top';
+import { AnalyticsService } from './core/analytics/analytics.service';
 
 @Component({
   selector: 'bretta-root',
@@ -20,4 +21,6 @@ import { BackToTop } from './components/button/back-to-top/back-to-top';
   `,
   styles: [],
 })
-export class App {}
+export class App {
+  private readonly analytics = inject(AnalyticsService);
+}
