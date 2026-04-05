@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bretta-lead-form',
@@ -15,17 +16,20 @@ import { Component } from '@angular/core';
           </h2>
 
           <p class="mt-6 max-w-2xl text-lg leading-8 text-white/72">
-            This intake is designed to get past vague briefs quickly. The point is to understand
-            what is actually not working: visibility, lead quality, paid performance, conversion
-            friction, weak positioning, or a digital presence that simply is not carrying enough weight.
+            This intake is designed to get past vague briefs quickly. The point
+            is to understand what is actually not working: visibility, lead
+            quality, paid performance, conversion friction, weak positioning, or
+            a digital presence that simply is not carrying enough weight.
           </p>
         </div>
 
         <form
           name="project-inquiry"
           method="POST"
+          action="/thank-you"
           data-netlify="true"
           netlify-honeypot="bot-field"
+          (submit)="handleSubmit($event)"
           class="mt-14 rounded-3xl border border-white/10 bg-[#1b0b2d]/90 p-6 shadow-2xl shadow-black/30 backdrop-blur-sm sm:p-8 lg:p-10"
         >
           <input type="hidden" name="form-name" value="project-inquiry" />
@@ -117,7 +121,10 @@ import { Component } from '@angular/core';
             </div>
 
             <div class="sm:col-span-3">
-              <label for="business-model" class="block text-sm font-medium text-white">
+              <label
+                for="business-model"
+                class="block text-sm font-medium text-white"
+              >
                 What do you actually sell?
               </label>
               <div class="mt-2">
@@ -154,7 +161,9 @@ import { Component } from '@angular/core';
                         <span class="block text-sm font-medium text-white">
                           {{ item.label }}
                         </span>
-                        <span class="mt-1 block text-sm leading-6 text-white/50">
+                        <span
+                          class="mt-1 block text-sm leading-6 text-white/50"
+                        >
                           {{ item.copy }}
                         </span>
                       </span>
@@ -180,7 +189,10 @@ import { Component } from '@angular/core';
             </div>
 
             <div class="col-span-full">
-              <label for="lead-quality" class="block text-sm font-medium text-white">
+              <label
+                for="lead-quality"
+                class="block text-sm font-medium text-white"
+              >
                 What is happening with leads or enquiries right now?
               </label>
               <div class="mt-2">
@@ -225,7 +237,10 @@ import { Component } from '@angular/core';
             </div>
 
             <div class="col-span-full">
-              <label for="presence" class="block text-sm font-medium text-white">
+              <label
+                for="presence"
+                class="block text-sm font-medium text-white"
+              >
                 What does your digital presence fail to communicate today?
               </label>
               <div class="mt-2">
@@ -255,7 +270,10 @@ import { Component } from '@angular/core';
             </div>
 
             <div class="sm:col-span-3">
-              <label for="timeline" class="block text-sm font-medium text-white">
+              <label
+                for="timeline"
+                class="block text-sm font-medium text-white"
+              >
                 Timeline pressure
               </label>
               <div class="mt-2 grid grid-cols-1">
@@ -335,16 +353,24 @@ import { Component } from '@angular/core';
             </div>
           </div>
 
+          @if (submitError()) {
+            <p class="mt-6 rounded-2xl border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+              {{ submitError() }}
+            </p>
+          }
+
           <div class="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-8">
             <p class="max-w-xl text-sm leading-6 text-white/45">
-              Good answers create a sharper first response. This form is for serious enquiries, not vague fishing expeditions.
+              Good answers create a sharper first response. This form is for
+              serious enquiries, not vague fishing expeditions.
             </p>
 
             <button
               type="submit"
-              class="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90"
+              [disabled]="isSubmitting()"
+              class="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              Submit inquiry
+              {{ isSubmitting() ? 'Submitting…' : 'Submit inquiry' }}
             </button>
           </div>
         </form>
@@ -354,6 +380,11 @@ import { Component } from '@angular/core';
   styles: [],
 })
 export class LeadForm {
+  private readonly router = inject(Router);
+
+  protected readonly isSubmitting = signal(false);
+  protected readonly submitError = signal('');
+
   protected readonly priorityOptions = [
     {
       value: 'priority-qualified-leads',
@@ -386,4 +417,53 @@ export class LeadForm {
       copy: 'A sharper offer, better message, and cleaner market signal.',
     },
   ];
+
+  protected async handleSubmit(event: SubmitEvent): Promise<void> {
+    event.preventDefault();
+
+    const form = event.target as HTMLFormElement | null;
+
+    if (!form || this.isSubmitting()) {
+      return;
+    }
+
+    this.isSubmitting.set(true);
+    this.submitError.set('');
+
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: this.encodeFormData(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Netlify form submit failed with ${response.status}`);
+      }
+
+      form.reset();
+      await this.router.navigateByUrl('/thank-you');
+    } catch (error) {
+      console.error(error);
+      this.submitError.set(
+        'Submission failed. Please email etc@bretta.io directly.'
+      );
+    } finally {
+      this.isSubmitting.set(false);
+    }
+  }
+
+  private encodeFormData(formData: FormData): string {
+    return Array.from(formData.entries())
+      .map(([key, value]) => {
+        return (
+          encodeURIComponent(key) + '=' + encodeURIComponent(String(value))
+        );
+      })
+      .join('&');
+  }
 }

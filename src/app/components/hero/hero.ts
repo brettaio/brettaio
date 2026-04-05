@@ -175,10 +175,14 @@ const HERO_FRAGMENT_SHADER = `
   template: `
     <section
       #heroSection
-      class="relative bg-black text-white"
+      class="relative z-10 text-white"
       [style.min-height]="sceneHeight()"
     >
-      <div class="sticky top-0 h-screen overflow-hidden">
+      <div
+        class="sticky top-0 h-screen overflow-hidden origin-top will-change-transform"
+        [style.opacity]="sceneOpacity()"
+        [style.transform]="sceneTransform()"
+      >
         <canvas
           #shaderCanvas
           class="absolute inset-0 h-full w-full"
@@ -323,7 +327,7 @@ export class Hero implements AfterViewInit {
   protected readonly scrollProgress = signal(0);
   protected readonly viewportWidth = signal(1440);
 
-  protected readonly isCompactPhone = computed(() => this.viewportWidth() < 475);
+  protected readonly isCompactPhone = computed(() => this.viewportWidth() < 400);
 
   protected readonly primaryAction = computed<HeroAction>(() => {
     if (this.isCompactPhone()) {
@@ -417,13 +421,13 @@ export class Hero implements AfterViewInit {
   });
 
   protected readonly frameWeights = computed<number[]>(() => [
-    1.45,
-    1.15,
-    1.0,
-    1.0,
-    1.0,
-    0.95,
+    1.35,
     1.1,
+    1.0,
+    1.0,
+    1.0,
+    1.08,
+    1.22,
   ]);
 
   protected readonly frameRanges = computed<HeroFrameRange[]>(() => {
@@ -444,10 +448,36 @@ export class Hero implements AfterViewInit {
     });
   });
 
+  /*
+    Slightly tighter than before so the section height finishes closer
+    to the visual ending.
+  */
   protected readonly sceneHeight = computed(() => {
     const frameCount = this.frames().length;
-    const vh = frameCount * 62 + 88;
-    return `${Math.max(520, vh)}vh`;
+    const vh = frameCount * 56 + 72;
+    return `${Math.max(440, vh)}vh`;
+  });
+
+  /*
+    Exit timing:
+    - hero stays solid for most of the scroll
+    - then shrinks + fades only near the end
+    - underlying form can show through because home.ts pulls it upward
+  */
+  protected readonly sceneExitProgress = computed(() =>
+    this.smoothstep(0.86, 0.985, this.scrollProgress())
+  );
+
+  protected readonly sceneOpacity = computed(
+    () => 1 - this.sceneExitProgress()
+  );
+
+  protected readonly sceneTransform = computed(() => {
+    const exit = this.sceneExitProgress();
+    const scale = 1 - exit * 0.16;
+    const translateY = -48 * exit;
+
+    return `translate3d(0, ${translateY}px, 0) scale(${scale})`;
   });
 
   protected readonly frameStates = computed<HeroStageFrameState[]>(() => {
@@ -475,7 +505,7 @@ export class Hero implements AfterViewInit {
   private renderRequestId: number | null = null;
   private shaderTime = 0;
 
-  private readonly scrollTimeRange = 5.8;
+  private readonly scrollTimeRange = 6.8;
 
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) {
@@ -692,11 +722,15 @@ export class Hero implements AfterViewInit {
     const rawProgress = -rect.top / maxTravel;
     const progress = this.clamp(rawProgress, 0, 1);
 
-    const responsiveProgress = this.clamp(progress * 1.18, 0, 1);
-    const motionProgress = this.smoothstep(0.0, 0.9, responsiveProgress);
+    /*
+      Keep the shader alive right to the end of the hero,
+      with a little extra acceleration in the exit phase.
+    */
+    const motionProgress = this.smoothstep(0.0, 1.0, progress);
+    const exitBoost = this.smoothstep(0.8, 1.0, progress) * 0.9;
 
     this.scrollProgress.set(progress);
-    this.shaderTime = 0.24 + motionProgress * this.scrollTimeRange;
+    this.shaderTime = 0.18 + motionProgress * this.scrollTimeRange + exitBoost;
   }
 
   private buildFrameState(
@@ -719,20 +753,20 @@ export class Hero implements AfterViewInit {
       };
     }
 
-    const enter = this.smoothstep(-0.14, 0.08, local);
-    const exit = this.smoothstep(0.86, 0.995, local);
+    const enter = this.smoothstep(-0.16, 0.06, local);
+    const exit = this.smoothstep(0.9, 0.998, local);
 
     const visibility = this.clamp(enter * (1 - exit), 0, 1);
 
-    const bodyReveal = this.smoothstep(-0.08, 0.08, local);
-    const ctaReveal = this.smoothstep(-0.02, 0.12, local);
+    const bodyReveal = this.smoothstep(-0.1, 0.05, local);
+    const ctaReveal = this.smoothstep(-0.04, 0.1, local);
 
-    const translateIn = 4 * (1 - enter);
-    const translateOut = -18 * exit;
+    const translateIn = 3 * (1 - enter);
+    const translateOut = -12 * exit;
     const translateY = translateIn + translateOut;
 
-    const scale = 0.999 + enter * 0.003 - exit * 0.008;
-    const blur = 1.5 * (1 - visibility);
+    const scale = 0.999 + enter * 0.003 - exit * 0.006;
+    const blur = 0.9 * (1 - visibility);
 
     return {
       opacity: visibility,
