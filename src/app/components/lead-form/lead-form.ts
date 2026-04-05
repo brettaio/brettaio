@@ -7,7 +7,7 @@ import { AnalyticsService } from '../../core/analytics/analytics.service';
     <section id="project-inquiry" class="bg-[#14081f] px-6 py-24 lg:px-8">
       <div class="mx-auto max-w-6xl">
         <div class="max-w-3xl">
-          <p class="text-sm font-medium uppercase tracking-[0.28em] text-white/45">
+          <p class="text-sm font-medium uppercase tracking-[0.28em] text-white/70">
             Project inquiry
           </p>
 
@@ -15,7 +15,7 @@ import { AnalyticsService } from '../../core/analytics/analytics.service';
             Bring the commercial problem, not just the deliverable.
           </h2>
 
-          <p class="mt-6 max-w-2xl text-lg leading-8 text-white/72">
+          <p class="mt-6 max-w-2xl text-lg leading-8 text-white/80">
             This intake is designed to get past vague briefs quickly. The point
             is to understand what is actually not working: visibility, lead
             quality, paid performance, conversion friction, weak positioning, or
@@ -28,7 +28,6 @@ import { AnalyticsService } from '../../core/analytics/analytics.service';
           method="POST"
           action="/thank-you"
           data-netlify="true"
-          data-netlify-recaptcha="true"
           netlify-honeypot="bot-field"
           (submit)="onSubmit()"
           class="mt-14 rounded-3xl border border-white/10 bg-[#1b0b2d]/90 p-6 shadow-2xl shadow-black/30 backdrop-blur-sm sm:p-8 lg:p-10"
@@ -144,7 +143,7 @@ import { AnalyticsService } from '../../core/analytics/analytics.service';
                 <legend class="block text-sm font-medium text-white">
                   What needs to improve most right now?
                 </legend>
-                <p class="mt-2 text-sm leading-6 text-white/45">
+                <p class="mt-2 text-sm leading-6 text-white/60">
                   Select the commercial outcomes that actually matter.
                 </p>
 
@@ -162,9 +161,7 @@ import { AnalyticsService } from '../../core/analytics/analytics.service';
                         <span class="block text-sm font-medium text-white">
                           {{ item.label }}
                         </span>
-                        <span
-                          class="mt-1 block text-sm leading-6 text-white/50"
-                        >
+                        <span class="mt-1 block text-sm leading-6 text-white/60">
                           {{ item.copy }}
                         </span>
                       </span>
@@ -354,12 +351,8 @@ import { AnalyticsService } from '../../core/analytics/analytics.service';
             </div>
           </div>
 
-          <div class="mt-8">
-            <div data-netlify-recaptcha="true"></div>
-          </div>
-
           <div class="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-8">
-            <p class="max-w-xl text-sm leading-6 text-white/45">
+            <p class="max-w-xl text-sm leading-6 text-white/60">
               Good answers create a sharper first response. This form is for
               serious enquiries, not vague fishing expeditions.
             </p>

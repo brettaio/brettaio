@@ -26,7 +26,7 @@ import { LeadForm } from '../../components/lead-form/lead-form';
             <div class="mx-auto max-w-6xl">
               <div class="rounded-3xl border border-white/10 bg-[#1b0b2d]/90 p-6 shadow-2xl shadow-black/30 backdrop-blur-sm sm:p-8 lg:p-10">
                 <div class="max-w-3xl">
-                  <p class="text-sm font-medium uppercase tracking-[0.28em] text-white/45">
+                  <p class="text-sm font-medium uppercase tracking-[0.28em] text-white/70">
                     Project inquiry
                   </p>
 
@@ -34,7 +34,7 @@ import { LeadForm } from '../../components/lead-form/lead-form';
                     Bring the commercial problem, not just the deliverable.
                   </h2>
 
-                  <p class="mt-6 max-w-2xl text-lg leading-8 text-white/72">
+                  <p class="mt-6 max-w-2xl text-lg leading-8 text-white/80">
                     Loading inquiry form…
                   </p>
                 </div>
