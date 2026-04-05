@@ -98,17 +98,19 @@
       name="twitter:image:alt"
       content="Bretta.io digital services preview image"
     />
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-F5EEJX2LX1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
 
-  gtag('js', new Date());
-  gtag('config', 'G-F5EEJX2LX1', {
-    send_page_view: false
-  });
-</script>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-F5EEJX2LX1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      gtag('js', new Date());
+      gtag('config', 'G-F5EEJX2LX1', {
+        send_page_view: false
+      });
+    </script>
+
     <!-- JSON-LD -->
     <script type="application/ld+json">
       {
@@ -160,7 +162,7 @@
               "Analytics implementation"
             ],
             "provider": {
-              "@id": "https://bretta.io"
+              "@id": "https://bretta.io/#organization"
             }
           }
         ]
@@ -169,11 +171,7 @@
   </head>
 
   <body>
-    <!--
-      Netlify detection form:
-      keep this for static detection, but do NOT attach reCAPTCHA here.
-      The real visible form below the fold owns the single Netlify-provided reCAPTCHA on the page.
-    -->
+    <!-- Netlify form detection -->
     <form
       name="project-inquiry"
       method="POST"
