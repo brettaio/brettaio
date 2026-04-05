@@ -39,6 +39,11 @@ type HeroFrameRange = {
   end: number;
 };
 
+type HeroAction = {
+  label: string;
+  href: string;
+};
+
 const HERO_VERTEX_SHADER = `
   attribute vec2 a_position;
 
@@ -310,79 +315,106 @@ export class Hero implements AfterViewInit {
   readonly copy = input(
     'For businesses that need more than surface polish — clearer positioning, stronger structure, better digital judgement, and work that can carry commercial weight.'
   );
-  readonly primaryCtaLabel = input('View work');
-  readonly primaryCtaHref = input('/work');
-  readonly secondaryCtaLabel = input('Start a conversation');
+  readonly primaryCtaLabel = input('Email now');
+  readonly primaryCtaHref = input('');
+  readonly secondaryCtaLabel = input('Discuss a project');
   readonly secondaryCtaHref = input('@project-inquiry');
 
   protected readonly scrollProgress = signal(0);
+  protected readonly viewportWidth = signal(1440);
 
-  protected readonly frames = computed<HeroStageFrame[]>(() => [
-    {
-      eyebrow: this.eyebrow(),
-      titleLines: [this.title()],
-      bodyLines: [this.copy()],
-      primaryCtaLabel: this.primaryCtaLabel(),
-      primaryCtaHref: this.primaryCtaHref(),
-      secondaryCtaLabel: this.secondaryCtaLabel(),
-      secondaryCtaHref: this.secondaryCtaHref(),
-    },
-    {
-      eyebrow: 'Category',
-      titleLines: ['Not a broad agency.', 'Not a disposable freelancer.'],
-      bodyLines: [
-        'One accountable digital practice.',
-        'Strategy, structure, design, and implementation held to one standard of judgement.',
-      ],
-    },
-    {
-      eyebrow: 'Standard',
-      titleLines: ['The work is digital.', 'The standard is commercial.'],
-      bodyLines: [
-        'The brief may look like a site, a service layer, a user path, or a structural content problem.',
-        'The job is the same: make the digital surface clearer, more credible, and more useful to the business behind it.',
-      ],
-    },
-    {
-      eyebrow: 'Diagnosis',
-      titleLines: [
-        'Clarity over noise.',
-        'Structure over drift.',
-        'Judgement over volume.',
-      ],
-      bodyLines: [
-        'Most digital work does not fail because it lacked activity.',
-        'It fails because the message is weak, the hierarchy is muddy, and the build does not support the business properly.',
-      ],
-    },
-    {
-      eyebrow: 'Outcome',
-      titleLines: [
-        'A better digital surface',
-        'changes what happens behind it.',
-      ],
-      bodyLines: [
-        'Better trust. Better fit. Better signal quality. Better internal confidence in what the business is actually presenting to the market.',
-      ],
-    },
-    {
-      eyebrow: 'Model',
-      titleLines: ['Singular by design.'],
-      bodyLines: [
-        'bretta.io is not a scaled delivery machine.',
-        'It is one practice, one standard, and one line of accountability.',
-      ],
-    },
-    {
-      eyebrow: 'Decision',
-      titleLines: ['If the work matters,', 'the structure has to hold.'],
-      bodyLines: ['Bring the real problem. I’ll take it seriously.'],
-      primaryCtaLabel: 'View work',
-      primaryCtaHref: '/work',
-      secondaryCtaLabel: 'Discuss a project',
-      secondaryCtaHref: '@project-inquiry',
-    },
-  ]);
+  protected readonly isCompactPhone = computed(() => this.viewportWidth() < 475);
+
+  protected readonly primaryAction = computed<HeroAction>(() => {
+    if (this.isCompactPhone()) {
+      return {
+        label: 'Call now',
+        href: 'tel:+15195214260',
+      };
+    }
+
+    return {
+      label: 'Email now',
+      href: this.buildDesktopMailtoHref(),
+    };
+  });
+
+  protected readonly secondaryAction = computed<HeroAction>(() => ({
+    label: 'Discuss a project',
+    href: '@project-inquiry',
+  }));
+
+  protected readonly frames = computed<HeroStageFrame[]>(() => {
+    const primary = this.primaryAction();
+    const secondary = this.secondaryAction();
+
+    return [
+      {
+        eyebrow: this.eyebrow(),
+        titleLines: [this.title()],
+        bodyLines: [this.copy()],
+        primaryCtaLabel: primary.label,
+        primaryCtaHref: primary.href,
+        secondaryCtaLabel: secondary.label,
+        secondaryCtaHref: secondary.href,
+      },
+      {
+        eyebrow: 'Category',
+        titleLines: ['Not a broad agency.', 'Not a disposable freelancer.'],
+        bodyLines: [
+          'One accountable digital practice.',
+          'Strategy, structure, design, and implementation held to one standard of judgement.',
+        ],
+      },
+      {
+        eyebrow: 'Standard',
+        titleLines: ['The work is digital.', 'The standard is commercial.'],
+        bodyLines: [
+          'The brief may look like a site, a service layer, a user path, or a structural content problem.',
+          'The job is the same: make the digital surface clearer, more credible, and more useful to the business behind it.',
+        ],
+      },
+      {
+        eyebrow: 'Diagnosis',
+        titleLines: [
+          'Clarity over noise.',
+          'Structure over drift.',
+          'Judgement over volume.',
+        ],
+        bodyLines: [
+          'Most digital work does not fail because it lacked activity.',
+          'It fails because the message is weak, the hierarchy is muddy, and the build does not support the business properly.',
+        ],
+      },
+      {
+        eyebrow: 'Outcome',
+        titleLines: [
+          'A better digital surface',
+          'changes what happens behind it.',
+        ],
+        bodyLines: [
+          'Better trust. Better fit. Better signal quality. Better internal confidence in what the business is actually presenting to the market.',
+        ],
+      },
+      {
+        eyebrow: 'Model',
+        titleLines: ['Singular by design.'],
+        bodyLines: [
+          'bretta.io is not a scaled delivery machine.',
+          'It is one practice, one standard, and one line of accountability.',
+        ],
+      },
+      {
+        eyebrow: 'Decision',
+        titleLines: ['If the work matters,', 'the structure has to hold.'],
+        bodyLines: ['Bring the real problem. I’ll take it seriously.'],
+        primaryCtaLabel: primary.label,
+        primaryCtaHref: primary.href,
+        secondaryCtaLabel: secondary.label,
+        secondaryCtaHref: secondary.href,
+      },
+    ];
+  });
 
   protected readonly frameWeights = computed<number[]>(() => [
     1.45,
@@ -423,7 +455,7 @@ export class Hero implements AfterViewInit {
     const ranges = this.frameRanges();
 
     return this.frames().map((_, index) =>
-      this.buildFrameState(ranges[index], progress)
+      this.buildFrameState(index, ranges[index], progress)
     );
   });
 
@@ -450,6 +482,7 @@ export class Hero implements AfterViewInit {
       return;
     }
 
+    this.updateViewportWidth();
     this.startShaderScene();
   }
 
@@ -470,12 +503,17 @@ export class Hero implements AfterViewInit {
     const element = document.getElementById(targetId);
 
     if (!element) {
+      console.warn(`Scroll target not found: ${targetId}`);
       return;
     }
 
-    element.scrollIntoView({
+    const headerOffset = this.viewportWidth() < 768 ? 88 : 104;
+    const absoluteTop =
+      window.scrollY + element.getBoundingClientRect().top - headerOffset;
+
+    window.scrollTo({
+      top: Math.max(0, absoluteTop),
       behavior: 'smooth',
-      block: 'start',
     });
   }
 
@@ -487,6 +525,35 @@ export class Hero implements AfterViewInit {
   protected frameFilter(frameIndex: number): string {
     const state = this.frameStates()[frameIndex];
     return `blur(${state.blur}px)`;
+  }
+
+  private buildDesktopMailtoHref(): string {
+    const subject = encodeURIComponent('Project inquiry — bretta.io');
+    const body = encodeURIComponent(
+      [
+        'Hi Brett,',
+        '',
+        "I'm reaching out about improving our digital presence and commercial performance.",
+        '',
+        'Company:',
+        'Website:',
+        'Main problem:',
+        'Desired outcome:',
+        'Timeline:',
+        '',
+        'Best,',
+      ].join('\n')
+    );
+
+    return `mailto:etc@bretta.io?subject=${subject}&body=${body}`;
+  }
+
+  private updateViewportWidth(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    this.viewportWidth.set(window.innerWidth || 1440);
   }
 
   private startShaderScene(): void {
@@ -569,12 +636,14 @@ export class Hero implements AfterViewInit {
     };
 
     const onResize = (): void => {
+      this.updateViewportWidth();
       this.resizeCanvas();
       this.updateSceneFromScroll();
       this.scheduleRender();
     };
 
     this.ngZone.runOutsideAngular(() => {
+      this.updateViewportWidth();
       this.resizeCanvas();
       this.updateSceneFromScroll();
       this.renderFrame();
@@ -631,26 +700,39 @@ export class Hero implements AfterViewInit {
   }
 
   private buildFrameState(
+    frameIndex: number,
     range: HeroFrameRange,
     progress: number
   ): HeroStageFrameState {
     const local =
       (progress - range.start) / Math.max(range.end - range.start, 0.0001);
 
-    const enter = this.smoothstep(0.01, 0.12, local);
+    if (frameIndex === 0 && progress <= 0.002) {
+      return {
+        opacity: 1,
+        bodyOpacity: 1,
+        ctaOpacity: 1,
+        blur: 0,
+        translateY: 0,
+        scale: 1,
+        pointerEvents: 'auto',
+      };
+    }
+
+    const enter = this.smoothstep(-0.14, 0.08, local);
     const exit = this.smoothstep(0.86, 0.995, local);
 
     const visibility = this.clamp(enter * (1 - exit), 0, 1);
 
-    const bodyReveal = this.smoothstep(0.08, 0.18, local);
-    const ctaReveal = this.smoothstep(0.12, 0.22, local);
+    const bodyReveal = this.smoothstep(-0.08, 0.08, local);
+    const ctaReveal = this.smoothstep(-0.02, 0.12, local);
 
-    const translateIn = 10 * (1 - enter);
+    const translateIn = 4 * (1 - enter);
     const translateOut = -18 * exit;
     const translateY = translateIn + translateOut;
 
-    const scale = 0.998 + enter * 0.004 - exit * 0.008;
-    const blur = 3 * (1 - visibility);
+    const scale = 0.999 + enter * 0.003 - exit * 0.008;
+    const blur = 1.5 * (1 - visibility);
 
     return {
       opacity: visibility,
@@ -659,7 +741,7 @@ export class Hero implements AfterViewInit {
       blur,
       translateY,
       scale,
-      pointerEvents: visibility > 0.15 ? 'auto' : 'none',
+      pointerEvents: visibility > 0.08 ? 'auto' : 'none',
     };
   }
 
