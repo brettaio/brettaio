@@ -14,35 +14,29 @@ import {
 import { isPlatformBrowser } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AnalyticsService } from '../../core/analytics/analytics.service';
+import {
+  HeroFrameRange,
+  HeroStageFrameState,
+  buildFrameRanges,
+  buildHeroFrameState,
+  buildSceneHeight,
+  buildSceneOpacity,
+  buildSceneTransform,
+  buildShaderTimeFromScroll,
+} from '../../core/hero-scroll-motion/hero-scroll-motion';
+import { CtaDock, CtaDockAction } from '../cta-dock/cta-dock';
+
+type HeroAction = {
+  label: string;
+  href: string;
+  variant?: 'solid' | 'outline';
+};
 
 type HeroStageFrame = {
   eyebrow?: string;
   titleLines: string[];
   bodyLines?: string[];
-  primaryCtaLabel?: string;
-  primaryCtaHref?: string;
-  secondaryCtaLabel?: string;
-  secondaryCtaHref?: string;
-};
-
-type HeroStageFrameState = {
-  opacity: number;
-  bodyOpacity: number;
-  ctaOpacity: number;
-  blur: number;
-  translateY: number;
-  scale: number;
-  pointerEvents: 'auto' | 'none';
-};
-
-type HeroFrameRange = {
-  start: number;
-  end: number;
-};
-
-type HeroAction = {
-  label: string;
-  href: string;
+  actions?: HeroAction[];
 };
 
 const HERO_VERTEX_SHADER = `
@@ -172,7 +166,7 @@ const HERO_FRAGMENT_SHADER = `
 
 @Component({
   selector: 'bretta-hero',
-  imports: [RouterLink],
+  imports: [RouterLink, CtaDock],
   template: `
     <section
       #heroSection
@@ -240,63 +234,35 @@ const HERO_FRAGMENT_SHADER = `
                     </div>
                   }
 
-                  @if (frame.primaryCtaLabel || frame.secondaryCtaLabel) {
+                  @if (frame.actions?.length) {
                     <div
-                      class="mt-10 flex flex-wrap items-center gap-4"
+                      class="mt-10 flex flex-wrap items-center gap-3 sm:gap-4"
                       [style.opacity]="frameStates()[frameIndex].ctaOpacity"
                     >
-                      @if (frame.primaryCtaLabel && frame.primaryCtaHref) {
-                        @if (isScrollTarget(frame.primaryCtaHref)) {
+                      @for (action of frame.actions; track action.label + action.href) {
+                        @if (isScrollTarget(action.href)) {
                           <button
                             type="button"
-                            (click)="handlePrimaryClick(frame.primaryCtaHref)"
-                            class="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90"
+                            (click)="handleActionClick(action.href)"
+                            [class]="actionClass(action)"
                           >
-                            {{ frame.primaryCtaLabel }}
+                            {{ action.label }}
                           </button>
-                        } @else if (isInternalRoute(frame.primaryCtaHref)) {
+                        } @else if (isInternalRoute(action.href)) {
                           <a
-                            [routerLink]="frame.primaryCtaHref"
-                            (click)="handlePrimaryClick(frame.primaryCtaHref)"
-                            class="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90"
+                            [routerLink]="action.href"
+                            (click)="handleActionClick(action.href)"
+                            [class]="actionClass(action)"
                           >
-                            {{ frame.primaryCtaLabel }}
+                            {{ action.label }}
                           </a>
                         } @else {
                           <a
-                            [attr.href]="frame.primaryCtaHref"
-                            (click)="handlePrimaryClick(frame.primaryCtaHref)"
-                            class="inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:bg-white/90"
+                            [attr.href]="action.href"
+                            (click)="handleActionClick(action.href)"
+                            [class]="actionClass(action)"
                           >
-                            {{ frame.primaryCtaLabel }}
-                          </a>
-                        }
-                      }
-
-                      @if (frame.secondaryCtaLabel && frame.secondaryCtaHref) {
-                        @if (isScrollTarget(frame.secondaryCtaHref)) {
-                          <button
-                            type="button"
-                            (click)="handleSecondaryClick(frame.secondaryCtaHref)"
-                            class="inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/5"
-                          >
-                            {{ frame.secondaryCtaLabel }}
-                          </button>
-                        } @else if (isInternalRoute(frame.secondaryCtaHref)) {
-                          <a
-                            [routerLink]="frame.secondaryCtaHref"
-                            (click)="handleSecondaryClick(frame.secondaryCtaHref)"
-                            class="inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/5"
-                          >
-                            {{ frame.secondaryCtaLabel }}
-                          </a>
-                        } @else {
-                          <a
-                            [attr.href]="frame.secondaryCtaHref"
-                            (click)="handleSecondaryClick(frame.secondaryCtaHref)"
-                            class="inline-flex items-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/40 hover:bg-white/5"
-                          >
-                            {{ frame.secondaryCtaLabel }}
+                            {{ action.label }}
                           </a>
                         }
                       }
@@ -307,6 +273,13 @@ const HERO_FRAGMENT_SHADER = `
             </div>
           </div>
         </div>
+
+        <bretta-cta-dock
+          [emailHref]="resolveEmailHref()"
+          [smsHref]="buildSmsHref()"
+          [callHref]="'tel:+15195214260'"
+          (actionTriggered)="handleDockAction($event)"
+        />
       </div>
     </section>
   `,
@@ -326,49 +299,46 @@ export class Hero implements AfterViewInit {
   );
   readonly primaryCtaLabel = input('Email now');
   readonly primaryCtaHref = input('');
-  readonly secondaryCtaLabel = input('Discuss a project');
-  readonly secondaryCtaHref = input('@project-inquiry');
+  readonly secondaryCtaLabel = input(`Start The Conversation`);
+  readonly secondaryCtaHref = input('@project-inquiry-panel');
 
   protected readonly scrollProgress = signal(0);
   protected readonly viewportWidth = signal(1440);
 
-  protected readonly isCompactPhone = computed(() => this.viewportWidth() < 400);
+  protected readonly isMobile = computed(() => this.viewportWidth() < 768);
 
-  protected readonly primaryAction = computed<HeroAction>(() => {
-    if (this.isCompactPhone()) {
-      return {
-        label: 'Call now',
-        href: 'tel:+15195214260',
-      };
-    }
-
-    return {
-      label: 'Email now',
-      href: this.buildDesktopMailtoHref(),
-    };
-  });
-
-  protected readonly secondaryAction = computed<HeroAction>(() => ({
-    label: 'Discuss a project',
-    href: '@project-inquiry',
+  protected readonly desktopEmailAction = computed<HeroAction>(() => ({
+    label: this.primaryCtaLabel(),
+    href: this.resolveEmailHref(),
+    variant: 'solid',
   }));
 
+  protected readonly continueAction = computed<HeroAction>(() => ({
+    label: this.secondaryCtaLabel(),
+    href: this.secondaryCtaHref(),
+    variant: 'outline',
+  }));
+
+  protected readonly inlineActions = computed<HeroAction[]>(() => {
+    if (this.isMobile()) {
+      return [this.continueAction()];
+    }
+
+    return [this.desktopEmailAction(), this.continueAction()];
+  });
+
   protected readonly frames = computed<HeroStageFrame[]>(() => {
-    const primary = this.primaryAction();
-    const secondary = this.secondaryAction();
+    const actions = this.inlineActions();
 
     return [
       {
         eyebrow: this.eyebrow(),
         titleLines: [this.title()],
         bodyLines: [this.copy()],
-        primaryCtaLabel: primary.label,
-        primaryCtaHref: primary.href,
-        secondaryCtaLabel: secondary.label,
-        secondaryCtaHref: secondary.href,
+        actions,
       },
       {
-        eyebrow: 'Category',
+        eyebrow: 'Who',
         titleLines: ['Not a broad agency.', 'Not a disposable freelancer.'],
         bodyLines: [
           'One accountable digital practice.',
@@ -376,7 +346,7 @@ export class Hero implements AfterViewInit {
         ],
       },
       {
-        eyebrow: 'Standard',
+        eyebrow: 'What',
         titleLines: ['The work is digital.', 'The standard is commercial.'],
         bodyLines: [
           'The brief may look like a site, a service layer, a user path, or a structural content problem.',
@@ -384,7 +354,7 @@ export class Hero implements AfterViewInit {
         ],
       },
       {
-        eyebrow: 'Diagnosis',
+        eyebrow: 'When',
         titleLines: [
           'Clarity over noise.',
           'Structure over drift.',
@@ -396,7 +366,7 @@ export class Hero implements AfterViewInit {
         ],
       },
       {
-        eyebrow: 'Outcome',
+        eyebrow: 'Why',
         titleLines: [
           'A better digital surface',
           'changes what happens behind it.',
@@ -406,7 +376,7 @@ export class Hero implements AfterViewInit {
         ],
       },
       {
-        eyebrow: 'Model',
+        eyebrow: 'How',
         titleLines: ['Singular by design.'],
         bodyLines: [
           'bretta.io is not a scaled delivery machine.',
@@ -417,70 +387,44 @@ export class Hero implements AfterViewInit {
         eyebrow: 'Decision',
         titleLines: ['If the work matters,', 'the structure has to hold.'],
         bodyLines: ['Bring the real problem. I’ll take it seriously.'],
-        primaryCtaLabel: primary.label,
-        primaryCtaHref: primary.href,
-        secondaryCtaLabel: secondary.label,
-        secondaryCtaHref: secondary.href,
+        actions,
       },
     ];
   });
 
   protected readonly frameWeights = computed<number[]>(() => [
-    1.35,
-    1.1,
-    1.0,
-    1.0,
-    1.0,
-    1.08,
-    1.22,
+    1.28,
+    0.98,
+    0.96,
+    0.96,
+    0.96,
+    1.02,
+    1.78,
   ]);
 
-  protected readonly frameRanges = computed<HeroFrameRange[]>(() => {
-    const weights = this.frameWeights();
-    const total = weights.reduce((sum, value) => sum + value, 0);
-
-    let cursor = 0;
-
-    return weights.map((weight) => {
-      const length = weight / total;
-      const range = {
-        start: cursor,
-        end: cursor + length,
-      };
-
-      cursor += length;
-      return range;
-    });
-  });
-
-  protected readonly sceneHeight = computed(() => {
-    const frameCount = this.frames().length;
-    const vh = frameCount * 56 + 72;
-    return `${Math.max(440, vh)}vh`;
-  });
-
-  protected readonly sceneExitProgress = computed(() =>
-    this.smoothstep(0.86, 0.985, this.scrollProgress())
+  protected readonly frameRanges = computed<HeroFrameRange[]>(() =>
+    buildFrameRanges(this.frameWeights())
   );
 
-  protected readonly sceneOpacity = computed(
-    () => 1 - this.sceneExitProgress()
+  protected readonly sceneHeight = computed(() =>
+    buildSceneHeight(this.frameWeights())
   );
 
-  protected readonly sceneTransform = computed(() => {
-    const exit = this.sceneExitProgress();
-    const scale = 1 - exit * 0.16;
-    const translateY = -48 * exit;
+  protected readonly sceneOpacity = computed(() =>
+    buildSceneOpacity(this.scrollProgress())
+  );
 
-    return `translate3d(0, ${translateY}px, 0) scale(${scale})`;
-  });
+  protected readonly sceneTransform = computed(() =>
+    buildSceneTransform(this.scrollProgress())
+  );
 
   protected readonly frameStates = computed<HeroStageFrameState[]>(() => {
     const progress = this.scrollProgress();
     const ranges = this.frameRanges();
+    const frameCount = this.frames().length;
 
     return this.frames().map((_, index) =>
-      this.buildFrameState(index, ranges[index], progress)
+      buildHeroFrameState(index, frameCount, ranges[index], progress)
     );
   });
 
@@ -537,7 +481,18 @@ export class Hero implements AfterViewInit {
     return value.startsWith('@');
   }
 
-  protected handlePrimaryClick(value: string): void {
+  protected actionClass(action: HeroAction): string {
+    const base =
+      'inline-flex min-h-[48px] items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition duration-200 sm:px-6';
+
+    if (action.variant === 'solid') {
+      return `${base} bg-white text-black shadow-[0_10px_30px_rgba(255,255,255,0.16)] hover:-translate-y-0.5 hover:bg-white/92`;
+    }
+
+    return `${base} border border-white/20 bg-white/6 text-white backdrop-blur-sm hover:-translate-y-0.5 hover:border-white/35 hover:bg-white/10`;
+  }
+
+  protected handleActionClick(value: string): void {
     if (value.startsWith('tel:')) {
       this.analytics.trackCallClick('hero');
       return;
@@ -545,6 +500,11 @@ export class Hero implements AfterViewInit {
 
     if (value.startsWith('mailto:')) {
       this.analytics.trackEmailClick('hero');
+      return;
+    }
+
+    if (value.startsWith('sms:')) {
+      this.trackSmsClick();
       return;
     }
 
@@ -553,20 +513,23 @@ export class Hero implements AfterViewInit {
     }
   }
 
-  protected handleSecondaryClick(value: string): void {
-    if (value.startsWith('tel:')) {
-      this.analytics.trackCallClick('hero');
-      return;
-    }
-
-    if (value.startsWith('mailto:')) {
+  protected handleDockAction(action: CtaDockAction): void {
+    if (action === 'email') {
       this.analytics.trackEmailClick('hero');
       return;
     }
 
-    if (this.isScrollTarget(value)) {
-      this.scrollToTarget(value);
+    if (action === 'sms') {
+      this.trackSmsClick();
+      return;
     }
+
+    if (action === 'call') {
+      this.analytics.trackCallClick('hero');
+      return;
+    }
+
+    this.scrollToTop();
   }
 
   protected scrollToTarget(value: string): void {
@@ -575,6 +538,11 @@ export class Hero implements AfterViewInit {
     }
 
     const targetId = value.replace('@', '');
+
+    if (targetId === 'project-inquiry-panel') {
+      this.openProjectInquiryPanel();
+    }
+
     const element = document.getElementById(targetId);
 
     if (!element) {
@@ -592,6 +560,17 @@ export class Hero implements AfterViewInit {
     });
   }
 
+  protected scrollToTop(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
+
   protected frameTransform(frameIndex: number): string {
     const state = this.frameStates()[frameIndex];
     return `translate3d(0, ${state.translateY}px, 0) scale(${state.scale})`;
@@ -600,6 +579,18 @@ export class Hero implements AfterViewInit {
   protected frameFilter(frameIndex: number): string {
     const state = this.frameStates()[frameIndex];
     return `blur(${state.blur}px)`;
+  }
+
+  protected resolveEmailHref(): string {
+    return this.primaryCtaHref() || this.buildDesktopMailtoHref();
+  }
+
+  protected buildSmsHref(): string {
+    const body = encodeURIComponent(
+      'Hi Bretta, would love to chat shop about my online presence'
+    );
+
+    return `sms:+15195214260?&body=${body}`;
   }
 
   private buildDesktopMailtoHref(): string {
@@ -621,6 +612,22 @@ export class Hero implements AfterViewInit {
     );
 
     return `mailto:etc@bretta.io?subject=${subject}&body=${body}`;
+  }
+
+  private trackSmsClick(): void {
+    const smsAwareAnalytics = this.analytics as AnalyticsService & {
+      trackTextClick?: (source: string) => void;
+    };
+
+    smsAwareAnalytics.trackTextClick?.('hero');
+  }
+
+  private openProjectInquiryPanel(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    window.dispatchEvent(new CustomEvent('bretta:open-project-inquiry'));
   }
 
   private updateViewportWidth(): void {
@@ -756,7 +763,7 @@ export class Hero implements AfterViewInit {
   private updateSceneFromScroll(): void {
     const section = this.sectionRef?.nativeElement;
 
-    if (!section) {
+    if (!section || !isPlatformBrowser(this.platformId)) {
       return;
     }
 
@@ -765,59 +772,10 @@ export class Hero implements AfterViewInit {
     const maxTravel = Math.max(rect.height - viewportHeight, 1);
 
     const rawProgress = -rect.top / maxTravel;
-    const progress = this.clamp(rawProgress, 0, 1);
-
-    const motionProgress = this.smoothstep(0.0, 1.0, progress);
-    const exitBoost = this.smoothstep(0.8, 1.0, progress) * 0.9;
+    const progress = Math.min(Math.max(rawProgress, 0), 1);
 
     this.scrollProgress.set(progress);
-    this.shaderTime = 0.18 + motionProgress * this.scrollTimeRange + exitBoost;
-  }
-
-  private buildFrameState(
-    frameIndex: number,
-    range: HeroFrameRange,
-    progress: number
-  ): HeroStageFrameState {
-    const local =
-      (progress - range.start) / Math.max(range.end - range.start, 0.0001);
-
-    if (frameIndex === 0 && progress <= 0.002) {
-      return {
-        opacity: 1,
-        bodyOpacity: 1,
-        ctaOpacity: 1,
-        blur: 0,
-        translateY: 0,
-        scale: 1,
-        pointerEvents: 'auto',
-      };
-    }
-
-    const enter = this.smoothstep(-0.16, 0.06, local);
-    const exit = this.smoothstep(0.9, 0.998, local);
-
-    const visibility = this.clamp(enter * (1 - exit), 0, 1);
-
-    const bodyReveal = this.smoothstep(-0.1, 0.05, local);
-    const ctaReveal = this.smoothstep(-0.04, 0.1, local);
-
-    const translateIn = 3 * (1 - enter);
-    const translateOut = -12 * exit;
-    const translateY = translateIn + translateOut;
-
-    const scale = 0.999 + enter * 0.003 - exit * 0.006;
-    const blur = 0.9 * (1 - visibility);
-
-    return {
-      opacity: visibility,
-      bodyOpacity: visibility * bodyReveal,
-      ctaOpacity: visibility * ctaReveal,
-      blur,
-      translateY,
-      scale,
-      pointerEvents: visibility > 0.08 ? 'auto' : 'none',
-    };
+    this.shaderTime = buildShaderTimeFromScroll(progress, this.scrollTimeRange);
   }
 
   private scheduleRender(): void {
@@ -933,14 +891,5 @@ export class Hero implements AfterViewInit {
     console.error(gl.getProgramInfoLog(program));
     gl.deleteProgram(program);
     return null;
-  }
-
-  private clamp(value: number, min: number, max: number): number {
-    return Math.min(Math.max(value, min), max);
-  }
-
-  private smoothstep(edge0: number, edge1: number, x: number): number {
-    const t = this.clamp((x - edge0) / (edge1 - edge0), 0, 1);
-    return t * t * (3 - 2 * t);
   }
 }
