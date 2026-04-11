@@ -501,6 +501,25 @@ export class Hero implements AfterViewInit {
     }
 
     const targetId = value.replace('@', '');
+
+    if (targetId === 'project-inquiry-panel' && this.viewportWidth() < 768) {
+      const heroSection = this.sectionRef?.nativeElement;
+
+      if (!heroSection) {
+        return;
+      }
+
+      const heroBottom =
+        window.scrollY + heroSection.getBoundingClientRect().bottom;
+
+      window.scrollTo({
+        top: Math.max(0, heroBottom + 24),
+        behavior: 'smooth',
+      });
+
+      return;
+    }
+
     const element = document.getElementById(targetId);
 
     if (!element) {

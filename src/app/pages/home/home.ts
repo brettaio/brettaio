@@ -18,7 +18,7 @@ import { LeadForm } from '../../components/lead-form/lead-form';
         [secondaryCtaHref]="hero.secondaryCtaHref"
       />
 
-      <div class="relative z-20 -mt-[24vh] sm:-mt-[22vh] md:-mt-[18vh]">
+      <div class="relative z-20 mt-0 md:-mt-[18vh]">
         @defer (on viewport) {
           <bretta-lead-form />
         } @placeholder {
@@ -53,7 +53,9 @@ import { LeadForm } from '../../components/lead-form/lead-form';
                   <div class="h-14 rounded-xl bg-white/5"></div>
                   <div class="h-14 rounded-xl bg-white/5"></div>
                   <div class="h-14 rounded-xl bg-white/5"></div>
-                  <div class="h-14 w-56 rounded-full bg-white/10 sm:col-span-2"></div>
+                  <div
+                    class="h-14 w-56 rounded-full bg-white/10 sm:col-span-2"
+                  ></div>
                 </div>
               </div>
             </div>
