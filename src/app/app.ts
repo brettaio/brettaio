@@ -3,12 +3,11 @@ import { RouterOutlet } from '@angular/router';
 
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
-import { BackToTop } from './components/button/back-to-top/back-to-top';
 import { AnalyticsService } from './core/analytics/analytics.service';
 
 @Component({
   selector: 'bretta-root',
-  imports: [RouterOutlet, Header, Footer, BackToTop],
+  imports: [RouterOutlet, Header, Footer],
   template: `
     <bretta-header />
 
@@ -17,7 +16,6 @@ import { AnalyticsService } from './core/analytics/analytics.service';
     </main>
 
     <bretta-footer />
-    <bretta-back-to-top />
   `,
   styles: [],
 })
