@@ -24,7 +24,6 @@ import {
   buildSceneTransform,
   buildShaderTimeFromScroll,
 } from '../../core/hero-scroll-motion/hero-scroll-motion';
-import { CtaDock, CtaDockAction } from '../cta-dock/cta-dock';
 
 type HeroAction = {
   label: string;
@@ -166,7 +165,7 @@ const HERO_FRAGMENT_SHADER = `
 
 @Component({
   selector: 'bretta-hero',
-  imports: [RouterLink, CtaDock],
+  imports: [RouterLink],
   template: `
     <section
       #heroSection
@@ -273,13 +272,6 @@ const HERO_FRAGMENT_SHADER = `
             </div>
           </div>
         </div>
-
-        <bretta-cta-dock
-          [emailHref]="resolveEmailHref()"
-          [smsHref]="buildSmsHref()"
-          [callHref]="'tel:+15195214260'"
-          (actionTriggered)="handleDockAction($event)"
-        />
       </div>
     </section>
   `,
@@ -299,7 +291,7 @@ export class Hero implements AfterViewInit {
   );
   readonly primaryCtaLabel = input('Email now');
   readonly primaryCtaHref = input('');
-  readonly secondaryCtaLabel = input(`Start The Conversation`);
+  readonly secondaryCtaLabel = input(`Let's start a conversation`);
   readonly secondaryCtaHref = input('@project-inquiry-panel');
 
   protected readonly scrollProgress = signal(0);
@@ -493,43 +485,14 @@ export class Hero implements AfterViewInit {
   }
 
   protected handleActionClick(value: string): void {
-    if (value.startsWith('tel:')) {
-      this.analytics.trackCallClick('hero');
-      return;
-    }
-
     if (value.startsWith('mailto:')) {
       this.analytics.trackEmailClick('hero');
-      return;
-    }
-
-    if (value.startsWith('sms:')) {
-      this.trackSmsClick();
       return;
     }
 
     if (this.isScrollTarget(value)) {
       this.scrollToTarget(value);
     }
-  }
-
-  protected handleDockAction(action: CtaDockAction): void {
-    if (action === 'email') {
-      this.analytics.trackEmailClick('hero');
-      return;
-    }
-
-    if (action === 'sms') {
-      this.trackSmsClick();
-      return;
-    }
-
-    if (action === 'call') {
-      this.analytics.trackCallClick('hero');
-      return;
-    }
-
-    this.scrollToTop();
   }
 
   protected scrollToTarget(value: string): void {
@@ -560,17 +523,6 @@ export class Hero implements AfterViewInit {
     });
   }
 
-  protected scrollToTop(): void {
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  }
-
   protected frameTransform(frameIndex: number): string {
     const state = this.frameStates()[frameIndex];
     return `translate3d(0, ${state.translateY}px, 0) scale(${state.scale})`;
@@ -583,14 +535,6 @@ export class Hero implements AfterViewInit {
 
   protected resolveEmailHref(): string {
     return this.primaryCtaHref() || this.buildDesktopMailtoHref();
-  }
-
-  protected buildSmsHref(): string {
-    const body = encodeURIComponent(
-      'Hi Bretta, would love to chat shop about my online presence'
-    );
-
-    return `sms:+15195214260?&body=${body}`;
   }
 
   private buildDesktopMailtoHref(): string {
@@ -612,14 +556,6 @@ export class Hero implements AfterViewInit {
     );
 
     return `mailto:etc@bretta.io?subject=${subject}&body=${body}`;
-  }
-
-  private trackSmsClick(): void {
-    const smsAwareAnalytics = this.analytics as AnalyticsService & {
-      trackTextClick?: (source: string) => void;
-    };
-
-    smsAwareAnalytics.trackTextClick?.('hero');
   }
 
   private openProjectInquiryPanel(): void {
