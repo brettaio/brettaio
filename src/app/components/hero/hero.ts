@@ -108,12 +108,12 @@ const HERO_FRAGMENT_SHADER = `
 
     vec3 p = P(T);
     vec3 ro = p;
-    vec3 Z = normalize(P(T + 2.0) - p);
-    vec3 X = normalize(vec3(Z.z, 0.0, -Z.x));
+    vec3 Z = N(P(T + 2.0) - p);
+    vec3 X = N(vec3(Z.z, 0.0, -Z.x));
     vec3 Y = cross(X, Z);
 
     vec2 rotated = R(sin(T * 0.005) * 0.4) * u;
-    vec3 D = normalize(vec3(rotated, 1.0) * mat3(-X, Y, Z));
+    vec3 D = N(vec3(rotated, 1.0) * mat3(-X, Y, Z));
 
     float d = 0.0;
     float s = 0.0;
@@ -129,7 +129,7 @@ const HERO_FRAGMENT_SHADER = `
     const float h = 0.005;
     const vec2 k = vec2(1.0, -1.0);
 
-    vec3 n = normalize(
+    vec3 n = N(
       k.xyy * mapScene(p + k.xyy * h, false) +
       k.yyx * mapScene(p + k.yyx * h, false) +
       k.yxy * mapScene(p + k.yxy * h, false) +
@@ -167,194 +167,121 @@ const HERO_FRAGMENT_SHADER = `
   selector: 'bretta-hero',
   imports: [RouterLink],
   template: `
-    @if (isMobile()) {
-      <section class="relative z-10 overflow-hidden text-white">
-        <div class="relative min-h-[100svh]">
-          <canvas
-            #shaderCanvas
-            class="absolute inset-0 h-full w-full"
-            aria-hidden="true"
-          ></canvas>
-
-          <div class="absolute inset-0 bg-black/45"></div>
-          <div
-            class="absolute inset-0 bg-gradient-to-b from-slate-950/20 via-transparent to-black/70"
-          ></div>
-
-          <div class="relative mx-auto flex min-h-[100svh] max-w-7xl px-6 pt-28 pb-16 sm:px-8">
-            <div class="flex w-full items-end">
-              <article class="w-full max-w-5xl">
-                <p
-                  class="mb-5 text-[11px] font-medium uppercase tracking-[0.28em] text-white/65 sm:text-xs"
-                >
-                  {{ eyebrow() }}
-                </p>
-
-                <div class="space-y-1 sm:space-y-2">
-                  <h2
-                    class="max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl"
-                  >
-                    {{ title() }}
-                  </h2>
-                </div>
-
-                <div
-                  class="mt-7 max-w-3xl space-y-4 text-base leading-7 text-white/80 sm:text-lg sm:leading-8"
-                >
-                  <p>{{ copy() }}</p>
-                </div>
-
-                <div class="mt-10 flex flex-wrap items-center gap-3">
-                  @for (action of inlineActions(); track action.label + action.href) {
-                    @if (isScrollTarget(action.href)) {
-                      <button
-                        type="button"
-                        (click)="handleActionClick(action.href)"
-                        [class]="actionClass(action)"
-                      >
-                        {{ action.label }}
-                      </button>
-                    } @else if (isInternalRoute(action.href)) {
-                      <a
-                        [routerLink]="action.href"
-                        (click)="handleActionClick(action.href)"
-                        [class]="actionClass(action)"
-                      >
-                        {{ action.label }}
-                      </a>
-                    } @else {
-                      <a
-                        [attr.href]="action.href"
-                        (click)="handleActionClick(action.href)"
-                        [class]="actionClass(action)"
-                      >
-                        {{ action.label }}
-                      </a>
-                    }
-                  }
-                </div>
-              </article>
-            </div>
-          </div>
-        </div>
-      </section>
-    } @else {
-      <section
-        #heroSection
-        class="relative z-10 text-white"
-        [style.min-height]="sceneHeight()"
+    <section
+      #heroSection
+      class="relative z-10 text-white"
+      [style.min-height]="sceneHeight()"
+    >
+      <div
+        class="sticky top-0 h-screen overflow-hidden origin-top will-change-transform"
+        [style.opacity]="sceneOpacity()"
+        [style.transform]="sceneTransform()"
       >
+        <canvas
+          #shaderCanvas
+          class="absolute inset-0 h-full w-full"
+          aria-hidden="true"
+        ></canvas>
+
+        <div class="absolute inset-0 bg-black/50"></div>
+
         <div
-          class="sticky top-0 h-screen overflow-hidden origin-top will-change-transform"
-          [style.opacity]="sceneOpacity()"
-          [style.transform]="sceneTransform()"
-        >
-          <canvas
-            #shaderCanvas
-            class="absolute inset-0 h-full w-full"
-            aria-hidden="true"
-          ></canvas>
+          class="absolute inset-0 bg-gradient-to-b from-slate-950/20 via-transparent to-black/65"
+        ></div>
 
-          <div class="absolute inset-0 bg-black/50"></div>
-
+        <div class="absolute inset-0">
           <div
-            class="absolute inset-0 bg-gradient-to-b from-slate-950/20 via-transparent to-black/65"
-          ></div>
-
-          <div class="absolute inset-0">
+            class="mx-auto flex h-full max-w-7xl items-start px-6 pt-28 pb-12 sm:px-8 sm:pt-32 sm:pb-16 md:items-end md:pt-36 md:pb-24 lg:px-8 lg:pb-32"
+          >
             <div
-              class="mx-auto flex h-full max-w-7xl items-start px-6 pt-28 pb-12 sm:px-8 sm:pt-32 sm:pb-16 md:items-end md:pt-36 md:pb-24 lg:px-8 lg:pb-32"
+              class="relative w-full max-w-5xl min-h-[28rem] sm:min-h-[30rem] md:min-h-[24rem] lg:min-h-[28rem]"
             >
-              <div
-                class="relative w-full max-w-5xl min-h-[28rem] sm:min-h-[30rem] md:min-h-[24rem] lg:min-h-[28rem]"
-              >
-                @for (frame of frames(); track $index; let frameIndex = $index) {
-                  <article
-                    class="absolute inset-x-0 top-0 will-change-transform"
-                    [style.opacity]="frameStates()[frameIndex].opacity"
-                    [style.transform]="frameTransform(frameIndex)"
-                    [style.filter]="frameFilter(frameIndex)"
-                    [style.pointer-events]="frameStates()[frameIndex].pointerEvents"
-                  >
-                    @if (frame.eyebrow) {
-                      <p
-                        class="mb-5 text-[11px] font-medium uppercase tracking-[0.28em] text-white/65 sm:text-xs"
-                      >
-                        {{ frame.eyebrow }}
-                      </p>
-                    }
+              @for (frame of frames(); track $index; let frameIndex = $index) {
+                <article
+                  class="absolute inset-x-0 top-0 will-change-transform"
+                  [style.opacity]="frameStates()[frameIndex].opacity"
+                  [style.transform]="frameTransform(frameIndex)"
+                  [style.filter]="frameFilter(frameIndex)"
+                  [style.pointer-events]="frameStates()[frameIndex].pointerEvents"
+                >
+                  @if (frame.eyebrow) {
+                    <p
+                      class="mb-5 text-[11px] font-medium uppercase tracking-[0.28em] text-white/65 sm:text-xs"
+                    >
+                      {{ frame.eyebrow }}
+                    </p>
+                  }
 
-                    <div class="space-y-1 sm:space-y-2">
-                      @for (line of frame.titleLines; track $index) {
-                        <h2
-                          class="max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
-                        >
-                          {{ line }}
-                        </h2>
+                  <div class="space-y-1 sm:space-y-2">
+                    @for (line of frame.titleLines; track $index) {
+                      <h2
+                        class="max-w-5xl text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
+                      >
+                        {{ line }}
+                      </h2>
+                    }
+                  </div>
+
+                  @if (frame.bodyLines?.length) {
+                    <div
+                      class="mt-7 max-w-3xl space-y-4 text-base leading-7 text-white/80 sm:text-lg sm:leading-8"
+                      [style.opacity]="frameStates()[frameIndex].bodyOpacity"
+                    >
+                      @for (line of frame.bodyLines; track $index) {
+                        <p>{{ line }}</p>
                       }
                     </div>
+                  }
 
-                    @if (frame.bodyLines?.length) {
-                      <div
-                        class="mt-7 max-w-3xl space-y-4 text-base leading-7 text-white/80 sm:text-lg sm:leading-8"
-                        [style.opacity]="frameStates()[frameIndex].bodyOpacity"
-                      >
-                        @for (line of frame.bodyLines; track $index) {
-                          <p>{{ line }}</p>
+                  @if (frame.actions?.length) {
+                    <div
+                      class="mt-10 flex flex-wrap items-center gap-3 sm:gap-4"
+                      [style.opacity]="frameStates()[frameIndex].ctaOpacity"
+                    >
+                      @for (action of frame.actions; track action.label + action.href) {
+                        @if (isScrollTarget(action.href)) {
+                          <button
+                            type="button"
+                            (click)="handleActionClick(action.href)"
+                            [class]="actionClass(action)"
+                          >
+                            {{ action.label }}
+                          </button>
+                        } @else if (isInternalRoute(action.href)) {
+                          <a
+                            [routerLink]="action.href"
+                            (click)="handleActionClick(action.href)"
+                            [class]="actionClass(action)"
+                          >
+                            {{ action.label }}
+                          </a>
+                        } @else {
+                          <a
+                            [attr.href]="action.href"
+                            (click)="handleActionClick(action.href)"
+                            [class]="actionClass(action)"
+                          >
+                            {{ action.label }}
+                          </a>
                         }
-                      </div>
-                    }
-
-                    @if (frame.actions?.length) {
-                      <div
-                        class="mt-10 flex flex-wrap items-center gap-3 sm:gap-4"
-                        [style.opacity]="frameStates()[frameIndex].ctaOpacity"
-                      >
-                        @for (action of frame.actions; track action.label + action.href) {
-                          @if (isScrollTarget(action.href)) {
-                            <button
-                              type="button"
-                              (click)="handleActionClick(action.href)"
-                              [class]="actionClass(action)"
-                            >
-                              {{ action.label }}
-                            </button>
-                          } @else if (isInternalRoute(action.href)) {
-                            <a
-                              [routerLink]="action.href"
-                              (click)="handleActionClick(action.href)"
-                              [class]="actionClass(action)"
-                            >
-                              {{ action.label }}
-                            </a>
-                          } @else {
-                            <a
-                              [attr.href]="action.href"
-                              (click)="handleActionClick(action.href)"
-                              [class]="actionClass(action)"
-                            >
-                              {{ action.label }}
-                            </a>
-                          }
-                        }
-                      </div>
-                    }
-                  </article>
-                }
-              </div>
+                      }
+                    </div>
+                  }
+                </article>
+              }
             </div>
           </div>
         </div>
-      </section>
-    }
+      </div>
+    </section>
   `,
   styles: [],
 })
 export class Hero implements AfterViewInit {
-  @ViewChild('heroSection')
+  @ViewChild('heroSection', { static: true })
   private readonly sectionRef?: ElementRef<HTMLElement>;
 
-  @ViewChild('shaderCanvas')
+  @ViewChild('shaderCanvas', { static: true })
   private readonly canvasRef?: ElementRef<HTMLCanvasElement>;
 
   readonly eyebrow = input('Independent digital practice');
@@ -369,6 +296,7 @@ export class Hero implements AfterViewInit {
 
   protected readonly scrollProgress = signal(0);
   protected readonly viewportWidth = signal(1440);
+
   protected readonly isMobile = computed(() => this.viewportWidth() < 768);
 
   protected readonly desktopEmailAction = computed<HeroAction>(() => ({
@@ -392,10 +320,7 @@ export class Hero implements AfterViewInit {
   });
 
   protected readonly frames = computed<HeroStageFrame[]>(() => {
-    const actions = [
-      this.desktopEmailAction(),
-      this.continueAction(),
-    ];
+    const actions = this.inlineActions();
 
     return [
       {
@@ -474,7 +399,12 @@ export class Hero implements AfterViewInit {
   );
 
   protected readonly sceneHeight = computed(() =>
-    buildSceneHeight(this.frameWeights())
+    buildSceneHeight(
+      this.frameWeights(),
+      this.isMobile() ? 46 : 58,
+      this.isMobile() ? 18 : 68,
+      this.isMobile() ? 340 : 460
+    )
   );
 
   protected readonly sceneOpacity = computed(() =>
@@ -511,6 +441,7 @@ export class Hero implements AfterViewInit {
 
   private renderRequestId: number | null = null;
   private shaderTime = 0;
+
   private readonly scrollTimeRange = 6.8;
 
   ngAfterViewInit(): void {
@@ -582,12 +513,20 @@ export class Hero implements AfterViewInit {
       return;
     }
 
+    const absoluteTop = window.scrollY + element.getBoundingClientRect().top;
+
+    if (targetId === 'project-inquiry-panel' && this.isMobile()) {
+      window.scrollTo({
+        top: Math.max(0, absoluteTop),
+        behavior: 'auto',
+      });
+      return;
+    }
+
     const headerOffset = this.viewportWidth() < 768 ? 88 : 104;
-    const absoluteTop =
-      window.scrollY + element.getBoundingClientRect().top - headerOffset;
 
     window.scrollTo({
-      top: Math.max(0, absoluteTop),
+      top: Math.max(0, absoluteTop - headerOffset),
       behavior: 'smooth',
     });
   }
@@ -637,6 +576,7 @@ export class Hero implements AfterViewInit {
 
   private startShaderScene(): void {
     const canvas = this.canvasRef?.nativeElement;
+
     if (!canvas) {
       return;
     }
@@ -671,6 +611,7 @@ export class Hero implements AfterViewInit {
     }
 
     const program = this.createProgram(gl, vertexShader, fragmentShader);
+
     if (!program) {
       gl.deleteShader(vertexShader);
       gl.deleteShader(fragmentShader);
@@ -678,6 +619,7 @@ export class Hero implements AfterViewInit {
     }
 
     const positionBuffer = gl.createBuffer();
+
     if (!positionBuffer) {
       gl.deleteProgram(program);
       gl.deleteShader(vertexShader);
@@ -688,7 +630,9 @@ export class Hero implements AfterViewInit {
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     gl.bufferData(
       gl.ARRAY_BUFFER,
-      new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
+      new Float32Array([
+        -1, -1, 1, -1, -1, 1, 1, 1,
+      ]),
       gl.STATIC_DRAW
     );
 
@@ -702,9 +646,6 @@ export class Hero implements AfterViewInit {
     this.resolutionLocation = gl.getUniformLocation(program, 'iResolution');
 
     const onScroll = (): void => {
-      if (this.isMobile()) {
-        return;
-      }
       this.updateSceneFromScroll();
       this.scheduleRender();
     };
@@ -712,22 +653,14 @@ export class Hero implements AfterViewInit {
     const onResize = (): void => {
       this.updateViewportWidth();
       this.resizeCanvas();
-      if (!this.isMobile()) {
-        this.updateSceneFromScroll();
-      }
+      this.updateSceneFromScroll();
       this.scheduleRender();
     };
 
     this.ngZone.runOutsideAngular(() => {
       this.updateViewportWidth();
       this.resizeCanvas();
-
-      if (this.isMobile()) {
-        this.shaderTime = 0.9;
-      } else {
-        this.updateSceneFromScroll();
-      }
-
+      this.updateSceneFromScroll();
       this.renderFrame();
 
       window.addEventListener('scroll', onScroll, { passive: true });
@@ -762,6 +695,7 @@ export class Hero implements AfterViewInit {
 
   private updateSceneFromScroll(): void {
     const section = this.sectionRef?.nativeElement;
+
     if (!section || !isPlatformBrowser(this.platformId)) {
       return;
     }
@@ -851,6 +785,7 @@ export class Hero implements AfterViewInit {
     source: string
   ): WebGLShader | null {
     const shader = gl.createShader(type);
+
     if (!shader) {
       return null;
     }
@@ -873,6 +808,7 @@ export class Hero implements AfterViewInit {
     fragmentShader: WebGLShader
   ): WebGLProgram | null {
     const program = gl.createProgram();
+
     if (!program) {
       return null;
     }
