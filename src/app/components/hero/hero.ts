@@ -501,11 +501,6 @@ export class Hero implements AfterViewInit {
     }
 
     const targetId = value.replace('@', '');
-
-    if (targetId === 'project-inquiry-panel') {
-      this.openProjectInquiryPanel();
-    }
-
     const element = document.getElementById(targetId);
 
     if (!element) {
@@ -541,7 +536,7 @@ export class Hero implements AfterViewInit {
     const subject = encodeURIComponent('Project inquiry — bretta.io');
     const body = encodeURIComponent(
       [
-        'Hi Brett,',
+        'Hi bretta.io,',
         '',
         "I'm reaching out about improving our digital presence and commercial performance.",
         '',
@@ -556,14 +551,6 @@ export class Hero implements AfterViewInit {
     );
 
     return `mailto:etc@bretta.io?subject=${subject}&body=${body}`;
-  }
-
-  private openProjectInquiryPanel(): void {
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
-
-    window.dispatchEvent(new CustomEvent('bretta:open-project-inquiry'));
   }
 
   private updateViewportWidth(): void {
@@ -631,10 +618,7 @@ export class Hero implements AfterViewInit {
     gl.bufferData(
       gl.ARRAY_BUFFER,
       new Float32Array([
-        -1, -1,
-         1, -1,
-        -1,  1,
-         1,  1,
+        -1, -1, 1, -1, -1, 1, 1, 1,
       ]),
       gl.STATIC_DRAW
     );
