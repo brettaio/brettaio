@@ -327,7 +327,6 @@ export class Hero implements AfterViewInit {
         eyebrow: this.eyebrow(),
         titleLines: [this.title()],
         bodyLines: [this.copy()],
-        actions,
       },
       {
         eyebrow: 'Who',

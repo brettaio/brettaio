@@ -4,11 +4,12 @@ import { RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
 import { CtaDock, CtaDockAction } from './components/cta-dock/cta-dock';
+import { BackToTop } from './components/button/back-to-top/back-to-top';
 import { AnalyticsService } from './core/analytics/analytics.service';
 
 @Component({
   selector: 'bretta-root',
-  imports: [RouterOutlet, Header, Footer, CtaDock],
+  imports: [RouterOutlet, Header, Footer, CtaDock, BackToTop],
   template: `
     <bretta-header />
 
@@ -16,12 +17,18 @@ import { AnalyticsService } from './core/analytics/analytics.service';
       <router-outlet />
     </main>
 
-    <bretta-cta-dock
-      [emailHref]="dockEmailHref"
-      [smsHref]="dockSmsHref"
-      [callHref]="dockCallHref"
-      (actionTriggered)="handleDockAction($event)"
-    />
+    <div class="md:hidden">
+      <bretta-cta-dock
+        [emailHref]="dockEmailHref"
+        [smsHref]="dockSmsHref"
+        [callHref]="dockCallHref"
+        (actionTriggered)="handleDockAction($event)"
+      />
+    </div>
+
+    <div class="hidden md:block">
+      <bretta-back-to-top />
+    </div>
 
     <bretta-footer />
   `,
@@ -69,7 +76,7 @@ export class App {
     const subject = encodeURIComponent('Project inquiry — bretta.io');
     const body = encodeURIComponent(
       [
-        'Hi Brett,',
+        'Hi bretta.io,',
         '',
         "I'm reaching out about improving our digital presence and commercial performance.",
         '',
