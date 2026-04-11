@@ -12,7 +12,7 @@ import { AnalyticsService } from '../../core/analytics/analytics.service';
 @Component({
   selector: 'bretta-lead-form',
   template: `
-    <section id="project-inquiry-panel" class="bg-[#14081f] px-6 py-24 lg:px-8">
+    <section id="project-inquiry-panel" class="bg-[#14081f] px-6 py-6 lg:px-8">
       <div class="mx-auto max-w-6xl space-y-10">
         <div class="max-w-3xl">
           <p class="text-sm font-medium uppercase tracking-[0.28em] text-white/70">
