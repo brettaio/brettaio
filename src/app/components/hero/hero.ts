@@ -399,7 +399,12 @@ export class Hero implements AfterViewInit {
   );
 
   protected readonly sceneHeight = computed(() =>
-    buildSceneHeight(this.frameWeights())
+    buildSceneHeight(
+      this.frameWeights(),
+      this.isMobile() ? 46 : 58,
+      this.isMobile() ? 18 : 68,
+      this.isMobile() ? 340 : 460
+    )
   );
 
   protected readonly sceneOpacity = computed(() =>
@@ -501,25 +506,6 @@ export class Hero implements AfterViewInit {
     }
 
     const targetId = value.replace('@', '');
-
-    if (targetId === 'project-inquiry-panel' && this.viewportWidth() < 768) {
-      const heroSection = this.sectionRef?.nativeElement;
-
-      if (!heroSection) {
-        return;
-      }
-
-      const heroBottom =
-        window.scrollY + heroSection.getBoundingClientRect().bottom;
-
-      window.scrollTo({
-        top: Math.max(0, heroBottom + 24),
-        behavior: 'smooth',
-      });
-
-      return;
-    }
-
     const element = document.getElementById(targetId);
 
     if (!element) {
@@ -527,12 +513,20 @@ export class Hero implements AfterViewInit {
       return;
     }
 
+    const absoluteTop = window.scrollY + element.getBoundingClientRect().top;
+
+    if (targetId === 'project-inquiry-panel' && this.isMobile()) {
+      window.scrollTo({
+        top: Math.max(0, absoluteTop),
+        behavior: 'auto',
+      });
+      return;
+    }
+
     const headerOffset = this.viewportWidth() < 768 ? 88 : 104;
-    const absoluteTop =
-      window.scrollY + element.getBoundingClientRect().top - headerOffset;
 
     window.scrollTo({
-      top: Math.max(0, absoluteTop),
+      top: Math.max(0, absoluteTop - headerOffset),
       behavior: 'smooth',
     });
   }
