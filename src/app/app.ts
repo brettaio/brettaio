@@ -1,5 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, computed, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter, map, startWith } from 'rxjs';
 
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
@@ -11,35 +13,51 @@ import { AnalyticsService } from './core/analytics/analytics.service';
   selector: 'bretta-root',
   imports: [RouterOutlet, Header, Footer, CtaDock, BackToTop],
   template: `
-    <bretta-header />
+    @if (showBrettaChrome()) {
+      <bretta-header />
+    }
 
     <main class="relative z-0 min-h-screen bg-black text-white">
       <router-outlet />
     </main>
 
-    <div class="md:hidden">
-      <bretta-cta-dock
-        [emailHref]="dockEmailHref"
-        [smsHref]="dockSmsHref"
-        [callHref]="dockCallHref"
-        (actionTriggered)="handleDockAction($event)"
-      />
-    </div>
+    @if (showBrettaChrome()) {
+      <div class="md:hidden">
+        <bretta-cta-dock
+          [emailHref]="dockEmailHref"
+          [smsHref]="dockSmsHref"
+          [callHref]="dockCallHref"
+          (actionTriggered)="handleDockAction($event)"
+        />
+      </div>
 
-    <div class="hidden md:block">
-      <bretta-back-to-top />
-    </div>
+      <div class="hidden md:block">
+        <bretta-back-to-top />
+      </div>
 
-    <bretta-footer />
+      <bretta-footer />
+    }
   `,
   styles: [],
 })
 export class App {
   private readonly analytics = inject(AnalyticsService);
+  private readonly router = inject(Router);
+  private readonly currentPath = toSignal(
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+      map((event) => event.urlAfterRedirects),
+      startWith(this.router.url),
+    ),
+    { initialValue: this.router.url },
+  );
 
   protected readonly dockEmailHref = this.buildEmailHref();
   protected readonly dockSmsHref = this.buildSmsHref();
   protected readonly dockCallHref = 'tel:+15195214260';
+  protected readonly showBrettaChrome = computed(
+    () => !this.currentPath().startsWith('/restaurants/'),
+  );
 
   protected handleDockAction(action: CtaDockAction): void {
     switch (action) {

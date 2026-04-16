@@ -1,1 +1,3 @@
+# Netlify serves real files first.
+# Fallback keeps Angular routes safe.
 /* /index.html 200

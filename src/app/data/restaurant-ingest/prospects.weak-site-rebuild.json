@@ -1,0 +1,2535 @@
+[
+  {
+    "file": "40dcd122-d1ac-4a1b-995c-5f554111f553.json",
+    "id": "resp_00abc411896f00e30069e119bcf2408194bdc9f936ea9a9580",
+    "parsed": {
+      "prospect": {
+        "officialWebsite": {
+          "url": "https://scoresoriginalsportsgrill.scvr.co/",
+          "confidence": "low",
+          "reason": "No owned branded domain found. The main public footprint is a vendor-hosted SCVR microsite (scoresoriginalsportsgrill.scvr.co) rather than an independent, branded website."
+        },
+        "siteType": "multi_page",
+        "menu": {
+          "found": true,
+          "url": "https://scoresoriginalsportsgrill.scvr.co/menu",
+          "sourceType": "third_party",
+          "reason": "Menu is visible on a vendor-hosted SCVR page; the actual menu content is served via a text/file approach and a third-party ordering widget (Sociavore)."
+        },
+        "googleMaps": {
+          "url": "https://maps.google.com/?q=1050+Kipps+Lane,+London,+ON+N5Y+4S5",
+          "confidence": "high",
+          "reason": "Address shown on the SCVR page with Google Maps link."
+        },
+        "socialProfiles": [],
+        "opportunityClass": "weak_site_rebuild",
+        "summary": "There is no strong owned web presence. The London Scores location uses a vendor-hosted SCVR page (and third-party menu hubs) rather than a robust, owned site. No clearly identified official social profiles were found. This favors a weak site rebuild rather than a decent existing site.",
+        "overallConfidence": "low"
+      }
+    },
+    "sources": [
+      {
+        "type": "url",
+        "url": "https://www.ubereats.com/ca/store/scores-sports-grill/OMB1pYZHS8ah0uZ9H50W7A"
+      },
+      {
+        "type": "url",
+        "url": "https://scores-original-sports-grill.foodjoyy.com/menu"
+      },
+      {
+        "type": "url",
+        "url": "https://www.scoresracine.com/menus/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.restaurantji.com/on/london/scores-original-sports-grill-/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.scoresportsbargrill.com/menu"
+      },
+      {
+        "type": "url",
+        "url": "https://www.thescoresportsgrille.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.scoresportsbargrill.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://restaurant.street360.net/england/london/original-grill/"
+      },
+      {
+        "type": "url",
+        "url": "https://scoreondavie.com/wp-content/uploads/SOD-Dinner-menu-Sept-4-2023.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://scoresoriginalsportsgrill.scvr.co/menus"
+      },
+      {
+        "type": "url",
+        "url": "https://wnam-cdn.menuweb.menu/storage/media/companies_menu_pdf/93173582/scores-granby-granby-menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://scoreondavie.com/wp-content/uploads/2020/04/Limited-Takeout-with-Deals-Menu-May-2020.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.restaurantji.com/on/london/sports-bars/"
+      },
+      {
+        "type": "url",
+        "url": "https://restaurantsmenu.org/pdf/89937d76717eb2c0f2c3a61fece250c0.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://wnam-cdn.lacarte.menu/storage/media/companies_menu_pdf/116479467/scores-gatineau-menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://wnam-cdn.lacarte.menu/storage/media/companies_menu_pdf/116411904/scores-laval-menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://gatorskent.com/google-maps/"
+      },
+      {
+        "type": "url",
+        "url": "https://restaurant.street360.net/england/london/sports-bar-grill-canary-wharf/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1jxo8k5"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1pk42m7/bring_back/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1esxkjv"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1kvigtz"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/spq3nc"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1scnuts/removed/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1rrgc7h/removed/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1hh0fbe"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/12cqg6r"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/q0jw4v"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1l6jgsd"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/FoodToronto/comments/1jkrv70"
+      },
+      {
+        "type": "url",
+        "url": "https://scoresoriginalsportsgrill.scvr.co/"
+      },
+      {
+        "type": "url",
+        "url": "https://wanderlog.com/place/details/2885319/scores-original-sports-grill"
+      },
+      {
+        "type": "url",
+        "url": "https://www.ubereats.com/ca-fr/store/scores-sports-grill/edlvPYCwWi2yPgMaY_dmOg"
+      },
+      {
+        "type": "url",
+        "url": "https://scoresoriginalsportsgrill.scvr.co/menus"
+      },
+      {
+        "type": "url",
+        "url": "https://www.scoresnbtx.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.ubereats.com/ca/store/scores-sports-grill/OMB1pYZHS8ah0uZ9H50W7A"
+      },
+      {
+        "type": "url",
+        "url": "https://www.thescoresportsgrille.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://canada.chamberofcommerce.com/business-directory/ontario/london/restaurant/367663-scores-original-sports-grill"
+      },
+      {
+        "type": "url",
+        "url": "https://www.scoresportsbargrill.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://huddlemarkets.ca/listing/scores-original-sports-grill/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mapquest.com/ca/ontario/the-irie-market-754293848"
+      },
+      {
+        "type": "url",
+        "url": "https://playerslondon.ca/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/BellevilleOntario/comments/1lkf3zk"
+      },
+      {
+        "type": "url",
+        "url": "https://restaurantsmenus.org/pdf/89937d76717eb2c0f2c3a61fece250c0.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://wnam-cdn.menuweb.menu/storage/media/companies_menu_pdf/92811586/scores-sports-bar-grill-restaurant-new-braunfels-menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://scoreondavie.com/wp-content/uploads/2020/04/Limited-Takeout-with-Deals-Menu-May-2020.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/12cqg6r"
+      },
+      {
+        "type": "url",
+        "url": "https://wnam-cdn.menulist.menu/storage/media/companies_menu_pdf/114814266/real-sports-bar-grill-toronto-menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://wnam-cdn.menuweb.menu/storage/media/companies_menu_pdf/114814266/real-sports-bar-grill-toronto-menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1pk42m7/bring_back/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/z4mlgj"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1esxkjv"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1kkynbv"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1i25ahs"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1i16v69"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/xn6pch"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/ienewa"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1cy0si1"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/14583t1"
+      },
+      {
+        "type": "url",
+        "url": "https://scoresoriginalsportsgrill.scvr.co/menus"
+      },
+      {
+        "type": "url",
+        "url": "https://wanderlog.com/place/details/2885319/scores-original-sports-grill"
+      },
+      {
+        "type": "url",
+        "url": "https://canada.chamberofcommerce.com/business-directory/ontario/london/restaurant/367663-scores-original-sports-grill"
+      },
+      {
+        "type": "url",
+        "url": "https://www.scoresportsbargrill.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://linktr.ee/scoreonking"
+      },
+      {
+        "type": "url",
+        "url": "https://www.ubereats.com/ca/store/scores-sports-grill/OMB1pYZHS8ah0uZ9H50W7A"
+      },
+      {
+        "type": "url",
+        "url": "https://restaurantguru.com/Scores-Sports-Grill-London-Ontario"
+      },
+      {
+        "type": "url",
+        "url": "https://www.restaurantji.com/on/london/scores-original-sports-grill-/"
+      },
+      {
+        "type": "url",
+        "url": "https://scores-original-sports-grill.foodjoyy.com/menu"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mugshotsgrill.com/instagram"
+      },
+      {
+        "type": "url",
+        "url": "https://huddlemarkets.ca/listing/scores-original-sports-grill/"
+      },
+      {
+        "type": "url",
+        "url": "https://london-on.funadvisor.ca/scores-sports-grill/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/BellevilleOntario/comments/1lkf3zk"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bscene.ca/wp-content/uploads/2019/09/bsceneoct2019web.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/FoodToronto/comments/1jkrv70"
+      },
+      {
+        "type": "url",
+        "url": "https://listingsprod.blob.core.windows.net/ourlistings-can/ebd5b17c-1ffb-4700-821c-9620145c84ed/47b9710c-1896-4e7e-a3c6-e43ba9f4fc8b"
+      },
+      {
+        "type": "url",
+        "url": "https://scoreondavie.com/wp-content/uploads/2020/04/Limited-Takeout-with-Deals-Menu-May-2020.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://scoreondavie.com/wp-content/uploads/SOD-Dinner-menu-Sept-4-2023.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1esxkjv"
+      },
+      {
+        "type": "url",
+        "url": "https://woodbine.com/wp-content/uploads/pdfs/free_programs/Free_Program_WOH_2024-11-09.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://restaurantsmenu.org/pdf/781950a13d8febba7f1acc7212890a1e.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1kkynbv"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1i25ahs"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1i16v69"
+      },
+      {
+        "type": "url",
+        "url": "https://scoresoriginalsportsgrill.scvr.co/contact"
+      },
+      {
+        "type": "url",
+        "url": "https://scoresoriginalsportsgrill.scvr.co/"
+      },
+      {
+        "type": "url",
+        "url": "https://scoresoriginalsportsgrill.scvr.co/menus"
+      },
+      {
+        "type": "url",
+        "url": "https://wanderlog.com/place/details/2885319/scores-original-sports-grill"
+      },
+      {
+        "type": "url",
+        "url": "https://wanderlog.com/el/list/geoCategory/189093/%CF%84%CE%B1-%CE%BA%CE%B1%CE%BB%CF%8D%CF%84%CE%B5%CF%81%CE%B1-%CF%86%CE%B8%CE%B7%CE%BD%CE%AC-%CF%86%CE%B1%CE%B3%CE%B7%CF%84%CE%AC-%CF%83%CF%84%CE%BF-%CE%BB%CE%BF%CE%BD%CE%B4%CE%AF%CE%BD%CE%BF"
+      },
+      {
+        "type": "url",
+        "url": "https://www.meetup.com/london-sociale-meetup-group-fcogzltj/events/310484389/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mapquest.com/ca/ontario/the-irie-market-754293848"
+      },
+      {
+        "type": "url",
+        "url": "https://huddlemarkets.ca/listing/scores-original-sports-grill/"
+      },
+      {
+        "type": "url",
+        "url": "https://canada.chamberofcommerce.com/business-directory/ontario/london/restaurant/367663-scores-original-sports-grill"
+      },
+      {
+        "type": "url",
+        "url": "https://scores-original-sports-grill.foodjoyy.com/menu"
+      },
+      {
+        "type": "url",
+        "url": "https://www.restaurantji.com/on/london/scores-original-sports-grill-/"
+      },
+      {
+        "type": "url",
+        "url": "https://scoresoriginalsportsgrill.scvr.co/menu/dinner"
+      },
+      {
+        "type": "url",
+        "url": "https://scoresoriginalsportsgrill.scvr.co/contact"
+      },
+      {
+        "type": "url",
+        "url": "https://scoresoriginalsportsgrill.scvr.co/"
+      },
+      {
+        "type": "url",
+        "url": "https://scoresoriginalsportsgrill.scvr.co/menus"
+      },
+      {
+        "type": "url",
+        "url": "https://wanderlog.com/place/details/2885319/scores-original-sports-grill"
+      },
+      {
+        "type": "url",
+        "url": "https://www.ubereats.com/ca-fr/store/scores-sports-grill/edlvPYCwWi2yPgMaY_dmOg"
+      },
+      {
+        "type": "url",
+        "url": "https://canada.chamberofcommerce.com/business-directory/ontario/london/restaurant/367663-scores-original-sports-grill"
+      },
+      {
+        "type": "url",
+        "url": "https://www.ubereats.com/ca/store/scores-sports-grill/OMB1pYZHS8ah0uZ9H50W7A"
+      },
+      {
+        "type": "url",
+        "url": "https://huddlemarkets.ca/listing/scores-original-sports-grill/"
+      },
+      {
+        "type": "url",
+        "url": "https://restaurantguru.com/Scores-Sports-Grill-London-Ontario"
+      },
+      {
+        "type": "url",
+        "url": "https://allevents.in/london/trivia-night-at-scores-sports-grill/200028068248703"
+      },
+      {
+        "type": "url",
+        "url": "https://www.scoresportsbargrill.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://allevents.in/london/trivia-night-at-scores-sports-grill/200028201017216"
+      },
+      {
+        "type": "url",
+        "url": "https://restaurantsmenus.org/pdf/89937d76717eb2c0f2c3a61fece250c0.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://woodbine.com/wp-content/uploads/pdfs/free_programs/Free_Program_WOH_2024-12-30.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://woodbine.com/wp-content/uploads/pdfs/free_programs/Free_Program_WOH_2024-11-09.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1esxkjv"
+      },
+      {
+        "type": "url",
+        "url": "https://img1.wsimg.com/blobby/go/ae18f520-6324-430d-bdcb-6686487a699e/July%20Food%20Menu-8639e21.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://img1.wsimg.com/blobby/go/ae18f520-6324-430d-bdcb-6686487a699e/February%20Food%20Menu-9e1547e.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://img1.wsimg.com/blobby/go/ae18f520-6324-430d-bdcb-6686487a699e/November%20Food%20Menu%20%282%29.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.facebook.com/r10score/posts/sempre-nas-cabe%C3%A7as-estes-s%C3%A3o-os-clubes-que-mais-vezes-estiveram-no-g4-do-brasile/564635749650648/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.facebook.com/r10score/posts/o-pirata-artilheiro-pablo-vegetti-chegou-ao-20-gol-pelo-vasco-na-temporada-2025-/728438406603714/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.facebook.com/r10score/posts/que-campanha-o-mirassol-tem-o-terceiro-melhor-ataque-do-brasileir%C3%A3o-2025-a-equip/725509486896606/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.facebook.com/r10score/posts/dominando-o-flamengo-lidera-todos-os-principais-n%C3%BAmeros-do-futebol-brasileiro-em/690575370390018/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.facebook.com/groups/1265635093878923/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.facebook.com/r10score/posts/te-surpreendeu-com-apenas-25-jogos-pelo-atl%C3%A9tico-mg-em-2025-rony-j%C3%A1-igualou-seu-/689674810480074/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.facebook.com/JohnnysSportsBarATL/videos/-se-viene-un-partidazo-este-jueves-la-selecci%C3%B3n-argentina-se-enfrenta-a-venezuel/669130562248905/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.facebook.com/r10score/posts/quantos-tem-o-seu-estes-s%C3%A3o-os-10-clubes-brasileiros-com-mais-s%C3%B3cios-torcedores-/573155872131969/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.facebook.com/JohnnysSportsBarATL/videos/-vive-la-pasi%C3%B3n-del-f%C3%BAtbol-como-nunca-antes-este-4-de-septiembre-disfruta-del-em/2890182867838993/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.facebook.com/TonyCsSeaport/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.facebook.com/Scoressportsbar/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.facebook.com/eaLittleVenice/"
+      },
+      {
+        "type": "url",
+        "url": "https://scoresoriginalsportsgrill.scvr.co/"
+      },
+      {
+        "type": "url",
+        "url": "https://scoresoriginalsportsgrill.scvr.co/contact"
+      },
+      {
+        "type": "url",
+        "url": "https://wanderlog.com/place/details/2885319/scores-original-sports-grill"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mapquest.com/ca/ontario/the-irie-market-754293848"
+      },
+      {
+        "type": "url",
+        "url": "https://www.restaurantji.com/on/london/scores-original-sports-grill-/"
+      },
+      {
+        "type": "url",
+        "url": "https://scores-original-sports-grill.foodjoyy.com/menu"
+      },
+      {
+        "type": "url",
+        "url": "https://food96.com/place/the-waltzing-weasel"
+      },
+      {
+        "type": "url",
+        "url": "https://food96.com/place/twice-the-deal-pizza-16167"
+      },
+      {
+        "type": "url",
+        "url": "https://huddlemarkets.ca/listing/scores-original-sports-grill/"
+      },
+      {
+        "type": "url",
+        "url": "https://food96.com/place/little-caesars-13422"
+      },
+      {
+        "type": "url",
+        "url": "https://kippslanefish.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.waze.com/live-map/directions/ca/on/london/north-london-soccer-fields?to=place.ChIJQ_6YZhztLogRbXH4lzTYZFA"
+      },
+      {
+        "type": "url",
+        "url": "https://listingsprod.blob.core.windows.net/ourlistings-can/ebd5b17c-1ffb-4700-821c-9620145c84ed/47b9710c-1896-4e7e-a3c6-e43ba9f4fc8b"
+      },
+      {
+        "type": "url",
+        "url": "https://restaurantsmenus.org/pdf/89937d76717eb2c0f2c3a61fece250c0.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://weur-cdn.menuweb.menu/storage/media/companies_menu_pdf/84558600/sports-bar-and-grill-farringdon-london-menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.ohiolottery.com/getattachment/0346b6fa-3e65-4fb4-9945-f2050d28cc35/01-03-2025-Pre-qualified-Host-Locations.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.tikitouringkiwi.com/wp-content/uploads/2018/02/sports-museums-and-halls-of-fame.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://eta.creativecirclecdn.com/sumter/files/20180712-210142-071318.pdf"
+      }
+    ]
+  },
+  {
+    "file": "8084e345-f933-4f7a-afe7-e1a69a72d70a.json",
+    "id": "resp_0678b53db91892c30069e11a42e05c81a083c4eb0e7851db4e",
+    "parsed": {
+      "prospect": {
+        "officialWebsite": {
+          "url": "boss-hogs-bbq.myshopify.com",
+          "confidence": "high",
+          "reason": "The brand’s current, actively maintained site is a Shopify storefront that lists Canada-wide ribfest activity and sauces. It’s the most clearly official web presence linking to the Boss Hogs BBQ identity and confirms London, ON activity via events (e.g., London Ribfest, London Children’s Festival). It is clearly branded and actively maintained as of 2026."
+        },
+        "siteType": "multi_page",
+        "menu": {
+          "found": true,
+          "url": "https://bosshogsbbq.net/page/dine-in-menu",
+          "sourceType": "third_party",
+          "reason": "A Dine In Menu exists on a separate domain (bosshogsbbq.net) from the main official storefront, suggesting the menu is hosted outside the primary site and would be considered third-party for site-shape purposes."
+        },
+        "googleMaps": {
+          "url": null,
+          "confidence": "low",
+          "reason": "No specific Google Maps listing for a London, ON Boss Hogs Bbq restaurant surfaceable from the seed; the London presence appears to be event/festival participation rather than a current stand-alone restaurant with fixed address."
+        },
+        "socialProfiles": [
+          {
+            "platform": "instagram",
+            "url": "",
+            "confidence": "low",
+            "reason": "No clearly identifiable, verified London-specific Boss Hogs BBQ Instagram/FB handle found; the Shopify site includes social icons but no explicit handle shown in the pages found."
+          }
+        ],
+        "opportunityClass": "weak_site_rebuild",
+        "summary": "Official, city-relevant web presence is mainly a templated storefront (Shopify) with event presence; no strong owned, London-specific site. Menu is hosted off-site on a separate domain; limited clear social identity for London. This points to a templated, weakly branded setup that would benefit from a dedicated single-page owned site to consolidate branding and local UX.",
+        "overallConfidence": "high"
+      }
+    },
+    "sources": [
+      {
+        "type": "url",
+        "url": "https://www.bosshogroasts.co.uk/"
+      },
+      {
+        "type": "url",
+        "url": "https://bosshogsbbq.net/page/contact-us"
+      },
+      {
+        "type": "url",
+        "url": "https://weur-cdn.menuweb.menu/storage/media/companies_menu_pdf/114745927/bodeans-bbq-soho-city-of-londonwestminster-menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bosshogbarbecue.com/menu"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bosshogsnc.com/menu"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bosshoggsoh.com/menu"
+      },
+      {
+        "type": "url",
+        "url": "https://bosshogsbbq.net/menu"
+      },
+      {
+        "type": "url",
+        "url": "https://bodeansbbq.com/catalogue/wp-content/uploads/2024/10/11186_Bodeans_BBQ_Tower-SOHO-Menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://bosshogsbbq.net/page/dine-in-menu"
+      },
+      {
+        "type": "url",
+        "url": "https://bosshogs-somerset.co.uk/boss-hogs-somerset/takeaway"
+      },
+      {
+        "type": "url",
+        "url": "https://restaurant.street360.net/england/london/holy-smokes-bbq-london/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bosshogbarbecue.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://thebosshoggs-pagosasprings.com/wp-content/uploads/2025/06/Boss-Hoggs-Menu-Updated-5.12.25.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://boss-hoggs.res-menu.net/menu"
+      },
+      {
+        "type": "url",
+        "url": "https://bossgrill.co.uk/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.inncollectiongroup.com/wp-content/uploads/2023/10/The-Hogs-Head-Inn-food-web.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.cheflincs.com/_files/ugd/252bb8_ceabdc64291c48838fe8dd2a5dc48955.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://irp-cdn.multiscreensite.com/1983e6fa/files/uploaded/GBR_hogroast_combination_menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/spq3nc"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1b505as"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1bkbfl3"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/london/comments/1it13uz"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/UKBBQ/comments/1dhhjfd"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/BBQ/comments/1est25p"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/ketouk/comments/11p1901"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/u_Assessment05/comments/13sb6i3"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/london/comments/1kd92r8"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/RBI2/comments/1fhg6ep"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/LondonFood/comments/1nomvi9"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/VeganFoodPorn/comments/tezdef"
+      },
+      {
+        "type": "url",
+        "url": "https://stoneridgeinn.com/coming-up-guelph-ribfest/"
+      },
+      {
+        "type": "url",
+        "url": "https://chilliwackribfest.ca/boss-hogs-bbq/"
+      },
+      {
+        "type": "url",
+        "url": "https://boss-hogs-bbq.myshopify.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.revelstokereview.com/news/kelowna-ribfest-sizzles-in-success-with-over-20k-attendees-8120886"
+      },
+      {
+        "type": "url",
+        "url": "https://bizxmagazine.com/events/tecumseh-first-annual-ribfest/"
+      },
+      {
+        "type": "url",
+        "url": "https://chilliwackribfest.ca/meet-the-rib-masters/"
+      },
+      {
+        "type": "url",
+        "url": "https://ised-isde.canada.ca/cipo/trademark-search/1508799"
+      },
+      {
+        "type": "url",
+        "url": "https://www.signalhire.com/companies/boss-hogs-bbq/employees"
+      },
+      {
+        "type": "url",
+        "url": "https://trilliumrotary.org/stories/2021-guelph-drive-thru-ribfest"
+      },
+      {
+        "type": "url",
+        "url": "https://ribfestx.com/ribteams/boss-hogs-bbq/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.jonpensa.com/clients"
+      },
+      {
+        "type": "url",
+        "url": "https://ribfestx.com/event/uxbridge-ribfest-2026/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mypigeonforge.com/wp-content/uploads/2021/11/Updated_PF-Resaurants_2021-Holiday-Schedule.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://publications.gc.ca/collections/collection_2013/opic-cipo/RG42-2-60-3068.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mypigeonforge.com/wp-content/uploads/2024/11/Holiday-Restaurant-Schedule-11.14.24.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mypigeonforge.com/wp-content/uploads/2024/12/Holiday-Restaurant-Schedule-12.9.24.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mypigeonforge.com/wp-content/uploads/2019/11/Pigeon-Forge-Restaurants-2019-2.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mypigeonforge.com/wp-content/uploads/2018/11/Holiday-Restaurant-Schedule-2018.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://bosshogsbbq.net/page/contact-us"
+      },
+      {
+        "type": "url",
+        "url": "https://stoneridgeinn.com/coming-up-guelph-ribfest/"
+      },
+      {
+        "type": "url",
+        "url": "https://boss-hogs-bbq.myshopify.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.revelstokereview.com/news/kelowna-ribfest-sizzles-in-success-with-over-20k-attendees-8120886"
+      },
+      {
+        "type": "url",
+        "url": "https://ca.411.info/business/Boss-Hogs-Smokin-Chophouse-London-ON-22198851"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bosshogroasts.co.uk/"
+      },
+      {
+        "type": "url",
+        "url": "https://bizxmagazine.com/events/tecumseh-first-annual-ribfest/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/spq3nc"
+      },
+      {
+        "type": "url",
+        "url": "https://chilliwackribfest.ca/meet-the-rib-masters/"
+      },
+      {
+        "type": "url",
+        "url": "https://ised-isde.canada.ca/cipo/trademark-search/1508799"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bosshoggsoh.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://kingofthepigs.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bosshogsnc.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mypigeonforge.com/wp-content/uploads/2024/11/Holiday-Restaurant-Schedule-11.14.24.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://thebosshoggs-pagosasprings.com/wp-content/uploads/2025/06/Boss-Hoggs-Menu-Updated-5.12.25.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mypigeonforge.com/wp-content/uploads/2019/11/Pigeon-Forge-Restaurants-2019-2.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://bodeansbbq.com/catalogue/wp-content/uploads/2024/10/11186_Bodeans_Brand-Refresh_Tower-Soho-Menu-ALLERGENS-1.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1rwspof/ever_since_stack_burger_moved_into_cherry_hill/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1b505as"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/cl3lzc"
+      },
+      {
+        "type": "url",
+        "url": "https://wnam-cdn.menuweb.menu/storage/media/companies_menu_pdf/88846279/boss-hog-bbq-sherrills-ford-menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.outrageouscabins.com/wp-content/uploads/2023/07/Recommendations-Page-2.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1ejajig"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1bkbfl3"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1nqjoug"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1k4vnuj"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/12cqg6r"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/rac4nu"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1ezhyza"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/UKBBQ/comments/1dhhjfd"
+      },
+      {
+        "type": "url",
+        "url": "https://boss-hogs-bbq.myshopify.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://ribfestx.com/event/uxbridge-ribfest-2025/"
+      },
+      {
+        "type": "url",
+        "url": "https://chilliwackribfest.ca/boss-hogs-bbq/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.maryroyteam.com/Blog.php/weekend-events-brooklin-spring-fair-pickering-ribfest"
+      },
+      {
+        "type": "url",
+        "url": "https://stoneridgeinn.com/coming-up-guelph-ribfest/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.foodiestrip.com/restaurant/boss-hogs-bbq-hamilton-rd-london-on-canada-0"
+      },
+      {
+        "type": "url",
+        "url": "https://chilliwackribfest.ca/meet-the-rib-masters/"
+      },
+      {
+        "type": "url",
+        "url": "https://bizxmagazine.com/events/tecumseh-first-annual-ribfest/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.signalhire.com/companies/boss-hogs-bbq/employees"
+      },
+      {
+        "type": "url",
+        "url": "https://ribfestx.com/event/port-credit-ribfest-2026/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mapquest.com/us/kansas/boss-hogs-bbq-474916131"
+      },
+      {
+        "type": "url",
+        "url": "https://ribfestx.com/event/innisfil-ribfest-2025/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mypigeonforge.com/wp-content/uploads/2021/11/Updated_PF-Resaurants_2021-Holiday-Schedule.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mypigeonforge.com/wp-content/uploads/2024/11/Holiday-Restaurant-Schedule-11.14.24.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mypigeonforge.com/wp-content/uploads/2024/12/Holiday-Restaurant-Schedule-12.9.24.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.comoxvalleyribfest.ca/wp-content/uploads/2025/03/Ribfest-Site-Plan-2025-web.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mypigeonforge.com/wp-content/uploads/2019/11/Pigeon-Forge-Restaurants-2019-2.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mypigeonforge.com/wp-content/uploads/2018/12/Holiday-Restaurant-Schedule-II-2018.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://ca.411.info/business/Boss-Hogs-Smokin-Chophouse-London-ON-22198851"
+      },
+      {
+        "type": "url",
+        "url": "https://s3.amazonaws.com/lws_lift/sterlingkaramar/files/misc/1398343929_740Wonderland.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.foodiestrip.com/restaurant/boss-hog-s-smokin-chophouse-wharncliffe-rd-s-london-on-canada-0"
+      },
+      {
+        "type": "url",
+        "url": "https://winghamfreepress.com/uncategorized/do-you-recognize-this-boss-hogs-break-in-suspect/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.comoxvalleyribfest.ca/boss-hogs/"
+      },
+      {
+        "type": "url",
+        "url": "https://chilliwackribfest.ca/boss-hogs-bbq/"
+      },
+      {
+        "type": "url",
+        "url": "https://ised-isde.canada.ca/cipo/trademark-search/1508799"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bosshogsbbq.ca/boss-hogs-wins-best-ribs-in-london/"
+      },
+      {
+        "type": "url",
+        "url": "https://ecorp.sos.ga.gov/BusinessSearch/DownloadFile?filingNo=16900763"
+      },
+      {
+        "type": "url",
+        "url": "https://www.signalhire.com/companies/boss-hogs-bbq/employees"
+      },
+      {
+        "type": "url",
+        "url": "https://data.cityofchicago.org/api/views/kvwd-xprz/rows.pdf?app_token=U29jcmF0YS0td2VraWNrYXNz0"
+      },
+      {
+        "type": "url",
+        "url": "https://ribfestx.com/ribteams/boss-hogs-bbq/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.lightonconspiracies.com/wp-content/uploads/2017/06/StatskuppISlowmotion.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://bubba.ai/trucking-companies/north-carolina/goldsboro/boss-hogs-transport-inc-3344907"
+      },
+      {
+        "type": "url",
+        "url": "https://coquillerec.recdesk.com/RecDeskPortal/Portals/728/2022%20Annual%20Report.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://thecif.ca/pdf/reports/201-FinalReport.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/Knife_Swap/comments/1b4uxz4"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/Knife_Swap/comments/gunh1r"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/knifeclub/comments/ju7mb7"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/Knife_Swap/comments/nwz86l"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/CanadianKnifeSwap/comments/stygv3"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/knifeclub/comments/gg6xgb"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/knives/comments/1f6mawm"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/Knife_Swap/comments/q417it/want_to_buy_thread/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/Knife_Swap/comments/u4mtal"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/Knife_Swap/comments/1eu3b4d"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/Knife_Swap/comments/17a6hgo"
+      },
+      {
+        "type": "url",
+        "url": "https://stoneridgeinn.com/coming-up-guelph-ribfest/"
+      },
+      {
+        "type": "url",
+        "url": "https://bosshogsbbq.net/page/contact-us"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bosshogroasts.co.uk/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bosshogsnc.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://boss-hogs-bbq.myshopify.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.idcrawl.com/boss-hog"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bosshogsbbq.ca/boss-hogs-wins-best-ribs-in-london/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bringfido.ca/photo/124682"
+      },
+      {
+        "type": "url",
+        "url": "https://www.comoxvalleyribfest.ca/boss-hogs/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.signalhire.com/companies/boss-hogs-bbq/employees"
+      },
+      {
+        "type": "url",
+        "url": "https://ca.411.info/business/Boss-Hogs-Smokin-Chophouse-London-ON-22198851"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bosshogbarbecue.com/menu"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1bkbfl3"
+      },
+      {
+        "type": "url",
+        "url": "https://americanroyal.com/wp-content/uploads/2024/10/AR-BBQ-Team-list-10.8.24.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://thebosshoggs-pagosasprings.com/wp-content/uploads/2025/06/Boss-Hoggs-Menu-Updated-5.12.25.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://americanroyal.com/wp-content/uploads/2024/10/AR_2024BBQTeam_SpacesMapAndSched.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1b505as"
+      },
+      {
+        "type": "url",
+        "url": "https://bloximages.chicago2.vip.townnews.com/sentinel-echo.com/content/tncms/assets/v3/editorial/9/18/918ae9b2-1cb5-11ec-b2ce-fb1d72598496/614cf29ee8baa.pdf.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1rlibrj/bbqsmoking/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/Harley/comments/167ndb3"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1ezhyza"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/london/comments/1g8jdfv"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/zehc1h"
+      },
+      {
+        "type": "url",
+        "url": "https://wnam-cdn.menuweb.menu/storage/media/companies_menu_pdf/88936321/hogs-r-wild-bbq-warsaw-menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1k4vnuj"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/barndominiums/comments/1hfy88t"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/UKBBQ/comments/1q4jrf2/looking_for_a_bbq_restaurant_in_london_that_is/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1cesw5p"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/smoking/comments/18jtu61"
+      },
+      {
+        "type": "url",
+        "url": "https://stoneridgeinn.com/coming-up-guelph-ribfest/"
+      },
+      {
+        "type": "url",
+        "url": "https://restaurantguru.com/Boss-Hog-BBQ-Sherrills-Ford"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bringfido.ca/photo/124682"
+      },
+      {
+        "type": "url",
+        "url": "https://www.signalhire.com/companies/boss-hogs-bbq/employees"
+      },
+      {
+        "type": "url",
+        "url": "https://bosshogsbbq.net/page/contact-us"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bosshogsnc.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://bbqclass.ca/media/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.idcrawl.com/boss-hogg"
+      },
+      {
+        "type": "url",
+        "url": "https://www.comoxvalleyribfest.ca/boss-hogs/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.idcrawl.com/boss-hog"
+      },
+      {
+        "type": "url",
+        "url": "https://chilliwackribfest.ca/boss-hogs-bbq/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bosshogbarbecue.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1bkbfl3"
+      },
+      {
+        "type": "url",
+        "url": "https://americanroyal.com/wp-content/uploads/2024/10/AR-BBQ-Team-list-10.8.24.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://americanroyal.com/wp-content/uploads/2024/10/AR_2024BBQTeam_SpacesMapAndSched.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://wnam-cdn.menuweb.menu/storage/media/companies_menu_pdf/112656011/the-real-hammer-hogs-bbq-caledonia-menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/Harley/comments/167ndb3"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1b505as"
+      },
+      {
+        "type": "url",
+        "url": "https://bloximages.chicago2.vip.townnews.com/sentinel-echo.com/content/tncms/assets/v3/editorial/9/18/918ae9b2-1cb5-11ec-b2ce-fb1d72598496/614cf29ee8baa.pdf.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/biggreenegg/comments/hbtmt6"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1rlibrj/bbqsmoking/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1ezhyza"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/london/comments/1g8jdfv"
+      },
+      {
+        "type": "url",
+        "url": "https://wnam-cdn.menuweb.menu/storage/media/companies_menu_pdf/88846279/boss-hog-bbq-sherrills-ford-menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://duesouthdc.com/wp-content/uploads/2021/10/DS-Fall-Brunch.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/zehc1h"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1k4vnuj"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/barndominiums/comments/1hfy88t"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/smoking/comments/te4afp"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/UKBBQ/comments/1q4jrf2/looking_for_a_bbq_restaurant_in_london_that_is/"
+      }
+    ]
+  },
+  {
+    "file": "94abb048-c948-4fc7-b7ce-937c1d137b40.json",
+    "id": "resp_049af91c6cae11c20069e11ab0a6008190b8127f4cc6911c08",
+    "parsed": {
+      "prospect": {
+        "officialWebsite": {
+          "url": "https://www.knottypinerestaurant.ca/",
+          "confidence": "high",
+          "reason": "Branded own-domain site with restaurant name, London address, hours, and menu pages (breakfast/dinner) confirmed by multiple sources."
+        },
+        "siteType": "multi_page",
+        "menu": {
+          "found": true,
+          "url": "https://www.knottypinerestaurant.ca/breakfast_menu.htm (breakfast) and https://www.knottypinerestaurant.ca/dinner_menu.htm (dinner)",
+          "sourceType": "official",
+          "reason": "Menu pages located on the official domain; not a third‑party menu embed."
+        },
+        "googleMaps": {
+          "url": "https://maps.google.com/?q=The+Knotty+Pine+Restaurant+London+ON",
+          "confidence": "high",
+          "reason": "London, ON address andHours info corroborated by maps listings referencing the Knotty Pine at 1100 Wellington Rd S."
+        },
+        "socialProfiles": [
+          {
+            "platform": "facebook",
+            "url": "https://www.facebook.com/TheKnottyPineLondonON",
+            "confidence": "low",
+            "reason": "Facebook link is present on the site, but a direct handle is not visible in the accessible page content; multiple third-party listings imply a Facebook presence, but not consistently verifiable from this environment."
+          },
+          {
+            "platform": "instagram",
+            "url": "",
+            "confidence": "low",
+            "reason": "No clear official Instagram handle found in accessible sources."
+          }
+        ],
+        "opportunityClass": "weak_site_rebuild",
+        "summary": "Official site exists but branding/platforms are dated and the site uses a traditional, multi-page layout on an owned domain. Social presence is indicated but not clearly verifiable in this view. This leans toward a weak-site-rebuild rather than a strong, modern owned site.",
+        "overallConfidence": "high"
+      }
+    },
+    "sources": [
+      {
+        "type": "url",
+        "url": "https://theknottypinerestaur.wixsite.com/knottypine/menu"
+      },
+      {
+        "type": "url",
+        "url": "https://www.theknottypinelunch.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.knottypinerestaurant.ca/dinner_menu.htm"
+      },
+      {
+        "type": "url",
+        "url": "https://knottypinebarandgrill.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://theknottypine.net/menu/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.theknottypinesupperclub.com/our-menu"
+      },
+      {
+        "type": "url",
+        "url": "https://www.theknottypinelunch.com/about"
+      },
+      {
+        "type": "url",
+        "url": "https://www.theknottypineonthebayou.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://cindyisensee.tripod.com/catering.htm"
+      },
+      {
+        "type": "url",
+        "url": "https://www.sluurpy.com/en/london/restaurant/2127964/the-knotty-pine-restaurant"
+      },
+      {
+        "type": "url",
+        "url": "https://cindyisensee.tripod.com/appetizers.htm"
+      },
+      {
+        "type": "url",
+        "url": "https://wnam-cdn.lacarte.menu/storage/media/companies_menu_pdf/93689598/knotty-pine-restaurants-kincardine-menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.rosewoodhotels.com/content/dam/rosewoodhotels/property/london/en/documents/dining/mirror-room/Mirror-Room-Dinner-Menu-2025-Mar.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://knottypinebarandgrill.com/menu"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1g1ie0f"
+      },
+      {
+        "type": "url",
+        "url": "https://www.robinsnestmountholly.com/wp-content/uploads/2021/06/Lunch-Dinner-Menu-2021-12-24T105912.456.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.walnuttreehotel.com/wp-content/uploads/2024/05/Restaurant-Menu-May-2024.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://pineshotel.co.uk/wp-content/uploads/2023/04/samplelunchmenuapril2023.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.thepinemarten.com/content/dam/pcdg/common/pdf/2025/ln25/pcp-sundaymenu-pb3.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://en.wikipedia.org/wiki/The_Pine"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/spq3nc"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/RateMyPlate/comments/1rspwau/30_for_this_i_feel_robbed/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/waterloo/comments/p5lka2"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/12cqg6r"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/evansville/comments/1kjpkca"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/RBI2/comments/1fhg6ep"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/WeWantPlates/comments/ejki72"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/london/comments/1keoxsn"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/pqno65"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/london/comments/1kd92r8"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/HelpMeFind/comments/1s89aby/removed/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.theknottypinesupperclub.com/connect-on-facebook"
+      },
+      {
+        "type": "url",
+        "url": "https://theknottypinerestaur.wixsite.com/knottypine"
+      },
+      {
+        "type": "url",
+        "url": "https://knottypinerestaurant.ca/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.sluurpy.com/en/london/restaurant/2127964/the-knotty-pine-restaurant"
+      },
+      {
+        "type": "url",
+        "url": "https://linktr.ee/knottyknottystudio"
+      },
+      {
+        "type": "url",
+        "url": "https://www.knottypine.design/contact"
+      },
+      {
+        "type": "url",
+        "url": "https://restaurantguru.com/Knotty-Pine-Victor-Idaho"
+      },
+      {
+        "type": "url",
+        "url": "https://theknottypine.net/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.porthenrymoriah.com/visit/restaurants/franks-knotty-pine-restaurant"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mapquest.com/ca/ontario/the-knotty-pine-restaurant-501006281"
+      },
+      {
+        "type": "url",
+        "url": "https://www.menupix.com/ontario/restaurants/1123857/The-Knotty-Pine-Family-Restaurant-London-ON"
+      },
+      {
+        "type": "url",
+        "url": "https://www.knottypine.co/team"
+      },
+      {
+        "type": "url",
+        "url": "https://visitpago.com/wp-content/uploads/Elk-County-Trails-Map.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://ns.legion.ca/wp-content/uploads/2016/07/NSCL12-Low-Res-2df.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://img1.wsimg.com/blobby/go/d1436af5-dcfe-4ad6-81b1-8ad722d29ff6/downloads/Lake%20Benton%20MN%20Visitors%20Guide%202024%202025%20part%202.pdf?ver=1718203247848"
+      },
+      {
+        "type": "url",
+        "url": "https://tallpinesnpr.com/hi-lites/2019/june2019-hilite.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/zillowgonewild/comments/1btn585"
+      },
+      {
+        "type": "url",
+        "url": "https://cdn6.f-cdn.com/files/download/100304092/INSTAGRAM%20TASK%20SPREADSHEET.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://wnam-cdn.lacarte.menu/storage/media/companies_menu_pdf/93689598/knotty-pine-restaurants-kincardine-menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/SpottedonRightmove/comments/1czglqr"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/BeginnerWoodWorking/comments/1ivf4dn"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/AmericanHorrorStory/comments/hkl0s4"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/Carpentry/comments/u6o968"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/zillowgonewild/comments/14n1skv"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/CozyPlaces/comments/tocqaa"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/zillowgonewild/comments/voa8x3"
+      },
+      {
+        "type": "url",
+        "url": "https://knottypinerestaurant.ca/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mapquest.com/ca/ontario/the-knotty-pine-restaurant-501006281"
+      },
+      {
+        "type": "url",
+        "url": "https://ca.411.info/business/Knotty-Pine-Family-Restaurant-London-ON-22295583"
+      },
+      {
+        "type": "url",
+        "url": "https://www.knottypinerestaurant.ca/breakfast_menu.htm"
+      },
+      {
+        "type": "url",
+        "url": "https://theknottypinerestaur.wixsite.com/knottypine"
+      },
+      {
+        "type": "url",
+        "url": "https://www.allbiz.ca/knotty-pine-restaurant-519-649-0488"
+      },
+      {
+        "type": "url",
+        "url": "https://www.knottypine.co/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.knottypinerestaurant.ca/dinner_menu.htm"
+      },
+      {
+        "type": "url",
+        "url": "https://www.theknottypinesupperclub.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.theknottypinesupperclub.com/our-menu"
+      },
+      {
+        "type": "url",
+        "url": "https://www.knottypinelbi.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.thelodgesatstonelake.com/knotty-pine"
+      },
+      {
+        "type": "url",
+        "url": "https://woodbine.com/queensplate/wp-content/uploads/sites/6/2019/05/QP19-Lexus-Lounge-Menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/pqno65"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/n23h1u"
+      },
+      {
+        "type": "url",
+        "url": "https://wnam-cdn.lacarte.menu/storage/media/companies_menu_pdf/93689598/knotty-pine-restaurants-kincardine-menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/SpottedonRightmove/comments/1czglqr"
+      },
+      {
+        "type": "url",
+        "url": "https://www.cira.ca/uploads/2023/05/00108-spafinder.ca_.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.nssa-nsca.org/wp-content/uploads/2011/07/2011_Shoot_Schedule_For_Web.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://static.theknot.com/xo-marketplace/concierge-vendors/8587-a27f0509-2da4-44b1-8521-5b798f5cebd9.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.knottypinerestaurant.ca/PDFs/knottypine_dinner_menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/waterloo/comments/p5lka2"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/AmericanHorrorStory/comments/hkl0s4"
+      },
+      {
+        "type": "url",
+        "url": "https://www.allbiz.ca/knotty-pine-restaurant-519-649-0488"
+      },
+      {
+        "type": "url",
+        "url": "https://www.sluurpy.com/en/london/restaurant/2127964/the-knotty-pine-restaurant"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mapquest.com/ca/ontario/the-knotty-pine-restaurant-501006281"
+      },
+      {
+        "type": "url",
+        "url": "https://www.theknottypinesupperclub.com/connect-on-facebook"
+      },
+      {
+        "type": "url",
+        "url": "https://ca.411.info/business/Knotty-Pine-Family-Restaurant-London-ON-22295583"
+      },
+      {
+        "type": "url",
+        "url": "https://theknottypinerestaur.wixsite.com/knottypine"
+      },
+      {
+        "type": "url",
+        "url": "https://www.knottypine.design/contact"
+      },
+      {
+        "type": "url",
+        "url": "https://www.thelodgesatstonelake.com/knotty-pine"
+      },
+      {
+        "type": "url",
+        "url": "https://theknottypinerestaur.wixsite.com/knottypine/menu"
+      },
+      {
+        "type": "url",
+        "url": "https://theknottypine.net/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.wellington.ca/business-development/business-directory/knotty-pine"
+      },
+      {
+        "type": "url",
+        "url": "https://marketspread.com/vendor/187499/pure-knotty-live-edge-concepts/"
+      },
+      {
+        "type": "url",
+        "url": "https://ccpeople.ca/pdf/025web.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://ontarioracing.com/getmedia/0a975845-dbc9-4c8f-a527-54b131d418dc/2018-Registered-Ontario-Breds-ORM-%289%29.pdf.aspx"
+      },
+      {
+        "type": "url",
+        "url": "https://www.nssa-nsca.org/wp-content/uploads/2011/07/2011_Shoot_Schedule_For_Web.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://tip.ontarioracing.com/wp-content/uploads/files/rob/2018%20Registered%20Ontario-Breds.pdf?a=1663678359"
+      },
+      {
+        "type": "url",
+        "url": "https://img1.wsimg.com/blobby/go/d1436af5-dcfe-4ad6-81b1-8ad722d29ff6/downloads/Lake%20Benton%20MN%20Visitors%20Guide%202024%202025%20part%202.pdf?ver=1718203247848"
+      },
+      {
+        "type": "url",
+        "url": "https://www.towntopics.com/wp-content/uploads/2025/09/TT-10-18-23-Digital-Issue.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/n23h1u"
+      },
+      {
+        "type": "url",
+        "url": "https://knottypinerestaurant.ca/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mapquest.com/us/virginia/knotty-pine-restaurant-2811797"
+      },
+      {
+        "type": "url",
+        "url": "https://www.top-rated.online/cities/London/place/p/15736876/Knotty%2BPine%2BRestaurant"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mapquest.com/ca/ontario/the-knotty-pine-restaurant-501006281"
+      },
+      {
+        "type": "url",
+        "url": "https://usarestaurants.info/explore/united-states/virginia/warren-county/shenandoah/front-royal/knotty-pine-restaurant-llc-540-635-3064.htm"
+      },
+      {
+        "type": "url",
+        "url": "https://www.fantuanorder.com/local-life/en-US/merchant-reviews/store/knotty-pine-restaurant-c2976710849dcfcda6463db3d6200090-CA?f_channel=f_review_g&lat=37.4419&lng=-122.143"
+      },
+      {
+        "type": "url",
+        "url": "https://www.whodoyou.com/biz/1702858/knotty-pine-restaurant-newton-ma"
+      },
+      {
+        "type": "url",
+        "url": "https://food96.com/place/the-knotty-pine-restaurant"
+      },
+      {
+        "type": "url",
+        "url": "https://www.yellowpages.ca/bus/Ontario/London/Knotty-Pine-Family-Restaurant/6104584.html"
+      },
+      {
+        "type": "url",
+        "url": "https://reviews.birdeye.com/knotty-pine-146821382262100"
+      },
+      {
+        "type": "url",
+        "url": "https://www.menupix.com/ontario/restaurants/1123857/The-Knotty-Pine-Family-Restaurant-London-ON"
+      },
+      {
+        "type": "url",
+        "url": "https://www.hhs73.net/Hazleton.htm"
+      },
+      {
+        "type": "url",
+        "url": "https://tip.ontarioracing.com/wp-content/uploads/files/rob/2018%20Registered%20Ontario-Breds.pdf?a=1663678359"
+      },
+      {
+        "type": "url",
+        "url": "https://bsptimber.dns-systems.net/sites/default/files/Shop%20Brochures/LPD%20Doors%20Brochure%202019.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://gamma.creativecirclecdn.com/mmc/files/20250227-110626-773-Waupaca%20Buyers%20Guide_2024-04-24.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://img1.wsimg.com/blobby/go/d1436af5-dcfe-4ad6-81b1-8ad722d29ff6/downloads/Lake%20Benton%20MN%20Visitors%20Guide%202024%202025%20part%202.pdf?ver=1718203247848"
+      },
+      {
+        "type": "url",
+        "url": "https://kentuckywoodindustry.mgcafe.uky.edu/sites/kentuckywoodindustry.ca.uky.edu/files/2014%20Wood%20Industry%20Directory.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.decorativehardwoods.org/sites/default/files/2020_dha_where_to_buy.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.knottypinerestaurant.ca/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.allbiz.ca/knotty-pine-restaurant-519-649-0488"
+      },
+      {
+        "type": "url",
+        "url": "https://www.top-rated.online/cities/London/place/p/15736876/Knotty%2BPine%2BRestaurant"
+      },
+      {
+        "type": "url",
+        "url": "https://www.allbiz.ca/fr/knotty-pine-restaurant-519-649-0488"
+      },
+      {
+        "type": "url",
+        "url": "https://www.facebook.com/LondonCanada/posts/the-ban-on-open-air-fires-put-in-place-on-august-11-2025-has-been-lifted-in-the-/1201467418675513/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mapquest.com/ca/ontario/the-knotty-pine-restaurant-501006281"
+      },
+      {
+        "type": "url",
+        "url": "https://maps.roadtrippers.com/us/front-royal-va/food-drink/knotty-pine-restaurant-lounge"
+      },
+      {
+        "type": "url",
+        "url": "https://usarestaurants.info/explore/united-states/virginia/warren-county/shenandoah/front-royal/knotty-pine-restaurant-llc-540-635-3064.htm"
+      },
+      {
+        "type": "url",
+        "url": "https://usarestaurants.info/explore/united-states/nevada/lincoln-county/caliente/knotty-pine-restaurant-and-lounge-775-726-3767.htm"
+      },
+      {
+        "type": "url",
+        "url": "https://www.knottypinerestaurant.ca/breakfast_menu.htm"
+      },
+      {
+        "type": "url",
+        "url": "https://www.knottypinerestaurant.ca/dinner_menu.htm"
+      },
+      {
+        "type": "url",
+        "url": "https://knotty-pine-restaurant.wheree.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.discoverfrontroyal.com/uploads/1/2/4/0/124066283/visitors_guide__weboptimized_singlepages_may2021.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.discoverfrontroyal.com/uploads/1/2/4/0/124066283/frontroyalvisitorguide.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.discoverfrontroyal.com/uploads/1/2/4/0/124066283/copy_of_final_settle_in._venture_out__8_%C3%97_9_in___2_.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.discoverfrontroyal.com/uploads/1/2/4/0/124066283/7abf6d3699d30628a9a0._venture_out__8_%C3%97_9_in___1_"
+      },
+      {
+        "type": "url",
+        "url": "https://hannasigns.com/wp-content/uploads/2024/03/WEB-SB-Directory-2024-.com_.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.knottypinerestaurant.ca/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.bringfido.co.uk/photo/217125"
+      },
+      {
+        "type": "url",
+        "url": "https://www.mapquest.com/ca/ontario/the-knotty-pine-restaurant-501006281"
+      },
+      {
+        "type": "url",
+        "url": "https://www.allbiz.ca/knotty-pine-restaurant-519-649-0488"
+      },
+      {
+        "type": "url",
+        "url": "https://www.fantuanorder.com/local-life/en-US/merchant-reviews/store/knotty-pine-restaurant-c2976710849dcfcda6463db3d6200090-CA?f_channel=f_review_g&lat=37.4419&lng=-122.143"
+      },
+      {
+        "type": "url",
+        "url": "https://maps.roadtrippers.com/us/front-royal-va/food-drink/knotty-pine-restaurant-lounge"
+      },
+      {
+        "type": "url",
+        "url": "https://www.yellowpages.ca/bus/Ontario/London/Knotty-Pine-Family-Restaurant/6104584.html"
+      },
+      {
+        "type": "url",
+        "url": "https://www.menupix.com/ontario/restaurants/1123857/The-Knotty-Pine-Family-Restaurant-London-ON"
+      },
+      {
+        "type": "url",
+        "url": "https://globalnews.ca/news/7824461/frost-advisory-london-middlesex-april-30-2021/"
+      },
+      {
+        "type": "url",
+        "url": "https://usarestaurants.info/explore/canada/ontario/middlesex-county/london/knotty-pine-restaurant-519-649-0488.htm"
+      },
+      {
+        "type": "url",
+        "url": "https://www.tripadvisor.com/Restaurant_Review-g57755-d3506061-Reviews-Knotty_Pine_Restaurant-Front_Royal_Virginia.html"
+      },
+      {
+        "type": "url",
+        "url": "https://vermontcountry.com/wp-content/uploads/2023/07/NEN359348_hr.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://e-district.org/userfiles/618/file/Directory%20202425_250118.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://mainmenus.com/london-on-restaurants/breakfast-cuisine/the-knotty-pine-family-restaurant/"
+      },
+      {
+        "type": "url",
+        "url": "https://troutauctions.com/August8thAd.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/SpottedonRightmove/comments/1czglqr"
+      },
+      {
+        "type": "url",
+        "url": "https://hannasigns.com/wp-content/uploads/2024/03/WEB-SB-Directory-2024-.com_.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://content.toastmasters.org/image/upload/toastmaster-magazine-january-1957-1a.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/n23h1u"
+      },
+      {
+        "type": "url",
+        "url": "https://stateplanning.delaware.gov/ddd/applications/2014/wilmington-combined-master-application.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://knottypinerestaurant.ca/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.knottypinebrewing.net/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.knottypine.design/contact"
+      },
+      {
+        "type": "url",
+        "url": "https://www.sluurpy.com/en/london/restaurant/2127964/the-knotty-pine-restaurant"
+      },
+      {
+        "type": "url",
+        "url": "https://www.thelodgesatstonelake.com/knotty-pine"
+      },
+      {
+        "type": "url",
+        "url": "https://theknottypinecottage.com/en/overview"
+      },
+      {
+        "type": "url",
+        "url": "https://www.silverlaketentandtrailerpark.com/copy-of-alpine"
+      },
+      {
+        "type": "url",
+        "url": "https://www.duckcreekmanagement.com/knottypine"
+      },
+      {
+        "type": "url",
+        "url": "https://www.knottypine.co/team"
+      },
+      {
+        "type": "url",
+        "url": "https://allevents.in/dent/templin-road-at-the-knotty-pine/200026016290226"
+      },
+      {
+        "type": "url",
+        "url": "https://www.allbiz.ca/knotty-pine-restaurant-519-649-0488"
+      },
+      {
+        "type": "url",
+        "url": "https://theknottypinerestaur.wixsite.com/knottypine/menu"
+      },
+      {
+        "type": "url",
+        "url": "https://irp.cdn-website.com/bd23723f/files/uploaded/charlies-inside-menu-v4.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/whereisthis/comments/bw1zn9"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/LondonFood/comments/1p66ukj/should_you_trust_this_very_instagramfriendly/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/SpottedonRightmove/comments/1czglqr"
+      },
+      {
+        "type": "url",
+        "url": "https://wnam-cdn.lacarte.menu/storage/media/companies_menu_pdf/93689598/knotty-pine-restaurants-kincardine-menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://centralcoastalpei.com/wp-content/uploads/2025/10/CCD-Map-2025-ENGLISHFRENCH-compressed.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://oneclubsober.com/book/uploaded-files/Download_PDFS/Cooking_With_Honey_Storey_Country_Wisdom_Bulletin_A_62.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://carmelpinecone.com/231027PC.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://bmiclinics.com/uploads/files/202506182157367106.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/n23h1u"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/WeWantPlates/comments/e77gfo"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/WeWantPlates/comments/ejki72"
+      }
+    ]
+  },
+  {
+    "file": "f066a8e7-3d61-4057-b569-481c76fe09b3.json",
+    "id": "resp_0fe4b4792744998e0069e11afc7034819d97050ad46e0daeb0",
+    "parsed": {
+      "prospect": {
+        "officialWebsite": {
+          "url": "https://www.firesidelondon.com/",
+          "confidence": "high",
+          "reason": "Dedicated restaurant site with multiple top navigation items (Home, Menu, About, Live Music, Contact) and visible contact details.”"
+        },
+        "siteType": "multi_page",
+        "menu": {
+          "found": true,
+          "url": "https://www.firesidelondon.com/menu",
+          "sourceType": "official",
+          "reason": "Menu is on the official domain and include multiple sub-pages (Breakfast, Breakfast Omelettes, etc.)."
+        },
+        "googleMaps": {
+          "url": null,
+          "confidence": "low",
+          "reason": "No explicit Maps widget detected in the quick view; address shown on site is London, ON, but Maps embed/link not clearly visible in the captured pages."
+        },
+        "socialProfiles": [
+          {
+            "platform": "instagram",
+            "url": "https://www.instagram.com/",
+            "confidence": "low",
+            "reason": "Icons labeled Instagram appear on site suggesting an official profile, but a direct handle is not exposed in the captured view."
+          },
+          {
+            "platform": "facebook",
+            "url": "https://www.facebook.com/",
+            "confidence": "low",
+            "reason": "Icons labeled Facebook appear on site suggesting an official profile, but a direct handle is not exposed in the captured view."
+          }
+        ],
+        "opportunityClass": "weak_site_rebuild",
+        "summary": "Official site exists and is branded but appears templated (likely Wix) and hosted on a vendor platform. Menu is visible and on-site. Social icons are present but lack explicit handles in the captured pages. Given the templated hosting, this leans toward a weak_site_rebuild rather than a strong, owned, single-page site.",
+        "overallConfidence": "high"
+      }
+    },
+    "sources": [
+      {
+        "type": "url",
+        "url": "https://www.firesidelondon.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.firesidegrill.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://info-menu.com/pdf/9d3d8e69da759e8d818a4a17d48d8ce0.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://inns.firesidepubcompany.com/wp-content/uploads/2025/03/main.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://on401.exitexplorer.com/spots/on/43.0/-81.2/ZqwYWQ2fp/"
+      },
+      {
+        "type": "url",
+        "url": "https://ca.411.info/business/Fireside-Cafe-Wingham-ON-22252741"
+      },
+      {
+        "type": "url",
+        "url": "https://flamerestaurant.co.uk/shortcodes/google-maps/"
+      },
+      {
+        "type": "url",
+        "url": "https://restaurantsmenus.org/pdf/7ea54bf5f5fd6b64a737c7b2c9d67526.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1n9nv2d"
+      },
+      {
+        "type": "url",
+        "url": "https://www.firesidemarket.com/food"
+      },
+      {
+        "type": "url",
+        "url": "https://www.scribd.com/document/793191236/Fireside-Dinner"
+      },
+      {
+        "type": "url",
+        "url": "https://www.firesidegrill.com/lunch-and-dinner-menu"
+      },
+      {
+        "type": "url",
+        "url": "https://www.waze.com/fil/live-map/directions/fireside-grill-and-bar-commissioners-rd-e-1166-london?to=place.w.182714798.1827147976.6513453"
+      },
+      {
+        "type": "url",
+        "url": "https://www.themooringshotel.com/wp-content/uploads/2026/01/Fireside-Prix-Fixe-Moorings-020126.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.firesidedl.com/files/the-fireside-brunch-menu.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.google.com/maps/search/Restaurant%2BOntario/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.firesidedl.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.firesideclassic.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/GoogleMaps/comments/10kwrjb/is_there_a_way_to_view_all_restaurants_in_the/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1kvigtz"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/LondonFood/comments/1rg3r7e/built_a_small_london_restaurant_search_tool/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1gjrt8j"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1oc0k65/any_new_restaurants_in_london_on/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/restaurant/comments/1o5ry9x"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/12cqg6r"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/offmenupodcast/comments/v6sh0s"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1ok639w"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1q0m5fc/nice_sit_down_restaurants_in_or_near_london/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1l6jgsd"
+      },
+      {
+        "type": "url",
+        "url": "https://linktr.ee/Fireside_fc"
+      },
+      {
+        "type": "url",
+        "url": "https://www.firesidelondon.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://firesideboutique.co.uk/pages/contact"
+      },
+      {
+        "type": "url",
+        "url": "https://www.meetfireside.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.whatsonstage.com/news/punchdrunk-enrichment-announce-new-christmas-show-fireside-tales_1677911/"
+      },
+      {
+        "type": "url",
+        "url": "https://linktr.ee/firesidestudios"
+      },
+      {
+        "type": "url",
+        "url": "https://en.wikipedia.org/wiki/By_the_Fireside"
+      },
+      {
+        "type": "url",
+        "url": "https://linktr.ee/fireside.official"
+      },
+      {
+        "type": "url",
+        "url": "https://linktr.ee/FiresideKabobOnWheels"
+      },
+      {
+        "type": "url",
+        "url": "https://www.facebook.com/firelondon/"
+      },
+      {
+        "type": "url",
+        "url": "https://periodhomeandinteriors.co.uk/index.php?path=63_80&route=product%2Fcategory"
+      },
+      {
+        "type": "url",
+        "url": "https://linktr.ee/firesidelodgefurniture"
+      },
+      {
+        "type": "url",
+        "url": "https://music.amazon.com/tracks/B0CYW4G28Y"
+      },
+      {
+        "type": "url",
+        "url": "https://info-menu.com/pdf/9d3d8e69da759e8d818a4a17d48d8ce0.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.dimplexfires.com/sites/g/files/emiian426/files/2025-01/Dimplex%20Ignite%20Bold%20Retailers%20-%20Website_1.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://chesneys.co.uk/wp-content/uploads/2019/03/installation-of-fireplaces_1.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://local-eats.co.uk/wp-content/uploads/2020/12/Instagram-4.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://restaurantsmenus.org/pdf/7ea54bf5f5fd6b64a737c7b2c9d67526.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.ownart.org.uk/cms/wp-content/uploads/2018/10/Instagram-Guide-for-Own-Art-Members.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.firesidelondon.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://linktr.ee/Fireside_fc"
+      },
+      {
+        "type": "url",
+        "url": "https://firesideboutique.co.uk/pages/contact"
+      },
+      {
+        "type": "url",
+        "url": "https://www.pondmillsanimalhospital.com/contacts/"
+      },
+      {
+        "type": "url",
+        "url": "https://static1.squarespace.com/static/516c1d38e4b0e454d77848a3/t/647100c822d7227b3374a08d/1685127368608/2023%2BKids%2B1st%2BDay%2BActivities%2Ball%2Bfinal%2BTab.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://firesidechat.com/londonandre"
+      },
+      {
+        "type": "url",
+        "url": "https://www.waze.com/fil/live-map/directions/fireside-grill-and-bar-commissioners-rd-e-1166-london?to=place.w.182714798.1827147976.6513453"
+      },
+      {
+        "type": "url",
+        "url": "https://menulist.menu/restaurants/london/fireside-grill-and-bar"
+      },
+      {
+        "type": "url",
+        "url": "https://linktr.ee/fireside.official"
+      },
+      {
+        "type": "url",
+        "url": "https://linktr.ee/firesidestudios"
+      },
+      {
+        "type": "url",
+        "url": "https://linktr.ee/FiresideKabobOnWheels"
+      },
+      {
+        "type": "url",
+        "url": "https://periodhomeandinteriors.co.uk/index.php?path=63_80&route=product%2Fcategory"
+      },
+      {
+        "type": "url",
+        "url": "https://linktr.ee/firesidelodgefurniture"
+      },
+      {
+        "type": "url",
+        "url": "https://info-menu.com/pdf/9d3d8e69da759e8d818a4a17d48d8ce0.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://chesneys.co.uk/wp-content/uploads/2019/03/installation-of-fireplaces_1.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.dimplexfires.com/sites/g/files/emiian426/files/2025-01/Dimplex%20Ignite%20Bold%20Retailers%20-%20Website_1.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://london.ca/sites/default/files/2023-11/LON7221_MiniRecGuide-W2024-Adult55%2B_FA%28digital%29.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.informationlondon.ca/Uploads/ContentDocuments/12-17-2019_HYTHT2020_SinglePageLayoutWithServiceListings.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://linktr.ee/Fireside_fc"
+      },
+      {
+        "type": "url",
+        "url": "https://www.firesidelondon.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://firesidegy.com/"
+      },
+      {
+        "type": "url",
+        "url": "https://firesideboutique.co.uk/pages/contact"
+      },
+      {
+        "type": "url",
+        "url": "https://linktr.ee/FiresideChurch"
+      },
+      {
+        "type": "url",
+        "url": "https://en.wikipedia.org/wiki/By_the_Fireside"
+      },
+      {
+        "type": "url",
+        "url": "https://en.wikipedia.org/wiki/Fireside_%28band%29"
+      },
+      {
+        "type": "url",
+        "url": "https://periodhomeandinteriors.co.uk/index.php?path=63_80&route=product%2Fcategory"
+      },
+      {
+        "type": "url",
+        "url": "https://en.wikipedia.org/wiki/Old_Drury_Lane_Theatre_on_Fire"
+      },
+      {
+        "type": "url",
+        "url": "https://uk.pinterest.com/pin/tart-london-on-instagram-fireside-dinner-outback-charred-vegetables-from-the-garden-and-our-delicious-tamworth-sausage--254312710198637011/"
+      },
+      {
+        "type": "url",
+        "url": "https://linktr.ee/firesidelodgefurniture"
+      },
+      {
+        "type": "url",
+        "url": "https://linktr.ee/FiresideKabobOnWheels"
+      },
+      {
+        "type": "url",
+        "url": "https://podcasts.apple.com/ph/podcast/fireside-galleries/id1777154379"
+      },
+      {
+        "type": "url",
+        "url": "https://uk.linkedin.com/company/wearefireside"
+      },
+      {
+        "type": "url",
+        "url": "https://linktr.ee/firesidestudios"
+      },
+      {
+        "type": "url",
+        "url": "https://info-menu.com/pdf/9d3d8e69da759e8d818a4a17d48d8ce0.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.dimplexfires.com/sites/g/files/emiian426/files/2025-01/Dimplex%20Ignite%20Bold%20Retailers%20-%20Website_1.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://chesneys.co.uk/wp-content/uploads/2019/03/installation-of-fireplaces_1.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.owens.edu/advising/wp-content/uploads/sites/43/2022/04/toledo-resource-list.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/rylp1o"
+      },
+      {
+        "type": "url",
+        "url": "https://bloximages.newyork1.vip.townnews.com/currypilot.com/content/tncms/assets/v3/editorial/d/c4/dc469930-f3b5-11ea-86d9-c3605eef72ab/5f5aaa13de7f6.pdf.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://cdn1.sportngin.com/attachments/document/f8cf-3429890/EBBA_Frank_Colman_Day_program_July13_2025.pdf"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/londonontario/comments/1p2f2yz/recommendations/"
+      },
+      {
+        "type": "url",
+        "url": "https://www.reddit.com/r/cocktails/comments/kp8at3"
+      }
+    ]
+  }
+]

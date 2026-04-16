@@ -2,6 +2,7 @@
 <urlset
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
 >
+  <!-- Add future restaurant landing pages as separate canonical URLs. -->
   <url>
     <loc>https://bretta.io/</loc>
     <changefreq>weekly</changefreq>

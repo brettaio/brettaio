@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /thank-you
 
 Sitemap: https://bretta.io/sitemap.xml
+Host: bretta.io
