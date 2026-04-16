@@ -134,7 +134,7 @@ export const scoresOriginalSportsGrill: RestaurantSiteInput = {
     featuredEyebrow: 'Featured favourites',
     featuredTitle: 'Specials, drinks, and easy pickup.',
     featuredDescription:
-      'Start with what is featured now, then scroll straight into the full menu. Everything important stays on the page.',
+      'Start with featured favourites, then move into the full menu, drinks, and pickup staples.',
     menuEyebrow: 'Menu',
     menuTitle: 'Dinner made easy.\nFavourites up front.',
     menuDescription:

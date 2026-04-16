@@ -30,11 +30,11 @@ const DEFAULT_PAGE_COPY: Required<RestaurantPageCopy> = {
   featuredEyebrow: 'Featured favourites',
   featuredTitle: 'Fresh picks up front.',
   featuredDescription:
-    'Start with what is featured now, then move into the full menu, contact details, and key actions.',
-  venueEyebrow: 'More to know',
+    'Start with house favourites, then move into the menu, contact details, and key actions.',
+  venueEyebrow: 'Details',
   venueTitle: 'Everything important stays easy to find.',
   venueDescription:
-    'Hours, highlights, group-friendly details, and practical next steps stay visible without sending people across extra pages.',
+    'Hours, highlights, group-friendly details, and practical next steps are all here when you need them.',
   menuEyebrow: 'Menu',
   menuTitle: 'Dinner made easy.\nFavourites up front.',
   menuDescription:
@@ -308,7 +308,7 @@ function getMenuSectionId(title: string): string {
 
                 <div class="p-6">
                   <p class="text-xs font-semibold uppercase tracking-[0.3em] text-orange-200/68">
-                    Featured now
+                    House pick
                   </p>
                   <h2 class="mt-4 text-2xl font-semibold tracking-tight text-stone-50">
                     {{ promo.title }}
@@ -548,7 +548,7 @@ function getMenuSectionId(title: string): string {
 
               <div class="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-white/8 pt-6">
                 <p class="max-w-xl text-sm leading-6 text-stone-400">
-                  Birthday perks, event invites, and special offers stay easy to access.
+                  Birthday perks, event invites, and special offers.
                 </p>
 
                 <button
@@ -584,10 +584,10 @@ function getMenuSectionId(title: string): string {
 
               <div class="mt-8 rounded-[1.75rem] border border-white/8 bg-white/5 p-5">
                 <p class="text-xs font-semibold uppercase tracking-[0.3em] text-orange-200/68">
-                  Browse sections
+                  Menu guide
                 </p>
                 <p class="mt-3 text-sm leading-6 text-stone-300/78">
-                  {{ menuItemCount() }} menu items are visible on-page.
+                  {{ menuItemCount() }} items on current menu.
                 </p>
                 <div class="mt-5 flex flex-wrap gap-3">
                   @for (section of menuLinks(); track section.id) {
