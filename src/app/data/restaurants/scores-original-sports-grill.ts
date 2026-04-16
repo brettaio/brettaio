@@ -112,6 +112,37 @@ export const scoresOriginalSportsGrill: RestaurantSiteInput = {
     menu: '#menu',
   },
   socials: {},
+  seo: {
+    title: 'Score’s Original Sports Grill | London, ON',
+    description:
+      'A cleaner, mobile-first restaurant website for Score’s Original Sports Grill in London, Ontario, with the dinner menu, contact details, and key actions presented properly.',
+    ogTitle: 'Score’s Original Sports Grill | London, ON',
+    ogDescription:
+      'A cleaner, mobile-first restaurant website for Score’s Original Sports Grill in London, Ontario.',
+    ogType: 'website',
+    canonicalUrl: 'https://bretta.io/restaurants/scores-original-sports-grill',
+    twitterCard: 'summary_large_image',
+    socialImage: {
+      src: 'https://bretta.io/social/scores-original-sports-grill-preview.png',
+      alt: "Score's Original Sports Grill social preview image",
+    },
+  },
+  pageCopy: {
+    locationLabel: 'Sports Grill in London, Ontario',
+    heroOverlayEyebrow: 'Welcome to Scores',
+    heroOverlayTitle: 'Good food, easy ordering, and a menu built for sharing.',
+    featuredEyebrow: 'Featured favourites',
+    featuredTitle: 'Specials, drinks, and easy pickup.',
+    featuredDescription:
+      'Start with what is featured now, then scroll straight into the full menu. Everything important stays on the page.',
+    menuEyebrow: 'Menu',
+    menuTitle: 'Dinner made easy.\nFavourites up front.',
+    menuDescription:
+      'Start with fan favourites, jump to salads and wraps, or head straight for steaks, burgers, sandwiches, and family plates. Everything stays easy to scan on any screen.',
+    highlightsEyebrow: 'Good reasons to stop by',
+    visitEyebrow: 'Visit',
+    visitTitle: 'Stop in today.\nWe are easy to find.',
+  },
   menuSections: [
     {
       title: 'Fan Favourites',

@@ -11,11 +11,37 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 import { map } from 'rxjs';
 
-import type { RestaurantSiteInput } from '../../data/restaurant-site-input';
+import type {
+  RestaurantPageCopy,
+  RestaurantSiteInput,
+} from '../../data/restaurant-site-input';
+import { jimbosPub } from '../../data/restaurants/jimbos-pub';
 import { scoresOriginalSportsGrill } from '../../data/restaurants/scores-original-sports-grill';
 
 const RESTAURANT_PAGES: Record<string, RestaurantSiteInput> = {
+  [jimbosPub.slug]: jimbosPub,
   [scoresOriginalSportsGrill.slug]: scoresOriginalSportsGrill,
+};
+
+const DEFAULT_PAGE_COPY: Required<RestaurantPageCopy> = {
+  locationLabel: 'Restaurant in London, Ontario',
+  heroOverlayEyebrow: 'Welcome',
+  heroOverlayTitle: 'Good food, easy ordering, and a menu built for sharing.',
+  featuredEyebrow: 'Featured favourites',
+  featuredTitle: 'Fresh picks up front.',
+  featuredDescription:
+    'Start with what is featured now, then move into the full menu, contact details, and key actions.',
+  venueEyebrow: 'More to know',
+  venueTitle: 'Everything important stays easy to find.',
+  venueDescription:
+    'Hours, highlights, group-friendly details, and practical next steps stay visible without sending people across extra pages.',
+  menuEyebrow: 'Menu',
+  menuTitle: 'Dinner made easy.\nFavourites up front.',
+  menuDescription:
+    'Start with fan favourites, then scroll the full menu without losing context or key actions.',
+  highlightsEyebrow: 'Good reasons to stop by',
+  visitEyebrow: 'Visit',
+  visitTitle: 'Stop in today.\nWe are easy to find.',
 };
 
 function toTwentyFourHour(time: string): string | null {
@@ -73,8 +99,12 @@ function buildRestaurantStructuredData(
     '@id': `${canonicalHref}#restaurant`,
     name: site.name,
     url: canonicalHref,
-    description: site.summary,
-    image: [site.heroImage.src, ...site.galleryImages.map((image) => image.src)],
+    description: site.seo?.description ?? site.summary,
+    image: [
+      site.seo?.socialImage?.src ?? site.heroImage.src,
+      site.heroImage.src,
+      ...site.galleryImages.map((image) => image.src),
+    ],
     telephone: site.heroCtas.call?.replace(/^tel:/, '') || site.phone,
     address: {
       '@type': 'PostalAddress',
@@ -113,7 +143,7 @@ function getMenuSectionId(title: string): string {
           <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(24rem,0.96fr)] lg:items-center">
             <div class="max-w-4xl">
               <p class="text-xs font-semibold uppercase tracking-[0.34em] text-orange-200/72">
-                Sports Grill in London, Ontario
+                {{ pageCopy().locationLabel }}
               </p>
 
               <h1 class="mt-6 font-serif text-5xl tracking-tight text-stone-50 sm:text-6xl lg:text-7xl">
@@ -172,6 +202,17 @@ function getMenuSectionId(title: string): string {
                     Get directions
                   </a>
                 }
+
+                @for (link of site.heroCtas.links ?? []; track link.label + link.href) {
+                  <a
+                    [href]="link.href"
+                    [attr.target]="link.external ? '_blank' : null"
+                    [attr.rel]="link.external ? 'noreferrer' : null"
+                    class="inline-flex items-center rounded-full border border-stone-200/18 bg-stone-100/6 px-6 py-3 text-sm font-semibold text-stone-100 transition hover:border-orange-200/44 hover:bg-stone-100/10"
+                  >
+                    {{ link.label }}
+                  </a>
+                }
               </div>
 
               <div class="mt-10 grid gap-4 sm:grid-cols-3">
@@ -226,10 +267,10 @@ function getMenuSectionId(title: string): string {
 
                 <div class="absolute inset-x-0 bottom-0 p-6">
                   <p class="text-xs font-semibold uppercase tracking-[0.3em] text-orange-200/72">
-                    Welcome to Scores
+                    {{ pageCopy().heroOverlayEyebrow }}
                   </p>
                   <p class="mt-3 max-w-sm text-2xl font-semibold leading-tight text-stone-50">
-                    Good food, easy ordering, and a menu built for sharing.
+                    {{ pageCopy().heroOverlayTitle }}
                   </p>
                 </div>
               </div>
@@ -242,13 +283,13 @@ function getMenuSectionId(title: string): string {
         <div class="mx-auto max-w-7xl">
           <div class="mb-10 max-w-3xl">
             <p class="text-xs font-semibold uppercase tracking-[0.32em] text-orange-200/68">
-              Featured favourites
+              {{ pageCopy().featuredEyebrow }}
             </p>
             <h2 class="mt-5 font-serif text-4xl tracking-tight text-stone-50 sm:text-5xl">
-              Specials, drinks, and easy pickup.
+              {{ pageCopy().featuredTitle }}
             </h2>
             <p class="mt-5 text-lg leading-8 text-stone-300/80">
-              Start with what is featured now, then scroll straight into the full menu. Everything important stays on the page.
+              {{ pageCopy().featuredDescription }}
             </p>
           </div>
 
@@ -282,6 +323,246 @@ function getMenuSectionId(title: string): string {
         </div>
       </section>
 
+      @if (venueSections().length) {
+        <section class="bg-[#0d0d0d] px-6 py-20 text-stone-100 lg:px-8 lg:py-24">
+          <div class="mx-auto max-w-7xl">
+            <div class="max-w-3xl">
+              <p class="text-xs font-semibold uppercase tracking-[0.32em] text-orange-200/68">
+                {{ pageCopy().venueEyebrow }}
+              </p>
+              <h2 class="mt-5 font-serif text-4xl tracking-tight text-stone-50 sm:text-5xl">
+                {{ pageCopy().venueTitle }}
+              </h2>
+              <p class="mt-5 text-lg leading-8 text-stone-300/80">
+                {{ pageCopy().venueDescription }}
+              </p>
+            </div>
+
+            <div class="mt-10 grid gap-6 lg:grid-cols-2">
+              @for (section of venueSections(); track section.id ?? section.title) {
+                <article
+                  [attr.id]="section.id ?? null"
+                  class="overflow-hidden rounded-[2rem] border border-white/8 bg-white/5"
+                >
+                  @if (section.image; as image) {
+                    <div class="relative aspect-[4/3]">
+                      <img
+                        [ngSrc]="image.src"
+                        [alt]="image.alt"
+                        fill
+                        sizes="(min-width: 1024px) 42vw, 100vw"
+                        class="object-cover"
+                      />
+                    </div>
+                  }
+
+                  <div class="p-6 sm:p-8">
+                    @if (section.eyebrow) {
+                      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-orange-200/68">
+                        {{ section.eyebrow }}
+                      </p>
+                    }
+
+                    <h3 class="mt-4 text-3xl font-semibold tracking-tight text-stone-50">
+                      {{ section.title }}
+                    </h3>
+
+                    <p class="mt-4 text-base leading-7 text-stone-300/80">
+                      {{ section.description }}
+                    </p>
+
+                    @if (section.bullets?.length) {
+                      <ul class="mt-6 grid gap-3">
+                        @for (bullet of section.bullets; track bullet) {
+                          <li class="rounded-[1.25rem] border border-white/8 bg-black/22 px-4 py-3 text-sm leading-6 text-stone-200/84">
+                            {{ bullet }}
+                          </li>
+                        }
+                      </ul>
+                    }
+
+                    @if (section.cta; as cta) {
+                      <div class="mt-6">
+                        <a
+                          [href]="cta.href"
+                          [attr.target]="cta.external ? '_blank' : null"
+                          [attr.rel]="cta.external ? 'noreferrer' : null"
+                          class="inline-flex items-center rounded-full bg-orange-300 px-6 py-3 text-sm font-semibold text-stone-950 transition hover:bg-orange-200"
+                        >
+                          {{ cta.label }}
+                        </a>
+                      </div>
+                    }
+                  </div>
+                </article>
+              }
+            </div>
+          </div>
+        </section>
+      }
+
+      @if (newsletterSignup(); as signup) {
+        <section id="vip" class="bg-[#120d0b] px-6 py-20 text-stone-100 lg:px-8 lg:py-24">
+          <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-start">
+            <div class="max-w-3xl">
+              <p class="text-xs font-semibold uppercase tracking-[0.32em] text-orange-200/68">
+                VIP
+              </p>
+              <h2 class="mt-5 font-serif text-4xl tracking-tight text-stone-50 sm:text-5xl">
+                {{ signup.title }}
+              </h2>
+              <p class="mt-6 text-lg leading-8 text-stone-300/82">
+                {{ signup.description }}
+              </p>
+              @if (signup.privacyNote) {
+                <p class="mt-6 text-sm leading-6 text-stone-400">
+                  {{ signup.privacyNote }}
+                </p>
+              }
+            </div>
+
+            <form
+              [attr.name]="signup.formName"
+              method="POST"
+              [attr.action]="signup.action ?? '/thank-you'"
+              data-netlify="true"
+              netlify-honeypot="bot-field"
+              class="rounded-[2rem] border border-white/8 bg-white/6 p-6 shadow-2xl shadow-black/30 backdrop-blur-sm sm:p-8"
+            >
+              <input type="hidden" name="form-name" [value]="signup.formName" />
+              <input type="hidden" name="restaurant" [value]="site.name" />
+
+              <p class="hidden">
+                <label>
+                  Do not fill this out if you're human:
+                  <input name="bot-field" />
+                </label>
+              </p>
+
+              <div class="grid gap-5 sm:grid-cols-2">
+                <div>
+                  <label for="vip-first-name" class="block text-sm font-medium text-stone-100">
+                    First name
+                  </label>
+                  <input
+                    id="vip-first-name"
+                    name="first-name"
+                    type="text"
+                    autocomplete="given-name"
+                    required
+                    class="mt-2 block w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-base text-stone-100 placeholder:text-stone-500 focus:outline-2 focus:-outline-offset-2 focus:outline-orange-300"
+                  />
+                </div>
+
+                <div>
+                  <label for="vip-last-name" class="block text-sm font-medium text-stone-100">
+                    Last name
+                  </label>
+                  <input
+                    id="vip-last-name"
+                    name="last-name"
+                    type="text"
+                    autocomplete="family-name"
+                    required
+                    class="mt-2 block w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-base text-stone-100 placeholder:text-stone-500 focus:outline-2 focus:-outline-offset-2 focus:outline-orange-300"
+                  />
+                </div>
+
+                <div class="sm:col-span-2">
+                  <label for="vip-email" class="block text-sm font-medium text-stone-100">
+                    Email
+                  </label>
+                  <input
+                    id="vip-email"
+                    name="email"
+                    type="email"
+                    autocomplete="email"
+                    required
+                    class="mt-2 block w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-base text-stone-100 placeholder:text-stone-500 focus:outline-2 focus:-outline-offset-2 focus:outline-orange-300"
+                  />
+                </div>
+
+                <div>
+                  <label for="vip-phone" class="block text-sm font-medium text-stone-100">
+                    Phone
+                  </label>
+                  <input
+                    id="vip-phone"
+                    name="phone"
+                    type="tel"
+                    autocomplete="tel"
+                    class="mt-2 block w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-base text-stone-100 placeholder:text-stone-500 focus:outline-2 focus:-outline-offset-2 focus:outline-orange-300"
+                  />
+                </div>
+
+                <div>
+                  <label for="vip-city" class="block text-sm font-medium text-stone-100">
+                    City
+                  </label>
+                  <input
+                    id="vip-city"
+                    name="city"
+                    type="text"
+                    autocomplete="address-level2"
+                    class="mt-2 block w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-base text-stone-100 placeholder:text-stone-500 focus:outline-2 focus:-outline-offset-2 focus:outline-orange-300"
+                  />
+                </div>
+
+                <div>
+                  <label for="vip-birthday" class="block text-sm font-medium text-stone-100">
+                    Birthday
+                  </label>
+                  <input
+                    id="vip-birthday"
+                    name="birthday"
+                    type="date"
+                    class="mt-2 block w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-base text-stone-100 placeholder:text-stone-500 focus:outline-2 focus:-outline-offset-2 focus:outline-orange-300"
+                  />
+                </div>
+
+                <div>
+                  <label for="vip-anniversary" class="block text-sm font-medium text-stone-100">
+                    Anniversary
+                  </label>
+                  <input
+                    id="vip-anniversary"
+                    name="anniversary"
+                    type="date"
+                    class="mt-2 block w-full rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-base text-stone-100 placeholder:text-stone-500 focus:outline-2 focus:-outline-offset-2 focus:outline-orange-300"
+                  />
+                </div>
+
+                <div class="sm:col-span-2">
+                  <label class="flex items-start gap-3 rounded-[1.25rem] border border-white/8 bg-black/18 px-4 py-4 text-sm leading-6 text-stone-300">
+                    <input
+                      name="consent"
+                      type="checkbox"
+                      value="yes"
+                      required
+                      class="mt-1 h-4 w-4 rounded border-white/20 bg-black/20 text-orange-300 focus:ring-orange-300"
+                    />
+                    <span>{{ signup.consentLabel }}</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-white/8 pt-6">
+                <p class="max-w-xl text-sm leading-6 text-stone-400">
+                  Birthday perks, event invites, and special offers stay easy to access.
+                </p>
+
+                <button
+                  type="submit"
+                  class="inline-flex items-center rounded-full bg-orange-300 px-6 py-3 text-sm font-semibold text-stone-950 transition hover:bg-orange-200"
+                >
+                  {{ signup.submitLabel }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </section>
+      }
+
       <section
         id="menu"
         class="scroll-mt-8 bg-[#111111] px-6 py-20 text-stone-100 lg:scroll-mt-12 lg:px-8 lg:py-24"
@@ -290,17 +571,15 @@ function getMenuSectionId(title: string): string {
           <div class="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start">
             <div class="lg:sticky lg:top-28">
               <p class="text-xs font-semibold uppercase tracking-[0.34em] text-orange-200/68">
-                Menu
+                {{ pageCopy().menuEyebrow }}
               </p>
 
-              <h2 class="mt-5 font-serif text-4xl tracking-tight text-stone-50 sm:text-5xl">
-                Dinner made easy.
-                <br />
-                Favourites up front.
+              <h2 class="mt-5 whitespace-pre-line font-serif text-4xl tracking-tight text-stone-50 sm:text-5xl">
+                {{ pageCopy().menuTitle }}
               </h2>
 
               <p class="mt-6 max-w-2xl text-lg leading-8 text-stone-300/82">
-                Start with fan favourites, jump to salads and wraps, or head straight for steaks, burgers, sandwiches, and family plates. Everything stays easy to scan on any screen.
+                {{ pageCopy().menuDescription }}
               </p>
 
               <div class="mt-8 rounded-[1.75rem] border border-white/8 bg-white/5 p-5">
@@ -404,13 +683,11 @@ function getMenuSectionId(title: string): string {
         <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,0.9fr)]">
           <div class="rounded-[2rem] border border-white/8 bg-black/20 p-6 sm:p-8">
               <p class="text-xs font-semibold uppercase tracking-[0.32em] text-orange-200/68">
-                Visit
+                {{ pageCopy().visitEyebrow }}
               </p>
 
-              <h2 class="mt-5 font-serif text-4xl tracking-tight text-stone-50">
-                Stop in today.
-                <br />
-                We are easy to find.
+              <h2 class="mt-5 whitespace-pre-line font-serif text-4xl tracking-tight text-stone-50">
+                {{ pageCopy().visitTitle }}
               </h2>
 
             <div class="mt-8 grid gap-5 sm:grid-cols-2">
@@ -467,7 +744,7 @@ function getMenuSectionId(title: string): string {
 
             <aside class="rounded-[2rem] border border-white/10 bg-white/6 p-6 shadow-2xl shadow-black/35 backdrop-blur-sm">
               <p class="text-xs font-semibold uppercase tracking-[0.32em] text-orange-200/68">
-                Good reasons to stop by
+                {{ pageCopy().highlightsEyebrow }}
               </p>
 
               <div class="mt-6 grid gap-4">
@@ -579,7 +856,7 @@ function getMenuSectionId(title: string): string {
       <section class="bg-[#0a0704] px-6 py-32 text-stone-100 lg:px-8">
         <div class="mx-auto max-w-5xl">
           <p class="text-xs font-semibold uppercase tracking-[0.34em] text-orange-200/68">
-            Bretta restaurant rebuild concept
+            Restaurant route
           </p>
 
           <h1 class="mt-6 font-serif text-5xl tracking-tight text-stone-50">
@@ -590,14 +867,7 @@ function getMenuSectionId(title: string): string {
             This route is ready, but no compiled restaurant page input matches this slug yet.
           </p>
 
-          <div class="mt-10 flex flex-wrap gap-4">
-            <a
-              [routerLink]="scoresConceptRoute"
-              class="inline-flex items-center rounded-full bg-orange-300 px-6 py-3 text-sm font-semibold text-stone-950 transition hover:bg-orange-200"
-            >
-              Open Scores concept
-            </a>
-
+          <div class="mt-10">
             <a
               routerLink="/"
               class="inline-flex items-center rounded-full border border-stone-200/18 px-6 py-3 text-sm font-semibold text-stone-100 transition hover:border-stone-200/36 hover:bg-stone-100/6"
@@ -628,6 +898,16 @@ export class Restaurant {
   protected readonly restaurant = computed(
     () => RESTAURANT_PAGES[this.slug()] ?? null,
   );
+  protected readonly pageCopy = computed<Required<RestaurantPageCopy>>(() => ({
+    ...DEFAULT_PAGE_COPY,
+    ...(this.restaurant()?.pageCopy ?? {}),
+  }));
+  protected readonly venueSections = computed(
+    () => this.restaurant()?.venueSections ?? [],
+  );
+  protected readonly newsletterSignup = computed(
+    () => this.restaurant()?.newsletterSignup ?? null,
+  );
   protected readonly menuSectionId = getMenuSectionId;
   protected readonly menuLinks = computed(() =>
     (this.restaurant()?.menuSections ?? []).map((section) => ({
@@ -642,8 +922,6 @@ export class Restaurant {
       0,
     ),
   );
-
-  protected readonly scoresConceptRoute = `/restaurants/${scoresOriginalSportsGrill.slug}`;
   protected readonly todayHours = computed(() => {
     const todayIndex = new Date().getDay();
     const todayName = [
@@ -720,16 +998,21 @@ export class Restaurant {
   }
 
   private applyRestaurantSeo(site: RestaurantSiteInput): void {
-    const pageTitle = `${site.name} | ${site.city}, ${site.province}`;
-    const description = site.summary;
-    const canonicalHref = `https://bretta.io/restaurants/${site.slug}`;
+    const pageTitle = site.seo?.title ?? `${site.name} | ${site.city}, ${site.province}`;
+    const description = site.seo?.description ?? site.summary;
+    const canonicalHref =
+      site.seo?.canonicalUrl ?? `https://bretta.io/restaurants/${site.slug}`;
+    const ogTitle = site.seo?.ogTitle ?? pageTitle;
+    const ogDescription = site.seo?.ogDescription ?? description;
+    const ogType = site.seo?.ogType ?? 'website';
+    const socialImage = site.seo?.socialImage ?? site.heroImage;
+    const twitterCard = site.seo?.twitterCard ?? 'summary_large_image';
     const keywords = [
       site.name,
       `${site.city} restaurant`,
-      `${site.city} sports grill`,
       `${site.city} menu`,
-      `${site.city} pickup`,
-      `${site.city} delivery`,
+      `${site.city} dining`,
+      `${site.city} phone`,
     ].join(', ');
 
     this.title.setTitle(pageTitle);
@@ -743,20 +1026,20 @@ export class Restaurant {
       'googlebot',
       'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
     );
-    this.updatePropertyMeta('og:type', 'website');
+    this.updatePropertyMeta('og:type', ogType);
     this.updatePropertyMeta('og:site_name', site.name);
     this.updatePropertyMeta('og:url', canonicalHref);
-    this.updatePropertyMeta('og:title', pageTitle);
-    this.updatePropertyMeta('og:description', description);
-    this.updatePropertyMeta('og:image', site.heroImage.src);
-    this.updatePropertyMeta('og:image:secure_url', site.heroImage.src);
-    this.updatePropertyMeta('og:image:alt', site.heroImage.alt);
-    this.updateNameMeta('twitter:card', 'summary_large_image');
+    this.updatePropertyMeta('og:title', ogTitle);
+    this.updatePropertyMeta('og:description', ogDescription);
+    this.updatePropertyMeta('og:image', socialImage.src);
+    this.updatePropertyMeta('og:image:secure_url', socialImage.src);
+    this.updatePropertyMeta('og:image:alt', socialImage.alt);
+    this.updateNameMeta('twitter:card', twitterCard);
     this.updateNameMeta('twitter:url', canonicalHref);
-    this.updateNameMeta('twitter:title', pageTitle);
-    this.updateNameMeta('twitter:description', description);
-    this.updateNameMeta('twitter:image', site.heroImage.src);
-    this.updateNameMeta('twitter:image:alt', site.heroImage.alt);
+    this.updateNameMeta('twitter:title', ogTitle);
+    this.updateNameMeta('twitter:description', ogDescription);
+    this.updateNameMeta('twitter:image', socialImage.src);
+    this.updateNameMeta('twitter:image:alt', socialImage.alt);
 
     this.removePropertyMeta('og:video');
     this.removePropertyMeta('og:video:secure_url');
@@ -771,7 +1054,7 @@ export class Restaurant {
   }
 
   private applyMissingSeo(): void {
-    this.title.setTitle('Restaurant Page Not Found | bretta.io');
+    this.title.setTitle('Restaurant Page Not Found');
     this.updateNameMeta(
       'description',
       'Restaurant page route is active, but no compiled restaurant page input matches this slug yet.',
