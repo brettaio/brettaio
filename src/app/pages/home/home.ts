@@ -68,13 +68,13 @@ import { LeadForm } from '../../components/lead-form/lead-form';
 })
 export class Home {
   protected readonly hero = {
-    eyebrow: 'Independent digital practice',
-    title: 'Sharp digital work, built with intent.',
+    eyebrow: 'Independent software company',
+    title: 'Sharp digital systems, built with intent.',
     copy:
-      'For businesses that need more than surface polish — clearer positioning, stronger structure, better digital judgement, and work that can carry commercial weight.',
-    primaryCtaLabel: 'Email now',
-    primaryCtaHref: '',
-    secondaryCtaLabel: `Let's start a conversation`,
+      'bretta.io builds web products for work that has outgrown the way it is being handled.',
+    primaryCtaLabel: 'Try the audit',
+    primaryCtaHref: 'https://seo.bretta.io/',
+    secondaryCtaLabel: `Start a conversation`,
     secondaryCtaHref: '@project-inquiry-panel',
   };
 }

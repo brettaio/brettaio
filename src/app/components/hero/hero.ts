@@ -330,54 +330,64 @@ export class Hero implements AfterViewInit {
       },
       {
         eyebrow: 'Who',
-        titleLines: ['Not a broad agency.', 'Not a disposable freelancer.'],
+        titleLines: ['One company.', 'One standard.'],
         bodyLines: [
-          'One accountable digital practice.',
-          'Strategy, structure, design, and implementation held to one standard of judgement.',
+          'Software, structure, and judgement held close.',
+          'The work is built with ownership, not distance.',
         ],
       },
       {
         eyebrow: 'What',
-        titleLines: ['The work is digital.', 'The standard is commercial.'],
+        titleLines: ['Digital systems.', 'Built to hold.'],
         bodyLines: [
-          'The brief may look like a site, a service layer, a user path, or a structural content problem.',
-          'The job is the same: make the digital surface clearer, more credible, and more useful to the business behind it.',
+          'Apps. Dashboards. Audit platforms. Reporting surfaces.',
+          'The form changes. The standard does not.',
         ],
       },
       {
         eyebrow: 'When',
-        titleLines: [
-          'Clarity over noise.',
-          'Structure over drift.',
-          'Judgement over volume.',
-        ],
+        titleLines: ['When the shape', 'is already there.'],
         bodyLines: [
-          'Most digital work does not fail because it lacked activity.',
-          'It fails because the message is weak, the hierarchy is muddy, and the build does not support the business properly.',
+          'The business keeps pointing at the same pressure.',
+          'Not loudly. Repeatedly.',
         ],
       },
       {
         eyebrow: 'Why',
-        titleLines: [
-          'A better digital surface',
-          'changes what happens behind it.',
-        ],
+        titleLines: ['The right system', 'changes the room.'],
         bodyLines: [
-          'Better trust. Better fit. Better signal quality. Better internal confidence in what the business is actually presenting to the market.',
+          'It makes the important thing visible.',
+          'It gives the work a centre of gravity.',
+        ],
+      },
+      {
+        eyebrow: 'Proof',
+        titleLines: ['The first product', 'is already live.'],
+        bodyLines: [
+          'seo.bretta.io turns a crawl into a report, a dashboard, and a product people can use.',
+          'That is the first public line in the bretta.io product stack.',
+        ],
+      },
+      {
+        eyebrow: 'Next',
+        titleLines: ['The next layer', 'is already visible.'],
+        bodyLines: [
+          'Monitoring. Compliance. Drift. Backlinks. Reporting. Intelligence.',
+          'Not as promises. As product paths.',
         ],
       },
       {
         eyebrow: 'How',
-        titleLines: ['Singular by design.'],
+        titleLines: ['Less surface.', 'More system.'],
         bodyLines: [
-          'bretta.io is not a scaled delivery machine.',
-          'It is one practice, one standard, and one line of accountability.',
+          'Clear inputs. Serious output.',
+          'Useful enough to run again. Strong enough to build on.',
         ],
       },
       {
         eyebrow: 'Decision',
-        titleLines: ['If the work matters,', 'the structure has to hold.'],
-        bodyLines: ['Bring the real problem. I’ll take it seriously.'],
+        titleLines: ['If the thing has shape,', 'build it.'],
+        bodyLines: ['Bring the problem with weight. I’ll take it seriously.'],
         actions,
       },
     ];
@@ -390,6 +400,8 @@ export class Hero implements AfterViewInit {
     0.96,
     0.96,
     1.02,
+    0.96,
+    0.96,
     1.78,
   ]);
 
