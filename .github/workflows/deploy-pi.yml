@@ -1,0 +1,20 @@
+name: Deploy bretta.io to Raspberry Pi
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy bretta.io web
+    runs-on:
+      - self-hosted
+      - Linux
+      - ARM64
+      - brettaio-shader
+
+    steps:
+      - name: Deploy bretta.io web on Pi
+        run: /home/brettaio/bin/deploy-brettaio-web.sh
