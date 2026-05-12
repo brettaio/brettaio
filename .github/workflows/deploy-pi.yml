@@ -6,9 +6,44 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: read
+  actions: read
+
 jobs:
+  build:
+    name: Build bretta.io web
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.15.0
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Build Angular SSR app
+        run: npm run build
+        env:
+          NG_CLI_ANALYTICS: "false"
+          CI: "true"
+
+      - name: Upload built app
+        uses: actions/upload-artifact@v4
+        with:
+          name: brettaio-dist
+          path: dist/brettaio
+          if-no-files-found: error
+
   deploy:
     name: Deploy bretta.io web
+    needs: build
     runs-on:
       - self-hosted
       - Linux
@@ -16,5 +51,42 @@ jobs:
       - brettaio-shader
 
     steps:
-      - name: Deploy bretta.io web on Pi
-        run: /home/brettaio/bin/deploy-brettaio-web.sh
+      - name: Download built app
+        uses: actions/download-artifact@v4
+        with:
+          name: brettaio-dist
+          path: /tmp/brettaio-dist-artifact
+
+      - name: Deploy artifact on Pi
+        run: |
+          set -euo pipefail
+
+          APP_DIR="/home/brettaio/apps/brettaio-shader"
+          DEPLOY_DIR="$APP_DIR/dist/brettaio"
+          NEXT_DIR="$APP_DIR/dist/brettaio.next"
+
+          echo "Deploying GitHub-built artifact to Pi..."
+          echo "Artifact contents:"
+          ls -la /tmp/brettaio-dist-artifact
+
+          cd "$APP_DIR"
+
+          echo "Syncing source repo to triggering commit..."
+          git fetch origin main
+          git reset --hard "$GITHUB_SHA"
+
+          echo "Replacing built dist..."
+          rm -rf "$NEXT_DIR"
+          mkdir -p "$NEXT_DIR"
+          cp -a /tmp/brettaio-dist-artifact/. "$NEXT_DIR"/
+
+          rm -rf "$DEPLOY_DIR"
+          mv "$NEXT_DIR" "$DEPLOY_DIR"
+
+          sudo -n systemctl restart brettaio-web
+          sleep 5
+
+          systemctl is-active brettaio-web
+          curl -I http://127.0.0.1:4100
+
+          echo "bretta.io artifact deploy complete."
