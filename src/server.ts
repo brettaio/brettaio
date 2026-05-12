@@ -12,17 +12,99 @@ const browserDistFolder = join(import.meta.dirname, '../browser');
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/{*splat}', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
+app.set('trust proxy', true);
+
+function getHeaderValue(
+  value: string | string[] | undefined,
+): string | undefined {
+  if (Array.isArray(value)) {
+    return value.join(', ');
+  }
+
+  return value;
+}
+
+function getClientIp(req: express.Request): string {
+  const cloudflareIp = getHeaderValue(req.headers['cf-connecting-ip']);
+  const trueClientIp = getHeaderValue(req.headers['true-client-ip']);
+  const forwardedFor = getHeaderValue(req.headers['x-forwarded-for']);
+
+  if (cloudflareIp) {
+    return cloudflareIp;
+  }
+
+  if (trueClientIp) {
+    return trueClientIp;
+  }
+
+  if (forwardedFor) {
+    return forwardedFor.split(',')[0]?.trim() || req.ip || 'unknown';
+  }
+
+  return req.ip || req.socket.remoteAddress || 'unknown';
+}
+
+function getRequestPath(req: express.Request): string {
+  return req.originalUrl || req.url || '/';
+}
+
+function shouldLogRequest(path: string): boolean {
+  const ignoredExtensions = [
+    '.css',
+    '.js',
+    '.mjs',
+    '.map',
+    '.ico',
+    '.png',
+    '.jpg',
+    '.jpeg',
+    '.webp',
+    '.svg',
+    '.woff',
+    '.woff2',
+    '.ttf',
+  ];
+
+  return !ignoredExtensions.some((extension) =>
+    path.toLowerCase().split('?')[0]?.endsWith(extension),
+  );
+}
+
+app.use((req, res, next) => {
+  const startedAt = process.hrtime.bigint();
+  const path = getRequestPath(req);
+
+  res.on('finish', () => {
+    if (!shouldLogRequest(path)) {
+      return;
+    }
+
+    const durationMs = Number(process.hrtime.bigint() - startedAt) / 1_000_000;
+
+    const accessLog = {
+      event: 'access',
+      timestamp: new Date().toISOString(),
+      method: req.method,
+      path,
+      status: res.statusCode,
+      durationMs: Math.round(durationMs),
+      host: getHeaderValue(req.headers.host),
+      protocol:
+        getHeaderValue(req.headers['x-forwarded-proto']) || req.protocol,
+      ip: getClientIp(req),
+      forwardedFor: getHeaderValue(req.headers['x-forwarded-for']),
+      country: getHeaderValue(req.headers['cf-ipcountry']),
+      cfRay: getHeaderValue(req.headers['cf-ray']),
+      referer: getHeaderValue(req.headers.referer),
+      userAgent: getHeaderValue(req.headers['user-agent']),
+      contentLength: res.getHeader('content-length')?.toString(),
+    };
+
+    console.log(JSON.stringify(accessLog));
+  });
+
+  next();
+});
 
 /**
  * Serve static files from /browser
@@ -63,6 +145,6 @@ if (isMainModule(import.meta.url) || process.env['pm_id']) {
 }
 
 /**
- * Request handler used by the Angular CLI (for dev-server and during build) or Firebase Cloud Functions.
+ * Request handler used by the Angular CLI during build/dev-server.
  */
 export const reqHandler = createNodeRequestHandler(app);
