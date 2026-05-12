@@ -26,15 +26,10 @@ function getHeaderValue(
 
 function getClientIp(req: express.Request): string {
   const cloudflareIp = getHeaderValue(req.headers['cf-connecting-ip']);
-  const trueClientIp = getHeaderValue(req.headers['true-client-ip']);
   const forwardedFor = getHeaderValue(req.headers['x-forwarded-for']);
 
   if (cloudflareIp) {
     return cloudflareIp;
-  }
-
-  if (trueClientIp) {
-    return trueClientIp;
   }
 
   if (forwardedFor) {
@@ -44,11 +39,9 @@ function getClientIp(req: express.Request): string {
   return req.ip || req.socket.remoteAddress || 'unknown';
 }
 
-function getRequestPath(req: express.Request): string {
-  return req.originalUrl || req.url || '/';
-}
-
 function shouldLogRequest(path: string): boolean {
+  const normalizedPath = path.toLowerCase().split('?')[0] || '/';
+
   const ignoredExtensions = [
     '.css',
     '.js',
@@ -66,13 +59,13 @@ function shouldLogRequest(path: string): boolean {
   ];
 
   return !ignoredExtensions.some((extension) =>
-    path.toLowerCase().split('?')[0]?.endsWith(extension),
+    normalizedPath.endsWith(extension),
   );
 }
 
 app.use((req, res, next) => {
   const startedAt = process.hrtime.bigint();
-  const path = getRequestPath(req);
+  const path = req.originalUrl || req.url || '/';
 
   res.on('finish', () => {
     if (!shouldLogRequest(path)) {
@@ -81,34 +74,31 @@ app.use((req, res, next) => {
 
     const durationMs = Number(process.hrtime.bigint() - startedAt) / 1_000_000;
 
-    const accessLog = {
-      event: 'access',
-      timestamp: new Date().toISOString(),
-      method: req.method,
-      path,
-      status: res.statusCode,
-      durationMs: Math.round(durationMs),
-      host: getHeaderValue(req.headers.host),
-      protocol:
-        getHeaderValue(req.headers['x-forwarded-proto']) || req.protocol,
-      ip: getClientIp(req),
-      forwardedFor: getHeaderValue(req.headers['x-forwarded-for']),
-      country: getHeaderValue(req.headers['cf-ipcountry']),
-      cfRay: getHeaderValue(req.headers['cf-ray']),
-      referer: getHeaderValue(req.headers.referer),
-      userAgent: getHeaderValue(req.headers['user-agent']),
-      contentLength: res.getHeader('content-length')?.toString(),
-    };
-
-    console.log(JSON.stringify(accessLog));
+    console.log(
+      JSON.stringify({
+        event: 'access',
+        timestamp: new Date().toISOString(),
+        method: req.method,
+        path,
+        status: res.statusCode,
+        durationMs: Math.round(durationMs),
+        host: getHeaderValue(req.headers.host),
+        protocol:
+          getHeaderValue(req.headers['x-forwarded-proto']) || req.protocol,
+        ip: getClientIp(req),
+        forwardedFor: getHeaderValue(req.headers['x-forwarded-for']),
+        country: getHeaderValue(req.headers['cf-ipcountry']),
+        cfRay: getHeaderValue(req.headers['cf-ray']),
+        referer: getHeaderValue(req.headers.referer),
+        userAgent: getHeaderValue(req.headers['user-agent']),
+        contentLength: res.getHeader('content-length')?.toString(),
+      }),
+    );
   });
 
   next();
 });
 
-/**
- * Serve static files from /browser
- */
 app.use(
   express.static(browserDistFolder, {
     maxAge: '1y',
@@ -117,9 +107,6 @@ app.use(
   }),
 );
 
-/**
- * Handle all other requests by rendering the Angular application.
- */
 app.use((req, res, next) => {
   angularApp
     .handle(req)
@@ -129,10 +116,6 @@ app.use((req, res, next) => {
     .catch(next);
 });
 
-/**
- * Start the server if this module is the main entry point, or it is ran via PM2.
- * The server listens on the port defined by the `PORT` environment variable, or defaults to 4000.
- */
 if (isMainModule(import.meta.url) || process.env['pm_id']) {
   const port = process.env['PORT'] || 4000;
   app.listen(port, (error) => {
@@ -144,7 +127,4 @@ if (isMainModule(import.meta.url) || process.env['pm_id']) {
   });
 }
 
-/**
- * Request handler used by the Angular CLI during build/dev-server.
- */
 export const reqHandler = createNodeRequestHandler(app);
