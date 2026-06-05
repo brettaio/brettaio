@@ -483,9 +483,9 @@ app.post('/api/contact', async (req, res) => {
       user: smtpUser,
       pass: smtpPass,
     },
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 10000,
+    connectionTimeout: 20000,
+    greetingTimeout: 20000,
+    socketTimeout: 20000,
   });
 
   const summary = getContactSubmissionSummary(body);
@@ -507,7 +507,7 @@ app.post('/api/contact', async (req, res) => {
           summary,
         ].join('\n'),
       }),
-      12000,
+      25000,
     );
 
     console.log(
