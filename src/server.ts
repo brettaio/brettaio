@@ -5,6 +5,7 @@ import {
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
+import { createTransport } from 'nodemailer';
 import {
   existsSync,
   mkdirSync,
@@ -328,6 +329,212 @@ app.use((req, res, next) => {
 
   next();
 });
+
+
+app.use(express.json({ limit: '32kb' }));
+app.use(express.urlencoded({ extended: false, limit: '32kb' }));
+
+type UnknownRecord = Record<string, unknown>;
+
+type ContactRateLimitRecord = {
+  count: number;
+  resetAt: number;
+};
+
+const contactRateLimits = new Map<string, ContactRateLimitRecord>();
+const CONTACT_RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
+const CONTACT_RATE_LIMIT_MAX = 5;
+
+function isRecord(value: unknown): value is UnknownRecord {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function getStringField(
+  body: unknown,
+  field: string,
+  maxLength = 2000,
+): string {
+  if (!isRecord(body)) {
+    return '';
+  }
+
+  const value = body[field];
+
+  if (typeof value !== 'string') {
+    return '';
+  }
+
+  return value.trim().slice(0, maxLength);
+}
+
+function isValidEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function isContactRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const existing = contactRateLimits.get(ip);
+
+  if (!existing || existing.resetAt <= now) {
+    contactRateLimits.set(ip, {
+      count: 1,
+      resetAt: now + CONTACT_RATE_LIMIT_WINDOW_MS,
+    });
+
+    return false;
+  }
+
+  existing.count += 1;
+
+  return existing.count > CONTACT_RATE_LIMIT_MAX;
+}
+
+function getContactSubmissionSummary(body: unknown): string {
+  if (!isRecord(body)) {
+    return '';
+  }
+
+  return Object.entries(body)
+    .filter(([key]) => key !== 'bot-field' && key !== 'form-name')
+    .filter(([, value]) => typeof value === 'string' && value.trim().length > 0)
+    .map(([key, value]) => `${key}: ${(value as string).trim()}`)
+    .join('\n');
+}
+
+async function withTimeout<T>(
+  promise: Promise<T>,
+  timeoutMs: number,
+): Promise<T> {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
+  const timeout = new Promise<never>((_, reject) => {
+    timeoutId = setTimeout(() => {
+      reject(new Error(`Timed out after ${timeoutMs}ms`));
+    }, timeoutMs);
+  });
+
+  try {
+    return await Promise.race([promise, timeout]);
+  } finally {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+  }
+}
+
+app.post('/api/contact', async (req, res) => {
+  const ip = getClientIp(req);
+
+  if (isContactRateLimited(ip)) {
+    res.status(429).json({ ok: false, error: 'rate_limited' });
+    return;
+  }
+
+  const body = req.body as unknown;
+  const honeypot = getStringField(body, 'bot-field', 200);
+
+  if (honeypot) {
+    res.status(204).send();
+    return;
+  }
+
+  const formName =
+    getStringField(body, 'formName', 100) ||
+    getStringField(body, 'form-name', 100) ||
+    'contact';
+
+  const firstName = getStringField(body, 'first-name', 120);
+  const lastName = getStringField(body, 'last-name', 120);
+  const fallbackName = getStringField(body, 'name', 180);
+  const name = fallbackName || `${firstName} ${lastName}`.trim();
+  const email = getStringField(body, 'email', 320);
+
+  if (!name || !isValidEmail(email)) {
+    res.status(400).json({ ok: false, error: 'invalid_submission' });
+    return;
+  }
+
+  const smtpHost = process.env['SMTP_HOST'];
+  const smtpPort = Number(process.env['SMTP_PORT'] || '587');
+  const smtpUser = process.env['SMTP_USER'];
+  const smtpPass = process.env['SMTP_PASS'];
+  const contactToEmail = process.env['CONTACT_TO_EMAIL'] || smtpUser;
+  const contactFromEmail = process.env['CONTACT_FROM_EMAIL'] || smtpUser;
+
+  if (!smtpHost || !smtpUser || !smtpPass || !contactToEmail || !contactFromEmail) {
+    console.error(
+      JSON.stringify({
+        event: 'contact_email_not_configured',
+        timestamp: new Date().toISOString(),
+        formName,
+      }),
+    );
+
+    res.status(503).json({ ok: false, error: 'email_not_configured' });
+    return;
+  }
+
+  const transporter = createTransport({
+    host: smtpHost,
+    port: smtpPort,
+    secure: smtpPort === 465,
+    requireTLS: smtpPort !== 465,
+    auth: {
+      user: smtpUser,
+      pass: smtpPass,
+    },
+    connectionTimeout: 10000,
+    greetingTimeout: 10000,
+    socketTimeout: 10000,
+  });
+
+  const summary = getContactSubmissionSummary(body);
+
+  try {
+    await withTimeout(
+      transporter.sendMail({
+        to: contactToEmail,
+        from: contactFromEmail,
+        replyTo: email,
+        subject: `bretta.io contact form — ${formName}`,
+        text: [
+          `New bretta.io contact form submission`,
+          '',
+          `Form: ${formName}`,
+          `Name: ${name}`,
+          `Email: ${email}`,
+          '',
+          summary,
+        ].join('\n'),
+      }),
+      12000,
+    );
+
+    console.log(
+      JSON.stringify({
+        event: 'contact_submission_sent',
+        timestamp: new Date().toISOString(),
+        formName,
+        ip,
+      }),
+    );
+
+    res.status(200).json({ ok: true });
+  } catch (error) {
+    console.error(
+      JSON.stringify({
+        event: 'contact_submission_failed',
+        timestamp: new Date().toISOString(),
+        formName,
+        ip,
+        error: error instanceof Error ? error.message : String(error),
+      }),
+    );
+
+    res.status(502).json({ ok: false, error: 'email_send_failed' });
+  }
+});
+
 
 app.use(
   express.static(browserDistFolder, {
