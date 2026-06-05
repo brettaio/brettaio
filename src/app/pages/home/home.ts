@@ -1,22 +1,14 @@
 import { Component } from '@angular/core';
 
-import { Hero } from '../../components/hero/hero';
+import { HomeScrollExperienceHost } from '../../components/home-scroll-experience/home-scroll-experience-host';
 import { LeadForm } from '../../components/lead-form/lead-form';
 
 @Component({
   selector: 'bretta-home',
-  imports: [Hero, LeadForm],
+  imports: [HomeScrollExperienceHost, LeadForm],
   template: `
     <main class="bg-black text-white">
-      <bretta-hero
-        [eyebrow]="hero.eyebrow"
-        [title]="hero.title"
-        [copy]="hero.copy"
-        [primaryCtaLabel]="hero.primaryCtaLabel"
-        [primaryCtaHref]="hero.primaryCtaHref"
-        [secondaryCtaLabel]="hero.secondaryCtaLabel"
-        [secondaryCtaHref]="hero.secondaryCtaHref"
-      />
+      <bretta-home-scroll-experience-host />
 
       <div class="relative z-20 mt-0 md:-mt-[18vh]">
         @defer (on viewport) {
@@ -66,15 +58,4 @@ import { LeadForm } from '../../components/lead-form/lead-form';
   `,
   styles: [],
 })
-export class Home {
-  protected readonly hero = {
-    eyebrow: 'Independent software company',
-    title: 'Sharp digital systems, built with intent.',
-    copy:
-      'bretta.io builds web products for work that has outgrown the way it is being handled.',
-    primaryCtaLabel: 'Try the audit',
-    primaryCtaHref: 'https://seo.bretta.io/',
-    secondaryCtaLabel: `Start a conversation`,
-    secondaryCtaHref: '@project-inquiry-panel',
-  };
-}
+export class Home {}
