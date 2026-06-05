@@ -271,6 +271,8 @@ const DEFAULT_FRAGMENT_SHADER = `
   styles: [],
 })
 export class ScrollExperienceShell implements AfterViewInit {
+  private isDestroyed = false;
+
   @ViewChild('heroSection', { static: true })
   private readonly sectionRef?: ElementRef<HTMLElement>;
 
@@ -371,15 +373,31 @@ export class ScrollExperienceShell implements AfterViewInit {
   private shaderTime = 0;
 
   ngAfterViewInit(): void {
-    if (!isPlatformBrowser(this.platformId)) {
+    this.destroyRef.onDestroy(() => {
+      this.isDestroyed = true;
+    });
+
+    if (!isPlatformBrowser(this.platformId) || this.isDestroyed) {
       return;
     }
 
     this.updateViewportWidth();
 
     const start = () => {
+      if (this.isDestroyed) {
+        return;
+      }
+
       window.requestAnimationFrame(() => {
+        if (this.isDestroyed) {
+          return;
+        }
+
         window.requestAnimationFrame(() => {
+          if (this.isDestroyed) {
+            return;
+          }
+
           this.startShaderScene();
         });
       });
@@ -499,6 +517,10 @@ export class ScrollExperienceShell implements AfterViewInit {
   }
 
   private startShaderScene(): void {
+    if (this.isDestroyed) {
+      return;
+    }
+
     const canvas = this.canvasRef?.nativeElement;
 
     if (!canvas) {
@@ -588,6 +610,12 @@ export class ScrollExperienceShell implements AfterViewInit {
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', onResize, { passive: true });
     });
+
+    if (this.isDestroyed) {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onResize);
+      return;
+    }
 
     this.destroyRef.onDestroy(() => {
       window.removeEventListener('scroll', onScroll);
